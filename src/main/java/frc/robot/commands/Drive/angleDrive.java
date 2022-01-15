@@ -1,8 +1,9 @@
 package frc.robot.commands.Drive;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive.Drive;
 
-public class angleDrive {
+public class angleDrive extends CommandBase{
     public Drive drive;
     public double porOut, lastOut, iOut, iTop, iBottom, desired, error, kp, kI;
 
@@ -56,6 +57,7 @@ else if (error > 180)
             else if (limit(outputs(), .40, -.40) > -.07 && limit(outputs(), .40, -.40) < 0) {
                 porOut= -.07;
             }
+    drive.tankDrive(0,0 - porOut);
         }
 
 double outputs(){
@@ -76,7 +78,6 @@ double outputs(){
         return x;
     }
 
-private void addRequirements(Drive drive2) {
-}
+
 }
 
