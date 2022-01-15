@@ -56,7 +56,7 @@ else if (error > 180)
             else if (limit(outputs(), .40, -.40) > -.07 && limit(outputs(), .40, -.40) < 0) {
                 porOut= -.07;
             }
-    drive.tankDrive(0,0 - porOut);
+    drive.tankDrive(1,-1 - porOut);
         }
 
 double outputs(){
