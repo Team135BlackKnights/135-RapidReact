@@ -47,8 +47,7 @@ else if (error > 180)
     error -= 360;
 
     error = error/90;
-    iTop = desired * 1; //1 are placeholders
-    iBottom = desired - (desired * 1); //1 are placeholders
+   
     porOut = error * kp;
     iOut = error * kI;
     if (limit(outputs(), .40, -.40) <.07 && limit(outputs(), .40, -.40) > 0) {
