@@ -41,7 +41,7 @@ public void initialize() {
     kI = 0;
 }
 public void execute() {
-    error = Drive.navx.getYaw() - desired;
+    error = drive.navx.getYaw() - desired;
     if (error < -180)
     error += 360;
 else if (error > 180) 
@@ -57,7 +57,7 @@ else if (error > 180)
             else if (limit(outputs(), .40, -.40) > -.07 && limit(outputs(), .40, -.40) < 0) {
                 porOut= -.07;
             }
-    drive.tankDrive(0,0 - porOut);
+    drive.tankDrive(1,-1 - porOut);
         }
 
 double outputs(){
