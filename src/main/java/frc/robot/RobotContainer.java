@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Drive.tankDrive;
 import frc.robot.subsystems.Drive.Drive;
 
@@ -19,6 +20,9 @@ import frc.robot.subsystems.Drive.Drive;
 public class RobotContainer {
   public static Joystick leftJoystick = new Joystick(RobotMap.KOI.LEFT_JOYSTICK);
   public static Joystick rightJoystick = new Joystick(RobotMap.KOI.RIGHT_JOYSTICK);
+  public static JoystickButton rightTrigger = new JoystickButton(rightJoystick, RobotMap.KOI.TRIGGER);
+  public static JoystickButton leftHandleButton1 = new JoystickButton(leftJoystick, RobotMap.KOI.HANDLE_BUTTON1);
+  public static JoystickButton leftHandleButton2 = new JoystickButton(leftJoystick, RobotMap.KOI.HANDLE_BUTTON2);
   // The robot's subsystems and commands are defined here...
   public static Drive drive = new Drive();
 
