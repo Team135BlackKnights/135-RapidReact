@@ -15,8 +15,14 @@ public interface RobotMap {
     public SerialPort.Port navXPort = SerialPort.Port.kUSB;
 
     }
-
-    public interface Intake {
+    public interface Hang {
+        public final static int
+            V1_ID = 4,
+            V2_ID = 5,
+            H1_ID = 6,
+            H2_ID = 7;
+    }
+    public interface Intake { 
 
      public final static int 
         LI_ID = 0,

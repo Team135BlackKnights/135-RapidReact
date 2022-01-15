@@ -1,5 +1,4 @@
 package frc.robot.subsystems;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -27,5 +26,7 @@ public class Hang extends SubsystemBase{
     public void HorHang(double power){
         Hor1.set(power);
         Hor2.set(power);
-    }
+    
 }
+}
+
