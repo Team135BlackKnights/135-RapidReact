@@ -18,6 +18,10 @@ public class Hang extends SubsystemBase{
         CANSparkMax Hor1 = new CANSparkMax(RobotMap.Hang.H1_ID, MotorType.kBrushless);
         CANSparkMax Hor2 = new CANSparkMax(RobotMap.Hang.H2_ID, MotorType.kBrushless);
 
+        Vert1.close();
+        Vert2.close();
+        Hor1.close();
+        Hor2.close();
     }
     public void VerticalHang(double power){
         Vert1.set(power);
