@@ -16,6 +16,15 @@ public interface RobotMap {
 
     }
 
+    public interface Intake {
+
+     public final static int 
+        LI_ID = 0,
+        RI_ID = 1,
+        S2_ID = 1,
+        S1_ID = 0;
+    }
+
     public interface KOI {
     
      public static final int
