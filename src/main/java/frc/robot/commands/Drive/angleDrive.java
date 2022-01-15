@@ -12,7 +12,6 @@ public class angleDrive extends CommandBase{
         iBottom = desired - (desired * 1);
         porOut = error * kp;
         iOut = error * kI;
-
         if (porOut > iBottom && porOut < iTop){
             return porOut + iOut;
         }
@@ -41,7 +40,7 @@ public void initialize() {
     kI = 0;
 }
 public void execute() {
-    error = Drive.navx.getYaw() - desired;
+    error = drive.navx.getYaw() - desired;
     if (error < -180)
     error += 360;
 else if (error > 180) 
@@ -80,4 +79,3 @@ double outputs(){
 
 
 }
-
