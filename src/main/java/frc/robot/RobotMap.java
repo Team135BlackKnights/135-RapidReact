@@ -12,7 +12,7 @@ public interface RobotMap {
         BL_ID = 2,
         BR_ID = 3;
 
-    public SerialPort.Port navXPort = SerialPort.Port.kUSB;
+        public SerialPort.Port navXPort = SerialPort.Port.kUSB;
 
     }
 
