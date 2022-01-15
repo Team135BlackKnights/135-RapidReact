@@ -23,7 +23,7 @@ public class runIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (RobotContainer.trigger.get() == true){
+    if (RobotContainer.rightTrigger.get() == true){
       intake.LeftIntake.set(.8);
       intake.RightIntake.set(-.8);
     }

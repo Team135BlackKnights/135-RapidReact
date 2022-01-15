@@ -27,8 +27,10 @@ public interface RobotMap {
      public final static int 
         LI_ID = 0,
         RI_ID = 1,
+        S1_ID = 0,
         S2_ID = 1,
-        S1_ID = 0;
+        S3_ID = 2,
+        S4_ID = 3;
     }
 
     public interface KOI {
@@ -45,6 +47,8 @@ public interface RobotMap {
         MANIP_JOYSTICK = 0;
         
      public static final int
-        TRIGGER = 0;
+        TRIGGER = 1,
+        HANDLE_BUTTON1 = 3,
+        HANDLE_BUTTON2 = 4;
     }
 }
