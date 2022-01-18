@@ -32,8 +32,8 @@ public class runShooter extends CommandBase {
     integralTop = desired * 1.34;
     integralBottom = desired - (desired * 1.34);
 
-    Kp = .1;
-    Ki = 0;
+    Kp = .05;
+    Ki = .01;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -57,7 +57,7 @@ public class runShooter extends CommandBase {
     if (currentSpeed > maxSpeed) {maxSpeed = currentSpeed;}
     if (minSpeed < currentSpeed) {minSpeed = currentSpeed;}
 
-    SmartDashboard.putNumber("Shooter Speed Graph", currentSpeed)
+    SmartDashboard.putNumber("Shooter Speed Graph", currentSpeed);
     SmartDashboard.putNumber("Shooter Speed", currentSpeed);
     SmartDashboard.putNumber("Max Shooter Speed", maxSpeed);
     SmartDashboard.putNumber("Min Shooter Speed", minSpeed);

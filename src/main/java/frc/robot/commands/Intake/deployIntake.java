@@ -11,6 +11,7 @@ import frc.robot.subsystems.Intake.Intake;
 public class deployIntake extends CommandBase {
   /** Creates a new deployIntake. */
   private final Intake intake;
+  
   public deployIntake(Intake subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     intake = subsystem;
