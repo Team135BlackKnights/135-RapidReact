@@ -4,6 +4,8 @@
 
 package frc.robot.commands.Intake;
 
+
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
@@ -27,14 +29,18 @@ public class deployIntake extends CommandBase {
   @Override
   public void execute() {
     
-    if(RobotContainer.leftHandleButton1.get()){
+    if(RobotContainer.Button7.get()){
+
+    Solenoid1.set(true);
+    Solenoid2.set(true);
       //set solenoids to one position
     }
     
-    else if(RobotContainer.leftHandleButton2.get()){
+    else {
+    Solenoid1.set(false);
+    Solenoid2.set(false);
       //set solenoids to other position
     }
-
   }
 
   // Called once the command ends or is interrupted.
