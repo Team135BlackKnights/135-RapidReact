@@ -33,6 +33,14 @@ public interface RobotMap {
         S4_ID = 3;
     }
 
+    public interface Turret{
+
+     public final static int
+        PL_ID = 20,
+        PR_ID = 21;
+
+    }
+
     public interface KOI {
     
      public static final int

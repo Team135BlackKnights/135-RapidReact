@@ -14,7 +14,7 @@ public class encoderDrive extends CommandBase {
   /** Creates a new EncoderDrive. */
   public encoderDrive(Drive subsystem, double _desired) {
     Desired = _desired;
-    drive = subsystem; //set drive as drive
+    drive = subsystem; //set drive as drivel
     addRequirements(drive);
 }
 

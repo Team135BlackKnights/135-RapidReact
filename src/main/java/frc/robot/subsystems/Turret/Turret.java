@@ -4,12 +4,32 @@
 
 package frc.robot.subsystems.Turret;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxAlternateEncoder;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotMap;
 
 public class Turret extends SubsystemBase {
   /** Creates a new Turret. */
+  CANSparkMax LeftPower = new CANSparkMax(RobotMap.Turret.PL_ID, MotorType.kBrushless);
+  CANSparkMax RightPower = new CANSparkMax(RobotMap.Turret.PR_ID, MotorType.kBrushless);
+  
+  private RelativeEncoder shooter; 
+
   public Turret() {
-    
+    try {
+      LeftPower.enableVoltageCompensation(12);
+      RightPower.enableVoltageCompensation(12);
+
+      shooter = LeftPower.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
+    } 
+    finally{
+      LeftPower.close();
+      RightPower.close();
+    }
   }
 
   @Override
