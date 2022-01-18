@@ -17,7 +17,7 @@ public class Turret extends SubsystemBase {
   CANSparkMax LeftPower = new CANSparkMax(RobotMap.Turret.PL_ID, MotorType.kBrushless);
   CANSparkMax RightPower = new CANSparkMax(RobotMap.Turret.PR_ID, MotorType.kBrushless);
   
-  private RelativeEncoder shooter; 
+  public RelativeEncoder shooter; 
 
   public Turret() {
     try {
@@ -35,5 +35,14 @@ public class Turret extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public void setPower(double speed){
+    LeftPower.set(speed);
+    RightPower.set(-speed);
+  }
+
+  public void resetEncoders() {
+    shooter.setPosition(0);
   }
 }

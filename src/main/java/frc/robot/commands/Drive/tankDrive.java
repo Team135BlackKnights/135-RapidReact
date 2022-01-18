@@ -16,7 +16,6 @@ public class tankDrive extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     drive = subsystem;
     addRequirements(subsystem);
-    
   }
 
   // Called when the command is initially scheduled.
