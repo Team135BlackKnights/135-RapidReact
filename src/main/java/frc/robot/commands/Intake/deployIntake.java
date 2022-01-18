@@ -6,15 +6,17 @@ package frc.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Intake.Intake;
+
+
 
 public class deployIntake extends CommandBase {
   /** Creates a new deployIntake. */
-  private final Intake intake;
-  
-  public deployIntake(Intake subsystem) {
+  public final frc.robot.subsystems.Intake.Intake intake;
+  public deployIntake(frc.robot.subsystems.Intake.Intake subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     intake = subsystem;
+    addRequirements(subsystem);
+
   }
 
   // Called when the command is initially scheduled.

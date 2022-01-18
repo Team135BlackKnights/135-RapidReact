@@ -16,18 +16,19 @@ public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   public CANSparkMax LeftIntake;
   public CANSparkMax RightIntake;
-  public Solenoid Solenoid1;
-  public Solenoid Solenoid2;
+  public Solenoid Solenoid1, Solenoid2;
   public Intake() {
-    LeftIntake = new CANSparkMax(RobotMap.Intake.LI_ID,MotorType.kBrushless);
-    RightIntake = new CANSparkMax(RobotMap.Intake.RI_ID, MotorType.kBrushless);
-    Solenoid1 = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.Intake.S1_ID);
-    Solenoid2 = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.Intake.S2_ID);
+    LeftIntake = new CANSparkMax(RobotMap.Intake.Left_IntakeMotor_ID,MotorType.kBrushless);
+    RightIntake = new CANSparkMax(RobotMap.Intake.Right_IntakeMotor_ID, MotorType.kBrushless);
+    Solenoid1 = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.Intake.Solenoid1);
+    Solenoid2 = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.Intake.Solenoid2);
+ 
 
     LeftIntake.close();
     RightIntake.close();
     Solenoid1.close();
     Solenoid2.close();
+ 
   }
 
   @Override

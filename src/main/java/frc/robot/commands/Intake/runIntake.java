@@ -6,11 +6,13 @@ package frc.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Intake.Intake;
+
+
 
 public class runIntake extends CommandBase {
-  private final Intake intake;
-  public runIntake(Intake subsystem) {
+
+  public final frc.robot.subsystems.Intake.Intake intake;
+  public runIntake(frc.robot.subsystems.Intake.Intake subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     intake = subsystem;
     addRequirements(subsystem);
@@ -23,15 +25,31 @@ public class runIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (RobotContainer.rightTrigger.get() == true){
-      intake.LeftIntake.set(.8);
-      intake.RightIntake.set(-.8);
+    if (RobotContainer.rightTrigger.get())
+    {
+      intake.LeftIntake.set(1);
+      intake.RightIntake.set(1);
     }
-    else {
+    else 
+    {
+    
       intake.LeftIntake.set(0);
       intake.RightIntake.set(0);
     }
-  }
+  
+    if(RobotContainer.Button7.get())
+    {
+      intake.LeftIntake.set(-1);
+      intake.RightIntake.set(-1);
+
+    }
+
+    else 
+
+    {
+      intake.LeftIntake.set(0);
+      intake.RightIntake.set(0);
+    } }
 
   // Called once the command ends or is interrupted.
   @Override
