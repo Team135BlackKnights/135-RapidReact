@@ -6,14 +6,13 @@ import edu.wpi.first.wpilibj.SerialPort;
 public interface RobotMap {
 
     public interface Drive {
-
      public final static int 
         FL_ID = 0,
         FR_ID = 1,
         BL_ID = 2,
         BR_ID = 3;
 
-        public SerialPort.Port navXPort = SerialPort.Port.kUSB;
+     public SerialPort.Port navXPort = SerialPort.Port.kUSB;
 
     }
     public interface Hang {
@@ -24,7 +23,6 @@ public interface RobotMap {
             H2_ID = 7;
     }
     public interface Intake { 
-
      public final static int 
         LI_ID = 0,
         RI_ID = 1,
@@ -35,15 +33,14 @@ public interface RobotMap {
     }
 
     public interface Turret{
-
      public final static int
         PL_ID = 20,
-        PR_ID = 21;
-
-    }
+        PR_ID = 21,
+        R_ID = 22, //rotate ID
+        HA_ID = 23; //Hood Angle
+    }   
 
     public interface KOI {
-    
      public static final int
         HORIZONTAL_AXIS = 0,
         VERTICAL_AXIS = 1,
