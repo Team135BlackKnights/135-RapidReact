@@ -24,12 +24,12 @@ public interface RobotMap {
     }
     public interface Intake { 
      public final static int 
-        LI_ID = 0,
-        RI_ID = 1,
-        S1_ID = 0,
-        S2_ID = 1,
-        S3_ID = 2,
-        S4_ID = 3;
+        LI_ID = 8,
+        RI_ID = 9,
+        S1_ID = 10,
+        S2_ID = 11,
+        S3_ID = 12,
+        S4_ID = 13;
     }
 
     public interface Turret{
