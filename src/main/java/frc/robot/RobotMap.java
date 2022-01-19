@@ -26,6 +26,13 @@ public interface RobotMap {
         ROTATIONAL_AXIS = 2,
         SLIDER_AXIS = 3;
 
+    public static final int
+        Trigger_Button = 1,
+        Base_Top_Left_Button = 7,
+        THUMB_BUTTON = 2;
+
+
+
      public static final int
         LEFT_JOYSTICK = 1, 
         RIGHT_JOYSTICK = 2,
