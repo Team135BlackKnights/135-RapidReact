@@ -22,7 +22,7 @@ public class aimTurret extends CommandBase {
   @Override
   public void initialize() {
 
-    error = desired - turret.shooter.getVelocity();
+    error = desired - turret.turretAngle.getPosition();
 
     integralTop = desired * 1.34;
     integralBottom = desired - (desired * 1.34);
@@ -38,7 +38,7 @@ public class aimTurret extends CommandBase {
     if (Math.abs(error) < 3) {isFinished = true;}
     // check to see how many degrees off we are
 
-    error = desired - turret.shooter.getPosition();
+    error = desired - turret.turretAngle.getPosition();
     //find the new error
 
     if (error < integralTop && error > integralBottom){
@@ -48,7 +48,7 @@ public class aimTurret extends CommandBase {
      turret.setPower(limit(error * Kp, 89, -.89)); 
     }
     //
-  }
+  } 
 
   public static double limit(double x, double upperLimit, double lowerLimit) {
     return x > upperLimit ? upperLimit : x < lowerLimit ? lowerLimit :

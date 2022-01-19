@@ -16,19 +16,24 @@ public class Turret extends SubsystemBase {
   /** Creates a new Turret. */
   CANSparkMax LeftPower = new CANSparkMax(RobotMap.Turret.PL_ID, MotorType.kBrushless);
   CANSparkMax RightPower = new CANSparkMax(RobotMap.Turret.PR_ID, MotorType.kBrushless);
+
+  CANSparkMax angleMotor = new CANSparkMax(RobotMap.Turret.R_ID,MotorType.kBrushless);
   
-  public RelativeEncoder shooter; 
+  public RelativeEncoder shooter, turretAngle; 
 
   public Turret() {
     try {
       LeftPower.enableVoltageCompensation(12);
       RightPower.enableVoltageCompensation(12);
+      angleMotor.enableVoltageCompensation(12);
 
+      turretAngle = angleMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
       shooter = LeftPower.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
     } 
     finally{
       LeftPower.close();
       RightPower.close();
+      angleMotor.close();
     }
   }
 
