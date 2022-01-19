@@ -5,7 +5,6 @@
 package frc.robot.commands.Intake;
 
 
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
@@ -31,14 +30,14 @@ public class deployIntake extends CommandBase {
     
     if(RobotContainer.Button7.get()){
 
-    Solenoid1.set(true);
-    Solenoid2.set(true);
+    intake.Solenoid1.set(true);
+    intake.Solenoid2.set(true);
       //set solenoids to one position
     }
     
     else {
-    Solenoid1.set(false);
-    Solenoid2.set(false);
+    intake.Solenoid1.set(false);
+    intake.Solenoid2.set(false);
       //set solenoids to other position
     }
   }
