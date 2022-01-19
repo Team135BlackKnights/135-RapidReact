@@ -7,19 +7,7 @@ public class angleDrive extends CommandBase{
     public Drive drive;
     public double porOut, lastOut, iOut, iTop, iBottom, desired, error, kp, kI;
 
-  /*  public double pidCalculations() {
-        iTop = desired * 1;
-        iBottom = desired - (desired * 1);
-        porOut = error * kp;
-        iOut = error * kI;
-        if (porOut > iBottom && porOut < iTop){
-            return porOut + iOut;
-        }
-        else {
-        return porOut;
-        }
-    }
-*/
+  
 public angleDrive(Drive subsystem, double _angleDesired) {
     iTop = desired * 1;
     iBottom = desired - (desired * 1);
