@@ -9,15 +9,11 @@ public class angleDrive extends CommandBase {
 
 
     public angleDrive(Drive subsystem, double _angleDesired) {
-        iTop = desired * 1;
-        iBottom = desired - (desired * 1);
-        porOut = error * kp;
-        iOut = error * kI;
         desired = _angleDesired;
         drive = subsystem;
         addRequirements(drive);
-
     }
+
     public void initialize() {
         iTop = 0;
         iBottom = 0;
@@ -26,7 +22,13 @@ public class angleDrive extends CommandBase {
         desired = 0;
         kp = 0;
         kI = 0;
+        
+        iTop = desired * 1;
+        iBottom = desired - (desired * 1);
+        porOut = error * kp;
+        iOut = error * kI;
     }
+
     public void execute() {
         error = drive.navx.getYaw() - desired;
         if (error < -180)
