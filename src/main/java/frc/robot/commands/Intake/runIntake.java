@@ -27,8 +27,8 @@ public class runIntake extends CommandBase {
   public void execute() {
     if (RobotContainer.leftTrigger.get())
     {
-      intake.LeftIntake.set(1);
-      intake.RightIntake.set(1);
+      intake.LeftIntake.set(.9);
+      intake.RightIntake.set(.9);
     }
     else 
     {
@@ -39,8 +39,8 @@ public class runIntake extends CommandBase {
   
     if(RobotContainer.Button7.get())
     {
-      intake.LeftIntake.set(-1);
-      intake.RightIntake.set(-1);
+      intake.LeftIntake.set(-.9);
+      intake.RightIntake.set(-.9);
 
     }
 
