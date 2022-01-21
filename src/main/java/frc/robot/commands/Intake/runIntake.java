@@ -25,31 +25,29 @@ public class runIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (RobotContainer.leftTrigger.get())
+    
+    if (RobotContainer.rightTrigger.get())
     {
+      //Take in
       intake.LeftIntake.set(.9);
       intake.RightIntake.set(.9);
+
     }
-    else 
+    else if(RobotContainer.Button7.get())
     {
-    
-      intake.LeftIntake.set(0);
-      intake.RightIntake.set(0);
-    }
-  
-    if(RobotContainer.Button7.get())
-    {
+      //Spit out
       intake.LeftIntake.set(-.9);
       intake.RightIntake.set(-.9);
 
     }
-
     else 
-
     {
+      //Stop draining the battery
       intake.LeftIntake.set(0);
       intake.RightIntake.set(0);
-    } }
+
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override

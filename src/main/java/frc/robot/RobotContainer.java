@@ -20,7 +20,7 @@ import frc.robot.subsystems.Drive.Drive;
 public class RobotContainer {
   public static Joystick leftJoystick = new Joystick(RobotMap.KOI.LEFT_JOYSTICK);
   public static Joystick rightJoystick = new Joystick(RobotMap.KOI.RIGHT_JOYSTICK);
-  public static JoystickButton leftTrigger = new JoystickButton(rightJoystick, RobotMap.KOI.Trigger_Button);
+  public static JoystickButton rightTrigger = new JoystickButton(rightJoystick, RobotMap.KOI.Trigger_Button);
   public static JoystickButton Button7 = new JoystickButton(leftJoystick, RobotMap.KOI.Base_Top_Left_Button);
   public static JoystickButton Button2 = new JoystickButton(leftJoystick, RobotMap.KOI.THUMB_BUTTON);
   // The robot's subsystems and commands are defined here...
