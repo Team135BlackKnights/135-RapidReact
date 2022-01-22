@@ -1,7 +1,7 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-/*
+
 package frc.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -24,12 +24,15 @@ public class deployIntake extends CommandBase {
   @Override
   public void execute() {
     
-    if(RobotContainer.leftHandleButton1.get()){
-      //set solenoids to one position
+    if(RobotContainer.Button8.get()){
+     intake.Solenoid1.set(true);
+     intake.Solenoid2.set(true);     //set solenoids to one position
     }
     
-    else if(RobotContainer.leftHandleButton2.get()){
+    else {
       //set solenoids to other position
+      intake.Solenoid1.set(false);
+      intake.Solenoid2.set(false);
     }
 
   }
@@ -44,4 +47,3 @@ public class deployIntake extends CommandBase {
     return false;
   }
 }
-*/

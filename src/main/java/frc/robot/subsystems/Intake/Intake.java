@@ -18,6 +18,7 @@ public class Intake extends SubsystemBase {
   public CANSparkMax RightIntake;
   public Solenoid Solenoid1, Solenoid2;
   public Intake() {
+    
     LeftIntake = new CANSparkMax(RobotMap.Intake.LI_ID,MotorType.kBrushless);
     RightIntake = new CANSparkMax(RobotMap.Intake.RI_ID, MotorType.kBrushless);
     Solenoid1 = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.Intake.S1_ID);

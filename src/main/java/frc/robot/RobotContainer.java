@@ -23,6 +23,9 @@ public class RobotContainer {
   public static JoystickButton rightTrigger = new JoystickButton(rightJoystick, RobotMap.KOI.Trigger_Button);
   public static JoystickButton Button7 = new JoystickButton(leftJoystick, RobotMap.KOI.Base_Top_Left_Button);
   public static JoystickButton Button2 = new JoystickButton(leftJoystick, RobotMap.KOI.THUMB_BUTTON);
+  public static JoystickButton Button8 = new JoystickButton(leftJoystick, RobotMap.KOI.Button8);
+  public static JoystickButton Button9 = new JoystickButton(leftJoystick, RobotMap.KOI.Button9);
+  public static JoystickButton Button10 = new JoystickButton(leftJoystick, RobotMap.KOI.Button10);
   // The robot's subsystems and commands are defined here...
   public static Drive drive = new Drive();
 

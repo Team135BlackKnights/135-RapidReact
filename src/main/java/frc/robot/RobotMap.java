@@ -20,16 +20,18 @@ public interface RobotMap {
             V1_ID = 4,
             V2_ID = 5,
             H1_ID = 6,
-            H2_ID = 7;
+            H2_ID = 7,
+            S1_ID= 8,
+            S2_ID = 9;
     }
     public interface Intake { 
      public final static int 
-        LI_ID = 8,
-        RI_ID = 9,
-        S1_ID = 10,
-        S2_ID = 11,
-        S3_ID = 12,
-        S4_ID = 13;
+        LI_ID = 10,
+        RI_ID = 11,
+        S1_ID = 12,
+        S2_ID = 13,
+        S3_ID = 14,
+        S4_ID = 15;
     }
 
     public interface Turret{
@@ -47,11 +49,6 @@ public interface RobotMap {
         ROTATIONAL_AXIS = 2,
         SLIDER_AXIS = 3;
 
-    public static final int
-        Trigger_Button = 1,
-        Base_Top_Left_Button = 7,
-        THUMB_BUTTON = 2;
-
 
 
      public static final int
@@ -60,11 +57,15 @@ public interface RobotMap {
         MANIP_JOYSTICK = 0;
         
      public static final int
-        TRIGGER = 1,
+         Trigger_Button = 1,
+         THUMB_BUTTON = 2,
         HANDLE_BUTTON1 = 3,
         HANDLE_BUTTON2 = 4,
-        BUTTON1 = 2,
-        BUTTON2 = 3,
-        BUTTON7 = 8;
+        Base_Top_Left_Button = 7,
+        BUTTON7 = 8,
+        Button8 = 10,
+        Button9 = 11,
+        Button10 = 12,
+        Button11 = 13;
     }
 }
