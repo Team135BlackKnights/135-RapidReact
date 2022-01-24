@@ -47,7 +47,7 @@ public interface RobotMap {
         HORIZONTAL_AXIS = 0,
         VERTICAL_AXIS = 1,
         ROTATIONAL_AXIS = 2,
-        SLIDER_AXIS = 3;
+        SLIDER_AXIS = 5;
 
 
 
