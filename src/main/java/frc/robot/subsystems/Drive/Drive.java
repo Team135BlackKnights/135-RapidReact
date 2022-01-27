@@ -57,7 +57,12 @@ public class Drive extends SubsystemBase {
   public void tankDrive(double left, double right){
     tank.tankDrive(left, right);
   }
+  public void lDist(){
+    (e_FrontRight/720) + (e_BackRight/720);
+  }
+  public void rDist() {
 
+  }
   public void resetEncoders() {
     e_FrontLeft.setPosition(0);
     e_FrontRight.setPosition(0);
