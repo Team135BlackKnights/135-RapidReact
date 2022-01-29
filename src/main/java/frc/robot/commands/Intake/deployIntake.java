@@ -10,10 +10,11 @@ import frc.robot.subsystems.Intake.Intake;
 
 public class deployIntake extends CommandBase {
   // Creates a new deployIntake. 
-  private final Intake intake;
+  public final Intake intake;
   public deployIntake(Intake subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     intake = subsystem;
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -25,14 +26,13 @@ public class deployIntake extends CommandBase {
   public void execute() {
     
     if(RobotContainer.Button8.get()){
-     intake.Solenoid1.set(true);
-     intake.Solenoid2.set(true);     //set solenoids to one position
+     intake.Solenoid1.set(true);   //set solenoids to one position
     }
     
     else {
       //set solenoids to other position
       intake.Solenoid1.set(false);
-      intake.Solenoid2.set(false);
+
     }
 
   }

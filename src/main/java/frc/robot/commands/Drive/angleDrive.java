@@ -22,11 +22,10 @@ public class angleDrive extends CommandBase {
         desired = 0;
         kp = 0;
         kI = 0;
-        
-        iTop = desired * 1;
-        iBottom = desired - (desired * 1);
-        porOut = error * kp;
-        iOut = error * kI;
+
+        iTop = desired * 1.34;
+        iBottom = desired - (desired * 1.34);
+       
     }
 
     public void execute() {
@@ -40,6 +39,7 @@ public class angleDrive extends CommandBase {
 
         porOut = error * kp;
         iOut = error * kI;
+        
         if (limit(outputs(), .40, -.40) < .07 && limit(outputs(), .40, -.40) > 0) {
             porOut = .07;
         } else if (limit(outputs(), .40, -.40) > -.07 && limit(outputs(), .40, -.40) < 0) {

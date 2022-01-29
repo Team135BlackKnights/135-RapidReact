@@ -19,19 +19,20 @@ public interface RobotMap {
         public final static int
             V1_ID = 4,
             V2_ID = 5,
-            H1_ID = 6,
-            H2_ID = 7,
-            S1_ID= 8,
-            S2_ID = 9;
+            So1_ID= 8,
+            So2_ID = 9,
+            Li_ID = 0,
+            Li2_ID = 1,
+            Li3_ID = 4,
+            Li4_ID = 5,
+            Co_S_ID = 6;
     }
     public interface Intake { 
      public final static int 
-        LI_ID = 10,
-        RI_ID = 11,
-        S1_ID = 12,
-        S2_ID = 13,
-        S3_ID = 14,
-        S4_ID = 15;
+        InM_ID = 10,
+        FM_ID = 11,
+        S1_ID = 12;
+      
     }
 
     public interface Turret{
@@ -47,7 +48,7 @@ public interface RobotMap {
         HORIZONTAL_AXIS = 0,
         VERTICAL_AXIS = 1,
         ROTATIONAL_AXIS = 2,
-        SLIDER_AXIS = 3;
+        SLIDER_AXIS = 5;
 
 
 

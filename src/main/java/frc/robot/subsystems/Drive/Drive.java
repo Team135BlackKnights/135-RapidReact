@@ -24,7 +24,7 @@ public class Drive extends SubsystemBase {
   CANSparkMax BackLeft = new CANSparkMax(RobotMap.Drive.BL_ID, MotorType.kBrushless);
   CANSparkMax BackRight = new CANSparkMax(RobotMap.Drive.BR_ID, MotorType.kBrushless);
 
-  private RelativeEncoder e_FrontLeft, e_FrontRight, e_BackLeft, e_BackRight;
+  public RelativeEncoder e_FrontLeft, e_FrontRight, e_BackLeft, e_BackRight;
 
   /** Creates a new Drive. */
   public Drive() {
