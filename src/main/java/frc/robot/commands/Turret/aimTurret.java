@@ -39,13 +39,13 @@ public class aimTurret extends CommandBase {
     // check to see how many degrees off we are
 
     error = desired - turret.turretAngle.getPosition();
-    //find the new error
+    //find the updated error
 
     if (error < integralTop && error > integralBottom){
       turret.setPower(limit(error * Ki + error * Kp, .89, -.89));
     }
     else {
-     turret.setPower(limit(error * Kp, 89, -.89)); 
+     turret.setPower(limit(error * Kp, .89, -.89)); 
     }
     //
   } 

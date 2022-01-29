@@ -12,6 +12,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
@@ -68,5 +69,11 @@ public class Drive extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    SmartDashboard.putNumber("Left Power",(FrontLeft.get() + BackLeft.get() )/ 2);
+    SmartDashboard.putNumber("Right Power",(FrontRight.get() + BackRight.get() )/ 2);
+    //output side power
+    
+
   }
 }
