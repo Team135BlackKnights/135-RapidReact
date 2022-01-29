@@ -9,11 +9,10 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.Intake.Intake;
 
 
-
-public class runIntake extends CommandBase {
-
-  public final Intake intake;
-  public runIntake(Intake subsystem) {
+public class Feed extends CommandBase {
+  /** Creates a new Feeder. */
+  public final Intake intake; 
+   public Feed(Intake subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     intake = subsystem;
     addRequirements(subsystem);
@@ -26,27 +25,18 @@ public class runIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    if (RobotContainer.rightTrigger.get())
-    {
-      //Take in
-      intake.IntakeMotor.set(.9);
-   
 
-    }
-    else if(RobotContainer.Button7.get())
-    {
-      //Spit out
-      intake.IntakeMotor.set(-.9);
-
-    }
-    else 
-    {
-      //Stop draining the battery
-      intake.IntakeMotor.set(0);
-
-    }
+  if (RobotContainer.Button11.get()) {
+    intake.Feeder.set(.8);
   }
+  
+  else if (RobotContainer.Rbutton2.get()) {
+    intake.Feeder.set(-.8);
+  }
+
+  else {
+    intake.Feeder.set(0);
+  } }
 
   // Called once the command ends or is interrupted.
   @Override

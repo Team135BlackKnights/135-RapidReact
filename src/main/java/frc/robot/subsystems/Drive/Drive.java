@@ -23,7 +23,7 @@ public class Drive extends SubsystemBase {
   CANSparkMax BackLeft = new CANSparkMax(RobotMap.Drive.BL_ID, MotorType.kBrushless);
   CANSparkMax BackRight = new CANSparkMax(RobotMap.Drive.BR_ID, MotorType.kBrushless);
 
-  private RelativeEncoder e_FrontLeft, e_FrontRight, e_BackLeft, e_BackRight;
+  public RelativeEncoder e_FrontLeft, e_FrontRight, e_BackLeft, e_BackRight;
 
   /** Creates a new Drive. */
   public Drive() {
@@ -57,12 +57,7 @@ public class Drive extends SubsystemBase {
   public void tankDrive(double left, double right){
     tank.tankDrive(left, right);
   }
-  public void lDist(){
-    (e_FrontRight/720) + (e_BackRight/720);
-  }
-  public void rDist() {
 
-  }
   public void resetEncoders() {
     e_FrontLeft.setPosition(0);
     e_FrontRight.setPosition(0);
