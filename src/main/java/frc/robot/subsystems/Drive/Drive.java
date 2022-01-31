@@ -47,7 +47,7 @@ public class Drive extends SubsystemBase {
     }
 
     MotorControllerGroup left = new MotorControllerGroup(FrontLeft, BackLeft);
-    MotorController right = new MotorControllerGroup(FrontRight, BackRight);
+    MotorControllerGroup right = new MotorControllerGroup(FrontRight, BackRight);
 
     tank = new DifferentialDrive(left, right);
 
