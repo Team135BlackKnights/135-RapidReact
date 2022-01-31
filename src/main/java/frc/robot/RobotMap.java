@@ -7,10 +7,10 @@ public interface RobotMap {
 
     public interface Drive {
      public final static int 
-        FL_ID = 0,
-        FR_ID = 1,
-        BL_ID = 2,
-        BR_ID = 3;
+        FL_ID = 10,
+        FR_ID = 11,
+        BL_ID = 12,
+        BR_ID = 13;
 
      public SerialPort.Port navXPort = SerialPort.Port.kUSB;
 

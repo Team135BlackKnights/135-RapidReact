@@ -34,7 +34,7 @@ public class aimTurret extends CommandBase {
     }
 
     // Called when the command is initially scheduled.
-    @Override
+   /* @Override
     public void initialize() {
         SmartDashboard.putNumber("VisableTarget",Tv.getDouble(0.0));
         turret.turretAngle.reset();
@@ -160,5 +160,5 @@ public class aimTurret extends CommandBase {
     @Override
     public boolean isFinished() {
         return isFinished;
-    }
+    }*/
 }

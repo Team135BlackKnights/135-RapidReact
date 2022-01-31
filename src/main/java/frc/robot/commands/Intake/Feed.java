@@ -27,15 +27,15 @@ public class Feed extends CommandBase {
   public void execute() {
 
   if (RobotContainer.Button11.get()) {
-    intake.Feeder.set(.8);
+    //intake.Feeder.set(.8);
   }
   
   else if (RobotContainer.Rbutton2.get()) {
-    intake.Feeder.set(-.8);
+   // intake.Feeder.set(-.8);
   }
 
   else {
-    intake.Feeder.set(0);
+   // intake.Feeder.set(0);
   } }
 
   // Called once the command ends or is interrupted.

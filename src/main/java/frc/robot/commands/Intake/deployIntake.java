@@ -24,7 +24,6 @@ public class deployIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
     if(RobotContainer.Button8.get()){
      intake.Solenoid1.set(true);   //set solenoids to one position
     }

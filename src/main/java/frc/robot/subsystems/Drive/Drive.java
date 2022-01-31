@@ -40,19 +40,16 @@ public class Drive extends SubsystemBase {
     e_BackRight = BackRight.getEncoder();
     }
     finally{ //free up the memory after the moters are configered
-      FrontLeft.close();
-      FrontRight.close();
-      BackLeft.close();
-      BackRight.close();
+
     }
 
     MotorControllerGroup left = new MotorControllerGroup(FrontLeft, BackLeft);
-    MotorController right = new MotorControllerGroup(FrontRight, BackRight);
+    MotorControllerGroup right = new MotorControllerGroup(FrontRight, BackRight);
 
     tank = new DifferentialDrive(left, right);
 
     // Declares a new Navx and immediately sets it to 0
-    navx = new AHRS(RobotMap.Drive.navXPort);
+    //navx = new AHRS(RobotMap.Drive.navXPort);
   }
 
   public void tankDrive(double left, double right){

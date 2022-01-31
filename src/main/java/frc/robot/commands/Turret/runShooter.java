@@ -22,7 +22,8 @@ public class runShooter extends CommandBase {
     desired = m_Desired;
   }
 
-  // Called when the command is initially scheduled.
+  // Called when the command is initially scheduled
+  /*
   @Override
   public void initialize() {
 
@@ -77,5 +78,5 @@ public class runShooter extends CommandBase {
   @Override
   public boolean isFinished() {
     return isFinished;
-  }
+  } */
 }

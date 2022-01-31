@@ -14,26 +14,19 @@ import frc.robot.RobotMap;
 
 public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
-  public CANSparkMax Feeder;
-  public CANSparkMax IntakeMotor;
   public Solenoid Solenoid1;
 
+  /*public CANSparkMax Feeder;
+  public CANSparkMax IntakeMotor;
+*/
   public Intake() {
     
-    Feeder = new CANSparkMax(RobotMap.Intake.FM_ID,MotorType.kBrushless);
-    IntakeMotor = new CANSparkMax(RobotMap.Intake.InM_ID,MotorType.kBrushless);
+    //Feeder = new CANSparkMax(RobotMap.Intake.FM_ID,MotorType.kBrushless);
+    //IntakeMotor = new CANSparkMax(RobotMap.Intake.InM_ID,MotorType.kBrushless);
     Solenoid1 = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.Intake.S1_ID);
-   
- 
-    Feeder.close();
-    IntakeMotor.close();
-    Solenoid1.close();
- 
- 
-  }
+     }
 
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+  public void periodic(){}
+      // This method will be called once per scheduler run
   }
-}
