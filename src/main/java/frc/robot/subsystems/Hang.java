@@ -13,7 +13,7 @@ public class Hang extends SubsystemBase{
     public CANSparkMax Vert1;
     public CANSparkMax Vert2;
     public Solenoid Solenoid1, Solenoid2;
-    DigitalInput Limit1, Limit2, Limit3, Limit4, ColorSensor;
+    public DigitalInput Limit1, Limit2, Limit3, Limit4, ColorSensor;
    
     public Hang(){
 

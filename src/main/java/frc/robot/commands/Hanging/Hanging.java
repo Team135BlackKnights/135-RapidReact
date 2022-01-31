@@ -21,7 +21,10 @@ public class Hanging extends CommandBase {
 
         hang.VerticalHang(deadband(RobotContainer.manipJoystick.getRawAxis(RobotMap.KOI.SLIDER_AXIS)));
 
-        if (RobotContainer.Button10.get()) {
+        if (!hang.Limit1.get() || !hang.Limit2.get()){
+            hang.Servo(0);
+        }
+        else if (RobotContainer.Button10.get()) {
             hang.Servo(.8);
         } else if (RobotContainer.Button9.get()) {
             hang.Servo(-.8);
@@ -34,15 +37,6 @@ public class Hanging extends CommandBase {
 
 
     public double deadband(double Joystick) {
-        /*     if(Joystick<.2 && Joystick >0){
-                 return 0;
-             }
-             else if (Joystick>-.2 && Joystick <0){
-                 return 0;
-             }
-             else {
-                 return Joystick;
-              } */
         return Joystick < .2 && Joystick > 0 ? 0 : Joystick > -.2 && Joystick < 0 ? 0 : Joystick;
     }
 }
