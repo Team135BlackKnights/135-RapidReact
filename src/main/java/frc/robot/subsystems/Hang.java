@@ -4,7 +4,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
@@ -15,13 +14,9 @@ public class Hang extends SubsystemBase{
     public CANSparkMax Vert2;
     public Solenoid Solenoid1, Solenoid2;
     DigitalInput Limit1, Limit2, Limit3, Limit4, ColorSensor;
-
-  //  public RelativeEncoder EnV, Env2;
    
-    
-    
-
     public Hang(){
+
         CANSparkMax Vert1 = new CANSparkMax(RobotMap.Hang.V1_ID, MotorType.kBrushless);
         CANSparkMax Vert2 = new CANSparkMax(RobotMap.Hang.V2_ID, MotorType.kBrushless);
         Solenoid1 = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.Hang.So1_ID);
