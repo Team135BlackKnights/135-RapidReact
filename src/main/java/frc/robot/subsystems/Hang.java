@@ -50,8 +50,7 @@ public class Hang extends SubsystemBase{
     }
 
     public void Servo(double power) {
-        servo1.set(power);
-        servo2.set(power);
+
     }
     
 }

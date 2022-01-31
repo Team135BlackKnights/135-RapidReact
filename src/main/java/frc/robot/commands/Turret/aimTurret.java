@@ -3,65 +3,162 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Turret;
+
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Turret.Turret;
 
 public class aimTurret extends CommandBase {
-  frc.robot.subsystems.Turret.Turret turret;
-  boolean isFinished = false;
-  double error, desired, Kp, Ki, integralTop, integralBottom; //function Numbs
-  /** Creates a new aimTurret. */
+    /** Creates a new AutoAim. */
+    Turret turret;
+    NetworkTable TurretLimelightTable = NetworkTableInstance.getDefault().getTable("limelight-turret");
 
-  public aimTurret(frc.robot.subsystems.Turret.Turret subsystem, double m_desired) {
-    addRequirements(subsystem);
-    turret = subsystem;
-    desired = m_desired;
-    // Use addRequirements() here to declare subsystem dependencies.
-  }
+    float Kp = .06f, Ki = -.02f;
+    double EndPos, intergralTop, intergralBottom, proportional, intergral, error, desired;
+    boolean isFinished = false;
+    boolean RunningSafty = false;
 
- // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
+    NetworkTableEntry Ttx = TurretLimelightTable.getEntry("tx"); 
+    NetworkTableEntry Tv = TurretLimelightTable.getEntry("tv");
 
-    error = desired - turret.turretAngle.getPosition();
+    public aimTurret(Turret subsystem) {
+        addRequirements(subsystem); //declare depencincy 
+        turret = subsystem;
 
-    integralTop = desired * 1.34;
-    integralBottom = desired - (desired * 1.34);
-
-    Kp = .05;
-    Ki = .01;
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-
-    if (Math.abs(error) < 3) {isFinished = true;}
-    // check to see how many degrees off we are
-
-    error = desired - turret.turretAngle.getPosition();
-    //find the updated error
-
-    if (error < integralTop && error > integralBottom){
-      turret.setPower(limit(error * Ki + error * Kp, .89, -.89));
+        intergralTop = Ttx.getDouble(0.0) * .34;
+        intergralBottom = Ttx.getDouble(0.0) - (Ttx.getDouble(0.0) * 1.34);
     }
-    else {
-     turret.setPower(limit(error * Kp, .89, -.89)); 
+
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+        SmartDashboard.putNumber("VisableTarget",Tv.getDouble(0.0));
+        turret.turretAngle.reset();
+        SmartDashboard.putString("AutoAim:", "Initilizing");
+
+        while (turret.LimitSwitch1.get()) {
+            SmartDashboard.putNumber("TurretAngleRaw", turret.turretAngle.get());
+            turret.angleMotor.set(.1);
+        }
+
+        turret.turretAngle.reset();
+
+        while (turret.LimitSwitch0.get()) {
+            SmartDashboard.putNumber("TurretAngleRaw", turret.turretAngle.get());
+            turret.angleMotor.set(-.1);
+        }
+
+        EndPos = turret.turretAngle.get();
+
+        SafeCenter(true);
+
+        turret.angleMotor.set(.2);
+
+        SmartDashboard.putNumber("EndPos", EndPos);
     }
-    //
-  } 
 
-  public static double limit(double x, double upperLimit, double lowerLimit) {
-    return x > upperLimit ? upperLimit : x < lowerLimit ? lowerLimit :
-     x;
-}
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        SmartDashboard.putString("AutoAim:", "Running");
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
+        SmartDashboard.putNumber("VisableTarget", Tv.getDouble(0));
+        error = Ttx.getDouble(0.0);
+        SmartDashboard.putNumber("Current Error", error);
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return isFinished;
-  }
+        if (Math.abs(error) < 1 && !RunningSafty && Tv.getDouble(0) == 1) {
+            SmartDashboard.putNumber("Output", 0);
+            turret.angleMotor.set(0);
+            SmartDashboard.putBoolean("Error Finished", true); //if there error is negligable dont move
+        } else if(turret.turretAngle.get() > EndPos - 1400 && !RunningSafty) {
+            if (error < 0) {
+                turret.angleMotor.set(0);
+            }
+            else {powerUpdate();}
+        } else if(turret.turretAngle.get() < 1400 &&  !RunningSafty) {
+            if (error > 0) {
+                turret.angleMotor.set(0);
+            }
+            else {powerUpdate();}
+        }
+        else {powerUpdate();}
+        
+
+
+        if (!turret.LimitSwitch1.get()) {
+            SmartDashboard.putBoolean("LIMIT TRIPPED", true);
+            turret.angleMotor.set(0);
+            SafeCenter(false);
+        }
+        if (!turret.LimitSwitch0.get()) {
+            SmartDashboard.putBoolean("LIMIT TRIPPED", true);
+            turret.angleMotor.set(0);
+            SafeCenter(true);
+        }
+    }
+
+    //used to add a cap to motor speed
+    public static double limit(double x, double upperLimit, double lowerLimit) {
+        return x > upperLimit ? upperLimit : x < lowerLimit ? lowerLimit :
+            x;
+    }
+
+    public void powerUpdate(){
+        if (Tv.getDouble(0) == 0){
+            if(turret.turretAngle.get() > EndPos - 1400){
+                turret.angleMotor.set(.4);
+            }
+            if (turret.turretAngle.get() < 1400){
+                turret.angleMotor.set(-.4);
+            }
+            SmartDashboard.putBoolean("Searching", true);
+        }
+        else {SmartDashboard.putBoolean("Searching", false);}
+        
+        if (error < intergralTop && error > intergralBottom && !RunningSafty && Tv.getDouble(0) == 1) {
+            SmartDashboard.putNumber("Output", (limit(error * Ki + error * Kp, .8, -.8)));
+            turret.angleMotor.set(limit(error * Ki + error * Kp, .8, -.8));
+        } else if (!RunningSafty && Tv.getDouble(0) == 1) {
+            SmartDashboard.putNumber("Output", (limit(error * Kp, .8, -.8)));
+            turret.angleMotor.set(limit(error * Kp, .8, -.8));
+        }
+    }
+
+    public void SafeCenter(boolean Forward) {
+        RunningSafty = true;
+        Timer timer = new Timer();
+
+        timer.start();
+
+        while (timer.get() < 3) {
+            if (Forward) turret.angleMotor.set(.3);
+            else turret.angleMotor.set(-.3);
+
+        }
+
+        turret.angleMotor.set(0);
+
+        timer.stop();
+        RunningSafty = false;
+
+        if (Forward) turret.angleMotor.set(.2);
+        else turret.angleMotor.set(-.2);
+
+    }
+
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        SmartDashboard.putString("AutoAim:", "Finished");
+    }
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return isFinished;
+    }
 }

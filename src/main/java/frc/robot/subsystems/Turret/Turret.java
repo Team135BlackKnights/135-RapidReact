@@ -9,6 +9,9 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
@@ -17,18 +20,23 @@ public class Turret extends SubsystemBase {
   CANSparkMax LeftPower = new CANSparkMax(RobotMap.Turret.PL_ID, MotorType.kBrushless);
   CANSparkMax RightPower = new CANSparkMax(RobotMap.Turret.PR_ID, MotorType.kBrushless);
 
-  CANSparkMax angleMotor = new CANSparkMax(RobotMap.Turret.R_ID,MotorType.kBrushless);
+  public CANSparkMax angleMotor = new CANSparkMax(RobotMap.Turret.R_ID, MotorType.kBrushless);
   
-  public RelativeEncoder shooter, turretAngle; 
+  public Encoder shooter, turretAngle; 
+
+  public DigitalInput LimitSwitch0, LimitSwitch1;
 
   public Turret() {
     try {
       LeftPower.enableVoltageCompensation(12);
       RightPower.enableVoltageCompensation(12);
       angleMotor.enableVoltageCompensation(12);
-
-      turretAngle = angleMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
-      shooter = LeftPower.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 8192);
+      turretAngle = new Encoder(1, 0, false, Encoder.EncodingType.k4X);
+      
+  
+  
+      LimitSwitch0 = new DigitalInput(3);
+      LimitSwitch1 = new DigitalInput(2);
     } 
     finally{
       LeftPower.close();
@@ -40,6 +48,10 @@ public class Turret extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("TurretAngleRaw", turretAngle.get());
+
+    SmartDashboard.putBoolean("Limit0", LimitSwitch0.get());
+    SmartDashboard.putBoolean("Limit1", LimitSwitch1.get());
   }
 
   public void setPower(double speed){
@@ -48,6 +60,5 @@ public class Turret extends SubsystemBase {
   }
 
   public void resetEncoders() {
-    shooter.setPosition(0);
   }
 }

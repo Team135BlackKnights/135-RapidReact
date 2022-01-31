@@ -27,7 +27,7 @@ public class runShooter extends CommandBase {
   public void initialize() {
 
     turret.resetEncoders();
-    error = desired - turret.shooter.getVelocity();
+    error = desired - turret.shooter.get();
 
     integralTop = desired * 1.34;
     integralBottom = desired - (desired * 1.34);
@@ -43,7 +43,7 @@ public class runShooter extends CommandBase {
     if (Math.abs(error) < 3) {isFinished = true;}
     // check to see if the speed is close enuff 
 
-    error = desired - turret.shooter.getVelocity();
+    error = desired - turret.shooter.get();
     //find the new error
 
     if (error < integralTop && error > integralBottom){

@@ -15,14 +15,8 @@ public class angleDrive extends CommandBase {
     }
 
     public void initialize() {
-        iTop = 0;
-        iBottom = 0;
-        porOut = 0;
-        iOut = 0;
-        desired = 0;
-        kp = 0;
-        kI = 0;
-
+        kp = 0; //change when testing
+        kI = 0; //change when testing
         iTop = desired * 1.34;
         iBottom = desired - (desired * 1.34);
        
