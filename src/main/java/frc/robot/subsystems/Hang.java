@@ -1,3 +1,4 @@
+// all of this is subject to change and we dont know much of anything about hang right now
 package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
