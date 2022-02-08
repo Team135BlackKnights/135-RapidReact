@@ -9,10 +9,7 @@ public class Hanging extends CommandBase {
     public Hanging(Hang subsystem) {
         hang = subsystem;
         addRequirements(subsystem);
-
     }
-
-    private void addRequirements(Hang subsystem) {}
    
     public void initialize() {
 
