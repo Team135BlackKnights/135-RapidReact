@@ -32,11 +32,15 @@ public class runShooter extends CommandBase {
   public void execute() {
     //SmartDashboard.putNumber("RPM G", turret.shooter.getRate() * 60);
     //SmartDashboard.putNumber("RPM", turret.shooter.getRate() * 60);
-    turret.LeftPower.set(RobotContainer.leftJoystick.getRawAxis(1));
-    turret.RightPower.set(-RobotContainer.leftJoystick.getRawAxis(1));
-    SmartDashboard.putNumber("Joysticks", RobotContainer.leftJoystick.getRawAxis(1));
+    turret.LeftPower.set(-limit(-RobotContainer.leftJoystick.getRawAxis(3), .8, 0));
+    turret.RightPower.set(limit(-RobotContainer.leftJoystick.getRawAxis(3), .8, 0));
+    SmartDashboard.putNumber("Joysticks", limit(-RobotContainer.leftJoystick.getRawAxis(3), .8, 0));
 }
 
+public static double limit(double x, double upperLimit, double lowerLimit) {
+  return x > upperLimit ? upperLimit : x < lowerLimit ? lowerLimit :
+      x;
+}
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
