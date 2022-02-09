@@ -37,10 +37,10 @@ public interface RobotMap {
 
     public interface Turret{
      public final static int
-        PL_ID = 20,
-        PR_ID = 21,
-        R_ID = 22, //rotate ID
-        HA_ID = 23; //Hood Angle
+        PL_ID = 16,
+        PR_ID = 12,
+        R_ID = 13, //rotate ID
+        HA_ID = 11; //Hood Angle
     }   
 
     public interface KOI {

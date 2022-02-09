@@ -15,8 +15,8 @@ import frc.robot.RobotMap;
 
 public class Turret extends SubsystemBase {
   /** Creates a new Turret. */
-/*  CANSparkMax LeftPower = new CANSparkMax(RobotMap.Turret.PL_ID, MotorType.kBrushless);
-  CANSparkMax RightPower = new CANSparkMax(RobotMap.Turret.PR_ID, MotorType.kBrushless);
+  public CANSparkMax LeftPower = new CANSparkMax(RobotMap.Turret.PL_ID, MotorType.kBrushless);
+  public CANSparkMax RightPower = new CANSparkMax(RobotMap.Turret.PR_ID, MotorType.kBrushless);
 
   public CANSparkMax angleMotor = new CANSparkMax(RobotMap.Turret.R_ID, MotorType.kBrushless);
   
@@ -37,9 +37,6 @@ public class Turret extends SubsystemBase {
       LimitSwitch1 = new DigitalInput(2);
     } 
     finally{
-      LeftPower.close();
-      RightPower.close();
-      angleMotor.close();
     }
   }
 
@@ -58,5 +55,5 @@ public class Turret extends SubsystemBase {
   }
 
   public void resetEncoders() {
-  }*/
+  }
 }

@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Drive.tankDrive;
+import frc.robot.commands.Turret.runShooter;
 import frc.robot.subsystems.Drive.Drive;
+import frc.robot.subsystems.Turret.Turret;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -31,13 +33,13 @@ public class RobotContainer {
   public static JoystickButton Rbutton2 = new JoystickButton(rightJoystick, RobotMap.KOI.THUMB_BUTTON) ;
   
   // The robot's subsystems and commands are defined here...
-  public static Drive drive = new Drive();
+  public static Turret turret = new Turret(); 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    drive.setDefaultCommand(new tankDrive(drive));
-
+    turret.setDefaultCommand(new runShooter(turret));
+    
     // Configure the button bindings
     configureButtonBindings();
   }
