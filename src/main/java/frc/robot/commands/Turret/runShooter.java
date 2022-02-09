@@ -35,6 +35,9 @@ public class runShooter extends CommandBase {
     turret.LeftPower.set(-limit(-RobotContainer.leftJoystick.getRawAxis(3), .8, 0));
     turret.RightPower.set(limit(-RobotContainer.leftJoystick.getRawAxis(3), .8, 0));
     SmartDashboard.putNumber("Joysticks", limit(-RobotContainer.leftJoystick.getRawAxis(3), .8, 0));
+
+    turret.angleMotor.set((RobotContainer.rightJoystick.getRawAxis(1))/3)
+
 }
 
 public static double limit(double x, double upperLimit, double lowerLimit) {
