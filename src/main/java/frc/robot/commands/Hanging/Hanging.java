@@ -44,5 +44,4 @@ public class Hanging extends CommandBase {
                  return Joystick;
               } 
         return Joystick < .2 && Joystick > 0 ? 0 : Joystick > -.2 && Joystick < 0 ? 0 : Joystick;
-            */  } 
-}
+            */  } }
