@@ -13,6 +13,10 @@ import frc.robot.commands.Turret.runShooter;
 import frc.robot.subsystems.Drive.Drive;
 import frc.robot.subsystems.Turret.Turret;
 
+import frc.robot.commands.Intake.deployIntake;
+import frc.robot.subsystems.Drive.Drive;
+import frc.robot.subsystems.Intake.Intake;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
