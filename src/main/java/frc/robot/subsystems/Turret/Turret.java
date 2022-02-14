@@ -53,7 +53,7 @@ public class Turret extends SubsystemBase {
     LeftPower.set(speed);
     RightPower.set(-speed);
   }
-
+  
   public void resetEncoders() {
   }
 }

@@ -15,6 +15,7 @@ public class runShooter extends CommandBase {
   private final Turret turret;
   boolean isFinished = false;
 
+  double desired, lastOutput, kI, kP, porOut, error, iOut, iTop, iBottom; //pid Numbers
   double minSpeed, currentSpeed, maxSpeed; //debug numbs
   
   public runShooter(Turret subystem) {
@@ -25,21 +26,45 @@ public class runShooter extends CommandBase {
   // Called when the command is initially scheduled
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //SmartDashboard.putNumber("RPM G", turret.shooter.getRate() * 60);
-    //SmartDashboard.putNumber("RPM", turret.shooter.getRate() * 60);
-    turret.LeftPower.set(-limit(-RobotContainer.leftJoystick.getRawAxis(3), .8, 0));
-    turret.RightPower.set(limit(-RobotContainer.leftJoystick.getRawAxis(3), .8, 0));
     SmartDashboard.putNumber("Joysticks", limit(-RobotContainer.leftJoystick.getRawAxis(3), .8, 0));
+    SmartDashboard.putNumber("RPM G", turret.shooter.getRate() * 60);
+    SmartDashboard.putNumber("RPM", turret.shooter.getRate() * 60);
+    
+    desired = limit(-RobotContainer.leftJoystick.getRawAxis(3), .8, 0) * 10000;
+    error = desired - (turret.shooter.getRate() * 60);
+
+    iTop = desired * 1.34;
+    iBottom = desired - (desired * 1.34);
+    kP = 3; //change when testing
+    kI = 1.3; //change when testing
+
+    porOut = error * kP;
+    iOut = error * kI;
+
+    turret.LeftPower.set(limit(outputs(), 0, .8));
+    turret.RightPower.set(-limit(outputs(), 0, .8));
+    SmartDashboard.putNumber("OutPut", outputs());
+
+    turret.angleMotor.set((RobotContainer.rightJoystick.getRawAxis(1))/3);
 }
 
 public static double limit(double x, double upperLimit, double lowerLimit) {
   return x > upperLimit ? upperLimit : x < lowerLimit ? lowerLimit :
       x;
+}
+
+double outputs() {
+  if (porOut > iBottom && porOut < iTop) {
+      return limit(porOut + iOut, .4, -.4);
+  } else {
+      return limit(porOut, .4, -.4);
+  }
 }
   // Called once the command ends or is interrupted.
   @Override
