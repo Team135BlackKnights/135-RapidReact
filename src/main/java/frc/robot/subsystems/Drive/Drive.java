@@ -10,7 +10,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -28,7 +27,7 @@ public class Drive extends SubsystemBase {
 
   /** Creates a new Drive. */
   public Drive() {
-    try{ //put all motor config code in here
+    
     FrontLeft.enableVoltageCompensation(12);
     FrontRight.enableVoltageCompensation(12);
     BackLeft.enableVoltageCompensation(12);
@@ -38,10 +37,7 @@ public class Drive extends SubsystemBase {
     e_FrontRight = FrontRight.getEncoder();
     e_BackLeft = BackLeft.getEncoder();
     e_BackRight = BackRight.getEncoder();
-    }
-    finally{ //free up the memory after the moters are configered
 
-    }
 
     MotorControllerGroup left = new MotorControllerGroup(FrontLeft, BackLeft);
     MotorControllerGroup right = new MotorControllerGroup(FrontRight, BackRight);

@@ -13,7 +13,7 @@ public class Hang extends SubsystemBase{
     public CANSparkMax Vert1;
     public CANSparkMax Vert2;
     public Solenoid Solenoid1, Solenoid2;
-    DigitalInput Limit1, Limit2, Limit3, Limit4, ColorSensor;
+    DigitalInput ColorSensor;
    
     public Hang(){
 
@@ -21,10 +21,7 @@ public class Hang extends SubsystemBase{
         CANSparkMax Vert2 = new CANSparkMax(RobotMap.Hang.V2_ID, MotorType.kBrushless);
         Solenoid1 = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.Hang.So1_ID);
         Solenoid2 = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.Hang.So2_ID);
-        Limit1 = new DigitalInput(RobotMap.Hang.Li_ID);
-        Limit2 = new DigitalInput(RobotMap.Hang.Li2_ID);
-        Limit3 = new DigitalInput(RobotMap.Hang.Li3_ID);
-        Limit4 = new DigitalInput(RobotMap.Hang.Li4_ID);
+      
       
         //put all motor setup in here
         try {

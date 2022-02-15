@@ -29,7 +29,7 @@ public class aimTurret extends CommandBase {
         addRequirements(subsystem); //declare depencincy 
         turret = subsystem;
 
-        intergralTop = Ttx.getDouble(0.0) * .34;
+        intergralTop = Ttx.getDouble(0.0) * 1.34;
         intergralBottom = Ttx.getDouble(0.0) - (Ttx.getDouble(0.0) * 1.34);
     }
 
@@ -56,7 +56,7 @@ public class aimTurret extends CommandBase {
 
         SafeCenter(true);
 
-        turret.angleMotor.set(.2);
+        turret.angleMotor.set(.2); //change for competition!!!!!!
 
         SmartDashboard.putNumber("EndPos", EndPos);
     }
@@ -73,7 +73,7 @@ public class aimTurret extends CommandBase {
         if (Math.abs(error) < 1 && !RunningSafty && Tv.getDouble(0) == 1) {
             SmartDashboard.putNumber("Output", 0);
             turret.angleMotor.set(0);
-            SmartDashboard.putBoolean("Error Finished", true); //if there error is negligable dont move
+            SmartDashboard.putBoolean("Error Finished", true); //if the error is negligable dont move
         } else if(turret.turretAngle.get() > EndPos - 1400 && !RunningSafty) {
             if (error < 0) {
                 turret.angleMotor.set(0);

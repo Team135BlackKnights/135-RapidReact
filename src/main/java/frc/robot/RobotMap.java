@@ -58,15 +58,12 @@ public interface RobotMap {
         MANIP_JOYSTICK = 0;
         
      public static final int
-         Trigger_Button = 1,
-         THUMB_BUTTON = 2,
-        HANDLE_BUTTON1 = 3,
-        HANDLE_BUTTON2 = 4,
-        Base_Top_Left_Button = 7,
-        BUTTON7 = 8,
-        Button8 = 10,
-        Button9 = 11,
-        Button10 = 12,
-        Button11 = 13;
+     TRIGGER_BUTTON = 1, THUMB_BUTTON = 2,
+
+     HANDLE_BOTTOM_LEFT_BUTTON = 3, HANDLE_BOTTOM_RIGHT_BUTTON = 4, HANDLE_TOP_LEFT_BUTTON = 5,
+     HANDLE_TOP_RIGHT_BUTTON = 6,
+
+     BASE_TOP_LEFT_BUTTON = 7, BASE_TOP_RIGHT_BUTTON = 8, BASE_MIDDLE_LEFT_BUTTON = 9,
+     BASE_MIDDLE_RIGHT_BUTTON = 10, BASE_BOTTOM_LEFT_BUTTON = 11, BASE_BOTTOM_RIGHT_BUTTON = 12;
     }
 }
