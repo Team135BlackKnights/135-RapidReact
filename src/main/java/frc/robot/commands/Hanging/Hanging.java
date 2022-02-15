@@ -1,4 +1,7 @@
 package frc.robot.commands.Hanging;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.RobotMap;
@@ -10,18 +13,44 @@ public class Hanging extends CommandBase {
         hang = subsystem;
         addRequirements(subsystem);
     }
-   
+    double x = 0;
+
     public void initialize() {
 
     }
     public void execute() {
 
-        if (!hang.Limit1.get() || !hang.Limit2.get()){
-           hang.VerticalHang(0);
-        } else {
-            hang.VerticalHang(deadband(RobotContainer.manipJoystick.getRawAxis(RobotMap.KOI.SLIDER_AXIS))); 
+        Hang.Vert1.set((RobotContainer.hangStick.getRawAxis(1))/2);
+        Hang.Vert2.set((RobotContainer.hangStick.getRawAxis(1))/2);
+    //time based limiter code so the hanging system doesn't break itself. added this because the substeam 
+    //REFUSED to add limit switches for whatever reason
+    //i pray this thing is going to be only temporary 
+        while((RobotContainer.hangStick.getRawAxis(1))>=.1){
+          x = x+(1)*(RobotContainer.hangStick.getRawAxis(1));
         }
+        while((RobotContainer.hangStick.getRawAxis(1))<=-0.1){
+          x = x-(1)*(RobotContainer.hangStick.getRawAxis(1));
+        }
+        if (x== 3300) {
+         Hang.Vert1.set(0);
+         Hang.Vert2.set(0);
+        }
+        else if ((x==3300)&& (RobotContainer.hangStick.getRawAxis(1)<=-0.1)) {
+            Hang.Vert1.set((RobotContainer.hangStick.getRawAxis(1)/2));
+            Hang.Vert2.set((RobotContainer.hangStick.getRawAxis(1)/2));
+            x = x-(1)*(RobotContainer.hangStick.getRawAxis(1));
+          }
+        if (x== -0.5) {
+          Hang.Vert1.set(0);
+          Hang.Vert2.set(0);
+        }
+        else if ((x==-0.5)&& (RobotContainer.hangStick.getRawAxis(1)>=.1)) {
+            Hang.Vert1.set((RobotContainer.hangStick.getRawAxis(1)/2));
+            Hang.Vert2.set((RobotContainer.hangStick.getRawAxis(1)/2));
+            x = x+(1)*(RobotContainer.hangStick.getRawAxis(1));
+          }
 
+    
 
         if (RobotContainer.Button10.get()) {
             hang.Solenoid1.set(true);

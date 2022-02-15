@@ -47,6 +47,15 @@ public class runIntake extends CommandBase {
 
     }
   }
+    public void runCommand(boolean power) {
+      if (power) {
+      intake.IntakeMotor.set(.9);
+      }
+      else {
+        intake.IntakeMotor.set(0);
+      }
+
+    }
 
   // Called once the command ends or is interrupted.
   @Override
