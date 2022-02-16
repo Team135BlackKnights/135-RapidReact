@@ -33,17 +33,10 @@ public class Hang extends SubsystemBase{
       
       
         //put all motor setup in here
-        try {
-
-        }
-        finally{
             Vert1.close();
             Vert2.close();
             Solenoid1.close();
             Solenoid2.close();
-           
-     
-        }
     }
     public void VerticalHang(double power){
         Vert1.set(power);
