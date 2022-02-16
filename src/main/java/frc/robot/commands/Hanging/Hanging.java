@@ -1,10 +1,7 @@
 package frc.robot.commands.Hanging;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.RobotMap;
 import frc.robot.subsystems.Hang;
 
 public class Hanging extends CommandBase {
@@ -49,11 +46,8 @@ public class Hanging extends CommandBase {
             Hang.Vert2.set((RobotContainer.hangStick.getRawAxis(1)/2));
             x = x+(1)*(RobotContainer.hangStick.getRawAxis(1));
           }
-<<<<<<< Updated upstream
 
     
-=======
->>>>>>> Stashed changes
 
         if (RobotContainer.Button10.get()) {
             hang.Solenoid1.set(true);

@@ -18,6 +18,7 @@ import frc.robot.subsystems.Drive.Drive;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  public static Joystick hangStick = new Joystick(RobotMap.KOI.HSTICK_JOYSTICK);
   public static Joystick leftJoystick = new Joystick(RobotMap.KOI.LEFT_JOYSTICK);
   public static Joystick rightJoystick = new Joystick(RobotMap.KOI.RIGHT_JOYSTICK);
   public static Joystick manipJoystick = new Joystick(RobotMap.KOI.MANIP_JOYSTICK);
