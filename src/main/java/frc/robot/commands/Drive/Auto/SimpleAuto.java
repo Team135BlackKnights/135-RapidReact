@@ -1,6 +1,7 @@
 
 package frc.robot.commands.Drive.Auto;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Drive.angleDrive;
 import frc.robot.commands.Drive.encoderDrive;
@@ -33,10 +34,7 @@ public class SimpleAuto extends SequentialCommandGroup {
 
 
       new resetEncoders(drive), //run encoders, drive to first ball
-      new encoderDrive(drive, 53.5),
-
-
-      new Autointake(intake, 5), //intake second ball(already have one prematch)
+      new ParallelCommandGroup(new encoderDrive(drive, 53.5), new Autointake(intake, 5)), //intake second ball(already have one prematch)
       
       
       new resetEncoders(drive),
