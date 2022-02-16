@@ -55,7 +55,8 @@ public interface RobotMap {
      public static final int
         LEFT_JOYSTICK = 1, 
         RIGHT_JOYSTICK = 2,
-        MANIP_JOYSTICK = 0;
+        MANIP_JOYSTICK = 0,
+        HSTICK_JOYSTICK = 3;
         
      public static final int
          Trigger_Button = 1,

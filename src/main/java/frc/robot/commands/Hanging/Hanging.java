@@ -49,8 +49,11 @@ public class Hanging extends CommandBase {
             Hang.Vert2.set((RobotContainer.hangStick.getRawAxis(1)/2));
             x = x+(1)*(RobotContainer.hangStick.getRawAxis(1));
           }
+<<<<<<< Updated upstream
 
     
+=======
+>>>>>>> Stashed changes
 
         if (RobotContainer.Button10.get()) {
             hang.Solenoid1.set(true);

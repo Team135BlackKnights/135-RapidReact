@@ -11,8 +11,8 @@ import frc.robot.RobotMap;
 
     
 public class Hang extends SubsystemBase{
-    public CANSparkMax Vert1;
-    public CANSparkMax Vert2;
+    public static CANSparkMax Vert1;
+    public static CANSparkMax Vert2;
     public Solenoid Solenoid1, Solenoid2;
     public DigitalInput Limit1;
     public DigitalInput Limit2;
