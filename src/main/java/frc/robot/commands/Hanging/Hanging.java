@@ -16,7 +16,7 @@ public class Hanging extends CommandBase {
 
     }
     public void execute() {
-
+/*
         Hang.Vert1.set((RobotContainer.hangStick.getRawAxis(1))/2);
         Hang.Vert2.set((RobotContainer.hangStick.getRawAxis(1))/2);
     //time based limiter code so the hanging system doesn't break itself. added this because the substeam 
@@ -49,18 +49,18 @@ public class Hanging extends CommandBase {
 
     
 
-        if (RobotContainer.Button10.get()) {
+        if (RobotContainer.rightButton10.get()) {
             hang.Solenoid1.set(true);
             hang.Solenoid2.set(true);
         }
-         else if (RobotContainer.Button9.get()) {
+         else if (RobotContainer.rightButton11.get()) {
             hang.Solenoid1.set(false);
             hang.Solenoid2.set(false);
-        }
+        } */
     }
 
 
 
     public double deadband(double Joystick) {
         return Joystick < .2 && Joystick > 0 ? 0 : Joystick > -.2 && Joystick < 0 ? 0 : Joystick;
-            */  } }
+              } }

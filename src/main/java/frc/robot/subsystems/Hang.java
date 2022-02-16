@@ -26,30 +26,19 @@ public class Hang extends SubsystemBase{
     
 
     public Hang(){
-        CANSparkMax Vert1 = new CANSparkMax(RobotMap.Hang.V1_ID, MotorType.kBrushless);
+        /*CANSparkMax Vert1 = new CANSparkMax(RobotMap.Hang.V1_ID, MotorType.kBrushless);
         CANSparkMax Vert2 = new CANSparkMax(RobotMap.Hang.V2_ID, MotorType.kBrushless);
         Solenoid1 = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.Hang.So1_ID);
         Solenoid2 = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.Hang.So2_ID);
-      
+      */
       
         //put all motor setup in here
-        try {
 
-        }
-        finally{
-            Vert1.close();
-            Vert2.close();
-            Solenoid1.close();
-            Solenoid2.close();
-           
-     
-        }
     }
     public void VerticalHang(double power){
-        Vert1.set(power);
-        Vert2.set(power);
+       // Vert1.set(power);
+        //Vert2.set(power);
     }
 
     }
-}
 
