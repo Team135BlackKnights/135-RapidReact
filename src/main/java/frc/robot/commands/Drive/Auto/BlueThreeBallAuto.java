@@ -14,6 +14,7 @@ import frc.robot.commands.Intake.Auto.Autofeeder;
 import frc.robot.commands.Intake.Auto.Autointake;
 import frc.robot.commands.Turret.aimTurret;
 import frc.robot.commands.Turret.runShooter;
+import frc.robot.commands.Turret.runShooterDistance;
 import frc.robot.subsystems.Drive.Drive;
 import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Turret.Turret;
@@ -37,10 +38,9 @@ public class BlueThreeBallAuto extends SequentialCommandGroup {
                 new resetEncoders(drive),
                 new angleDrive(drive, 180), //turn robot around to face hub
 
-
-                new aimTurret(turret), //calibrate shooter and than shoot first and second ball
-                new runShooter(turret),
-                new Autofeeder(intake, 5),
+                                        
+                new runShooterDistance(turret),
+                new Autofeeder(intake, 5),   // shoot first and second ball
 
                 new resetEncoders(drive),
                 new angleDrive(drive, 160), //turn back around       
@@ -52,8 +52,8 @@ public class BlueThreeBallAuto extends SequentialCommandGroup {
                 new resetEncoders(drive),
                 new angleDrive(drive, -160), //turn around 
 
-                new aimTurret(turret), //SHOOT!
-                new runShooter(turret),
+                                         //SHOOT!
+                new runShooterDistance(turret),
                 new Autofeeder(intake, 5)
             ));
 
