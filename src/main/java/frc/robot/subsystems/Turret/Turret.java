@@ -20,7 +20,7 @@ public class Turret extends SubsystemBase {
 
   public CANSparkMax angleMotor = new CANSparkMax(RobotMap.Turret.R_ID, MotorType.kBrushless);
   
-  public Encoder shooter, turretAngle; 
+  public Encoder shooter, turretAngle, hoodHight; 
 
   public DigitalInput LimitSwitch0, LimitSwitch1;
 
@@ -30,7 +30,9 @@ public class Turret extends SubsystemBase {
       RightPower.enableVoltageCompensation(12);
       angleMotor.enableVoltageCompensation(12);
       turretAngle = new Encoder(1, 0, false, Encoder.EncodingType.k4X);
-      
+      shooter =     new Encoder(2, 3, false, Encoder.EncodingType.k4X);
+      hoodHight =   new Encoder(4, 5, false, Encoder.EncodingType.k4X);
+
   
   
       LimitSwitch0 = new DigitalInput(3);

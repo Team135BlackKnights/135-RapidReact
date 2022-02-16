@@ -49,11 +49,11 @@ public class Hanging extends CommandBase {
 
     
 
-        if (RobotContainer.Button10.get()) {
+        if (RobotContainer.rightButton10.get()) {
             hang.Solenoid1.set(true);
             hang.Solenoid2.set(true);
         }
-         else if (RobotContainer.Button9.get()) {
+         else if (RobotContainer.rightButton11.get()) {
             hang.Solenoid1.set(false);
             hang.Solenoid2.set(false);
         }
@@ -62,5 +62,5 @@ public class Hanging extends CommandBase {
 
 
     public double deadband(double Joystick) {
-        return Joystick < .2 && Joystick > 0 ? 0 : Joystick > -.2 && Joystick < 0 ? 0 : Joystick;
-            */  } }
+        return Math.abs(Joystick) > .2 ? 0 : Joystick;
+              } }

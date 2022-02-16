@@ -50,6 +50,5 @@ public class Hang extends SubsystemBase{
         Vert2.set(power);
     }
 
-    }
 }
 
