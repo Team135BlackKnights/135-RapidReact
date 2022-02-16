@@ -6,10 +6,16 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotMap.KOI;
 import frc.robot.commands.Drive.tankDrive;
+import frc.robot.commands.Drive.Auto.BlueThreeBallAuto;
+import frc.robot.commands.Drive.Auto.RedThreeBallAuto;
+import frc.robot.commands.Drive.Auto.SimpleAuto;
 import frc.robot.commands.Turret.aimTurret;
 import frc.robot.commands.Turret.runShooter;
 import frc.robot.subsystems.Drive.Drive;
@@ -68,8 +74,22 @@ public class RobotContainer {
   public static Drive drive = new Drive();
   public static Intake intake = new Intake();
 
+  private final Command Blue = new ParallelCommandGroup(new aimTurret(turret), new BlueThreeBallAuto(drive, intake, turret));
+  private final Command Red = new ParallelCommandGroup(new aimTurret(turret), new RedThreeBallAuto(drive, intake, turret));
+  private final Command Simple = new ParallelCommandGroup(new aimTurret(turret), new SimpleAuto(drive, intake, turret));
+
+
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
+
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+    m_chooser.addOption("BlueAuto", Blue);
+    m_chooser.addOption("RedAuto", Red);
+    m_chooser.addOption("SimpleAuto", Simple);
+
+    SmartDashboard.putData(m_chooser);
 
     turret.setDefaultCommand(new aimTurret(turret));
     drive.setDefaultCommand(new tankDrive(drive));
@@ -97,6 +117,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return m_chooser.getSelected();
   }
 }
