@@ -6,6 +6,7 @@ package frc.robot.commands.Turret;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Turret.Turret;
 
 public class runShooter extends CommandBase {
@@ -13,62 +14,55 @@ public class runShooter extends CommandBase {
   private final Turret turret;
   boolean isFinished = false;
 
-  double error, desired, Kp, Ki, integralTop, integralBottom; //function Numbs
+  double desired, lastOutput, kI, kP, porOut, error, iOut, iTop, iBottom; //pid Numbers
   double minSpeed, currentSpeed, maxSpeed; //debug numbs
   
-  public runShooter(Turret subystem, double m_Desired) {
+  public runShooter(Turret subystem) {
     addRequirements(subystem);
     turret = subystem;
-    desired = m_Desired;
   }
 
-  // Called when the command is initially scheduled.
+  // Called when the command is initially scheduled
   @Override
   public void initialize() {
 
-    turret.resetEncoders();
-    error = desired - turret.shooter.get();
-
-    integralTop = desired * 1.34;
-    integralBottom = desired - (desired * 1.34);
-
-    Kp = .05;
-    Ki = .01;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartDashboard.putNumber("Joysticks", limit(-RobotContainer.leftJoystick.getRawAxis(3), .8, 0));
+    SmartDashboard.putNumber("RPM G", turret.shooter.getRate() * 60);
+    SmartDashboard.putNumber("RPM", turret.shooter.getRate() * 60);
+    
+    desired = limit(-RobotContainer.leftJoystick.getRawAxis(3), .8, 0); //change this num with testing
+    error = desired - (turret.shooter.getRate() * 60) / 10000;
 
-    if (Math.abs(error) < 3) {isFinished = true;}
-    // check to see if the speed is close enuff 
+    iTop = desired * 1.34;
+    iBottom = desired - (desired * 1.34);
+    kP = 3; //change when testing
+    kI = -1.3; //change when testing
 
-    error = desired - turret.shooter.get();
-    //find the new error
+    porOut = error * kP;
+    iOut = error * kI;
 
-    if (error < integralTop && error > integralBottom){
-      turret.setPower(limit(error * Ki + error * Kp, .89, -.89));
-    }
-    else {
-     turret.setPower(limit(error * Kp, 89, -.89)); 
-    }
-    //set the turrets speed to the PID loop
-
-    if (currentSpeed > maxSpeed) {maxSpeed = currentSpeed;}
-    if (minSpeed < currentSpeed) {minSpeed = currentSpeed;}
-
-    SmartDashboard.putNumber("Shooter Speed Graph", currentSpeed);
-    SmartDashboard.putNumber("Shooter Speed", currentSpeed);
-    SmartDashboard.putNumber("Max Shooter Speed", maxSpeed);
-    SmartDashboard.putNumber("Min Shooter Speed", minSpeed);
-    //debug log the speed of the turret to see the Max, Min, and Current speed
-  }
-
-  public static double limit(double x, double upperLimit, double lowerLimit) {
-    return x > upperLimit ? upperLimit : x < lowerLimit ? lowerLimit :
-     x;
+    turret.LeftPower.set(outputs());
+    turret.RightPower.set(-outputs());
+    SmartDashboard.putNumber("OutPut", outputs());
 }
 
+public static double limit(double x, double upperLimit, double lowerLimit) {
+  return x > upperLimit ? upperLimit : x < lowerLimit ? lowerLimit :
+      x;
+}
+
+double outputs() {
+  if (porOut > iBottom && porOut < iTop) {
+      return limit(porOut + iOut, .8, 0);
+  } else {
+      return limit(porOut, .8, 0);
+  }
+}
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
@@ -77,5 +71,5 @@ public class runShooter extends CommandBase {
   @Override
   public boolean isFinished() {
     return isFinished;
-  }
+  } 
 }

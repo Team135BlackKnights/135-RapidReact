@@ -63,5 +63,4 @@ public class Hanging extends CommandBase {
 
     public double deadband(double Joystick) {
         return Joystick < .2 && Joystick > 0 ? 0 : Joystick > -.2 && Joystick < 0 ? 0 : Joystick;
-    }
-}
+            */  } }

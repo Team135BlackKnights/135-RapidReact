@@ -7,10 +7,10 @@ public interface RobotMap {
 
     public interface Drive {
      public final static int 
-        FL_ID = 0,
-        FR_ID = 1,
-        BL_ID = 2,
-        BR_ID = 3;
+        FL_ID = 10,
+        FR_ID = 11,
+        BL_ID = 12,
+        BR_ID = 13;
 
      public SerialPort.Port navXPort = SerialPort.Port.kUSB;
 
@@ -37,10 +37,10 @@ public interface RobotMap {
 
     public interface Turret{
      public final static int
-        PL_ID = 20,
-        PR_ID = 21,
-        R_ID = 22, //rotate ID
-        HA_ID = 23; //Hood Angle
+        PL_ID = 16,
+        PR_ID = 12,
+        R_ID = 13, //rotate ID
+        HA_ID = 11; //Hood Angle
     }   
 
     public interface KOI {
@@ -59,15 +59,12 @@ public interface RobotMap {
         HSTICK_JOYSTICK = 3;
         
      public static final int
-         Trigger_Button = 1,
-         THUMB_BUTTON = 2,
-        HANDLE_BUTTON1 = 3,
-        HANDLE_BUTTON2 = 4,
-        Base_Top_Left_Button = 7,
-        BUTTON7 = 8,
-        Button8 = 10,
-        Button9 = 11,
-        Button10 = 12,
-        Button11 = 13;
+     TRIGGER_BUTTON = 1, THUMB_BUTTON = 2,
+
+     HANDLE_BOTTOM_LEFT_BUTTON = 3, HANDLE_BOTTOM_RIGHT_BUTTON = 4, HANDLE_TOP_LEFT_BUTTON = 5,
+     HANDLE_TOP_RIGHT_BUTTON = 6,
+
+     BASE_TOP_LEFT_BUTTON = 7, BASE_TOP_RIGHT_BUTTON = 8, BASE_MIDDLE_LEFT_BUTTON = 9,
+     BASE_MIDDLE_RIGHT_BUTTON = 10, BASE_BOTTOM_LEFT_BUTTON = 11, BASE_BOTTOM_RIGHT_BUTTON = 12;
     }
 }

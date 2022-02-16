@@ -52,7 +52,7 @@ public class aimTurret extends CommandBase {
 
         SafeCenter(true);
 
-        turret.angleMotor.set(.2);
+        turret.angleMotor.set(.2); //change for competition!!!!!!
 
         SmartDashboard.putNumber("EndPos", EndPos);
     }

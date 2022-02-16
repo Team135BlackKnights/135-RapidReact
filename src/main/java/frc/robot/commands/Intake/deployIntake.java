@@ -4,13 +4,14 @@
 
 package frc.robot.commands.Intake;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.Intake.Intake;
 
 public class deployIntake extends CommandBase {
   // Creates a new deployIntake. 
   public final Intake intake;
+  boolean isFinished = false;
   public deployIntake(Intake subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     intake = subsystem;
@@ -24,17 +25,13 @@ public class deployIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    if(RobotContainer.Button8.get()){
-     intake.Solenoid1.set(true);   //set solenoids to one position
+    if (intake.Solenoid1.get() == Value.kOff ){
+      intake.Solenoid1.set(Value.kForward);
     }
-    
     else {
-      //set solenoids to other position
-      intake.Solenoid1.set(false);
-
+      intake.Solenoid1.set(Value.kOff);
     }
-
+    isFinished = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -44,6 +41,6 @@ public class deployIntake extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isFinished;
   }
 }

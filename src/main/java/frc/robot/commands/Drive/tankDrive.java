@@ -30,7 +30,7 @@ public class tankDrive extends CommandBase {
     double leftSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.KOI.LEFT_JOYSTICK);
     double rightSpeed = RobotContainer.rightJoystick.getRawAxis(RobotMap.KOI.RIGHT_JOYSTICK);
 
-    drive.tankDrive(leftSpeed, rightSpeed);
+    drive.tankDrive(-leftSpeed, -rightSpeed);
   }
 
   // Called once the command ends or is interrupted.

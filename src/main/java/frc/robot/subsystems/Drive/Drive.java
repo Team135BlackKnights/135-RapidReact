@@ -27,7 +27,7 @@ public class Drive extends SubsystemBase {
 
   /** Creates a new Drive. */
   public Drive() {
-    try{ //put all motor config code in here
+    
     FrontLeft.enableVoltageCompensation(12);
     FrontRight.enableVoltageCompensation(12);
     BackLeft.enableVoltageCompensation(12);
@@ -37,13 +37,7 @@ public class Drive extends SubsystemBase {
     e_FrontRight = FrontRight.getEncoder();
     e_BackLeft = BackLeft.getEncoder();
     e_BackRight = BackRight.getEncoder();
-    }
-    finally{ //free up the memory after the moters are configered
-      FrontLeft.close();
-      FrontRight.close();
-      BackLeft.close();
-      BackRight.close();
-    }
+
 
     MotorControllerGroup left = new MotorControllerGroup(FrontLeft, BackLeft);
     MotorControllerGroup right = new MotorControllerGroup(FrontRight, BackRight);
@@ -51,7 +45,7 @@ public class Drive extends SubsystemBase {
     tank = new DifferentialDrive(left, right);
 
     // Declares a new Navx and immediately sets it to 0
-    navx = new AHRS(RobotMap.Drive.navXPort);
+    //navx = new AHRS(RobotMap.Drive.navXPort);
   }
 
   public void tankDrive(double left, double right){

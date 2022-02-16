@@ -31,21 +31,30 @@ public class runIntake extends CommandBase {
     {
       //Take in
       intake.IntakeMotor.set(.9);
-   
-
     }
-    else if(RobotContainer.Button7.get())
+    else if(RobotContainer.rightButton6.get())
     {
       //Spit out
       intake.IntakeMotor.set(-.9);
-
     }
     else 
     {
       //Stop draining the battery
       intake.IntakeMotor.set(0);
-
     }
+
+    if (RobotContainer.rightThumb.get()) {
+      //pull in feeder
+      intake.Feeder.set(.8);
+    }
+    else if (RobotContainer.rightButton10.get()) {
+      //move down feeder
+      intake.Feeder.set(-.8);
+    }
+    else {
+      //don't move
+      intake.Feeder.set(0);
+    } 
   }
     public void runCommand(boolean power) {
       if (power) {
@@ -65,5 +74,5 @@ public class runIntake extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
-  }
+  } 
 }
