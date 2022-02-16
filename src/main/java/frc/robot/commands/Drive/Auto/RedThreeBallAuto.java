@@ -32,15 +32,14 @@ public class RedThreeBallAuto extends SequentialCommandGroup {
               new deployIntake(intake), //intake goes down(Solenoids)
 
 
-              new resetEncoders(drive), //run encoders, drive to first ball
-              new ParallelCommandGroup(new encoderDrive(drive, 53.5), new Autointake(intake, 5)), //intake second ball(already have one prematch)
+              new resetEncoders(drive), //run encoders, drive to first ball, intake ball
+              new ParallelCommandGroup(new encoderDrive(drive, 53.5), new Autointake(intake, 5)), 
 
               new resetEncoders(drive),
               new angleDrive(drive, 180), //turn robot around to face hub
 
-
-              new aimTurret(turret), //calibrate shooter and than shoot first and second ball
-              new runShooter(turret),
+                                      
+              new runShooter(turret),     //than shoot first and second ball
               new Autofeeder(intake, 5),
 
               new resetEncoders(drive),
@@ -53,8 +52,8 @@ public class RedThreeBallAuto extends SequentialCommandGroup {
               new resetEncoders(drive),
               new angleDrive(drive, 160), //turn around 
 
-              new aimTurret(turret), //SHOOT!
-              new runShooter(turret),
+                            
+              new runShooter(turret),    //SHOOT!
               new Autofeeder(intake, 5)
 
 

@@ -38,10 +38,9 @@ public class BlueThreeBallAuto extends SequentialCommandGroup {
                 new resetEncoders(drive),
                 new angleDrive(drive, 180), //turn robot around to face hub
 
-
-                new aimTurret(turret), //calibrate shooter and than shoot first and second ball
+                                        
                 new runShooter(turret),
-                new Autofeeder(intake, 5),
+                new Autofeeder(intake, 5),   // shoot first and second ball
 
                 new resetEncoders(drive),
                 new angleDrive(drive, 160), //turn back around       
@@ -53,7 +52,7 @@ public class BlueThreeBallAuto extends SequentialCommandGroup {
                 new resetEncoders(drive),
                 new angleDrive(drive, -160), //turn around 
 
-                new aimTurret(turret), //SHOOT!
+                                         //SHOOT!
                 new runShooter(turret),
                 new Autofeeder(intake, 5)
 
