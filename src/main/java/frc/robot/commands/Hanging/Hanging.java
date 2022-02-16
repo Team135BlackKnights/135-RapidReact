@@ -1,7 +1,7 @@
 package frc.robot.commands.Hanging;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.RobotMap;
 import frc.robot.subsystems.Hang;
 
 public class Hanging extends CommandBase {
@@ -9,39 +9,58 @@ public class Hanging extends CommandBase {
     public Hanging(Hang subsystem) {
         hang = subsystem;
         addRequirements(subsystem);
-
     }
+    double x = 0;
 
-    private void addRequirements(Hang subsystem) {}
-   
     public void initialize() {
 
     }
     public void execute() {
 
-     /*   hang.VerticalHang(deadband(RobotContainer.manipJoystick.getRawAxis(RobotMap.KOI.SLIDER_AXIS)));
+        Hang.Vert1.set((RobotContainer.hangStick.getRawAxis(1))/2);
+        Hang.Vert2.set((RobotContainer.hangStick.getRawAxis(1))/2);
+    //time based limiter code so the hanging system doesn't break itself. added this because the substeam 
+    //REFUSED to add limit switches for whatever reason
+    //i pray this thing is going to be only temporary 
+        while((RobotContainer.hangStick.getRawAxis(1))>=.1){
+          x = x+(1)*(RobotContainer.hangStick.getRawAxis(1));
+        }
+        while((RobotContainer.hangStick.getRawAxis(1))<=-0.1){
+          x = x-(1)*(RobotContainer.hangStick.getRawAxis(1));
+        }
+        if (x== 3300) {
+         Hang.Vert1.set(0);
+         Hang.Vert2.set(0);
+        }
+        else if ((x==3300)&& (RobotContainer.hangStick.getRawAxis(1)<=-0.1)) {
+            Hang.Vert1.set((RobotContainer.hangStick.getRawAxis(1)/2));
+            Hang.Vert2.set((RobotContainer.hangStick.getRawAxis(1)/2));
+            x = x-(1)*(RobotContainer.hangStick.getRawAxis(1));
+          }
+        if (x== -0.5) {
+          Hang.Vert1.set(0);
+          Hang.Vert2.set(0);
+        }
+        else if ((x==-0.5)&& (RobotContainer.hangStick.getRawAxis(1)>=.1)) {
+            Hang.Vert1.set((RobotContainer.hangStick.getRawAxis(1)/2));
+            Hang.Vert2.set((RobotContainer.hangStick.getRawAxis(1)/2));
+            x = x+(1)*(RobotContainer.hangStick.getRawAxis(1));
+          }
+
+    
 
         if (RobotContainer.Button10.get()) {
-            hang.Servo(.8);
-        } else if (RobotContainer.Button9.get()) {
-            hang.Servo(-.8);
-        } else {
-            hang.Servo(0);
+            hang.Solenoid1.set(true);
+            hang.Solenoid2.set(true);
         }
-
+         else if (RobotContainer.Button9.get()) {
+            hang.Solenoid1.set(false);
+            hang.Solenoid2.set(false);
+        }
     }
 
 
 
     public double deadband(double Joystick) {
-            if(Joystick<.2 && Joystick >0){
-                 return 0;
-             }
-             else if (Joystick>-.2 && Joystick <0){
-                 return 0;
-             }
-             else {
-                 return Joystick;
-              } 
         return Joystick < .2 && Joystick > 0 ? 0 : Joystick > -.2 && Joystick < 0 ? 0 : Joystick;
             */  } }
