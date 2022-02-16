@@ -35,7 +35,7 @@ public class runShooter extends CommandBase {
     SmartDashboard.putNumber("RPM G", turret.shooter.getRate() * 60);
     SmartDashboard.putNumber("RPM", turret.shooter.getRate() * 60);
     
-    desired = limit(-RobotContainer.leftJoystick.getRawAxis(3), .8, 0); //change this num with testing
+    desired = limit(-RobotContainer.leftJoystick.getRawAxis(3), .8, 0); 
     error = desired - (turret.shooter.getRate() * 60) / 10000;
 
     iTop = desired * 1.34;
