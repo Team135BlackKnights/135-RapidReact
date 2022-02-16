@@ -43,9 +43,9 @@ public class runShooterDistance extends CommandBase {
     SmartDashboard.putNumber("RPM", turret.shooter.getRate() * 60);
     
 
-    distance = (102.5-h1) / Math.tan(a1+Ts.getDouble(0.0)); //distance in IN (hight of tape - hight of limelight) / tan(angle of limelight + angle of target)
+  //  distance = (102.5-h1) / Math.tan(a1+Ts.getDouble(0.0)); //distance in IN (hight of tape - hight of limelight) / tan(angle of limelight + angle of target)
 
-    d1 = distance * xyz; //use trial and error to find speed that works with a given angle & distance
+  // d1 = distance * xyz; //use trial and error to find speed that works with a given angle & distance
 
     desired = limit(d1, .8, 0) * 10000; 
     error = desired - (turret.shooter.getRate() * 60);

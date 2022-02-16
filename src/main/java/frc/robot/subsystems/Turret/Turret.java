@@ -19,6 +19,8 @@ public class Turret extends SubsystemBase {
   public CANSparkMax RightPower = new CANSparkMax(RobotMap.Turret.PR_ID, MotorType.kBrushless);
 
   public CANSparkMax angleMotor = new CANSparkMax(RobotMap.Turret.R_ID, MotorType.kBrushless);
+
+  public CANSparkMax hoodMotor = new CANSparkMax(RobotMap.Turret.HA_ID, MotorType.kBrushless);
   
   public Encoder shooter, turretAngle, hoodHight; 
 
