@@ -12,6 +12,7 @@ import frc.robot.commands.Intake.Auto.Autofeeder;
 import frc.robot.commands.Intake.Auto.Autointake;
 import frc.robot.commands.Turret.aimTurret;
 import frc.robot.commands.Turret.runShooter;
+import frc.robot.commands.Turret.runShooterDistance;
 import frc.robot.subsystems.Drive.Drive;
 import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Turret.Turret;
@@ -42,7 +43,7 @@ public class SimpleAuto extends SequentialCommandGroup {
 
 
      
-      new runShooter(turret),     //shoot first and second ball
+      new runShooterDistance(turret),     //shoot first and second ball
       new Autofeeder(intake, 5)
 
      
