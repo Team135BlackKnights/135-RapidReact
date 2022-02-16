@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive.Drive;
 
 public class angleDrive extends CommandBase {
+
+    boolean isFinished = false;
+
     public Drive drive;
     public double porOut, lastOut, iOut, iTop, iBottom, desired, error, kp, kI;
 
@@ -19,7 +22,6 @@ public class angleDrive extends CommandBase {
         kI = 0; //change when testing
         iTop = desired * 1.34;
         iBottom = desired - (desired * 1.34);
-       
     }
 
     public void execute() {
@@ -40,6 +42,10 @@ public class angleDrive extends CommandBase {
             porOut = -.07;
         }
         drive.tankDrive(outputs(), -outputs());
+        
+        if (Math.abs(error) < 1) {
+            isFinished = true;
+          }
     }
 
     double outputs() {
@@ -55,5 +61,10 @@ public class angleDrive extends CommandBase {
             x;
     }
 
+
+    @Override
+    public boolean isFinished() {
+      return isFinished;
+    }
 
 }

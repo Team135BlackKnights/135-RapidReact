@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
 public class Intake extends SubsystemBase {
-  /** Creates a new Intake. */
+
+/** Creates a new Intake. */
   public DoubleSolenoid Solenoid1;
 
   public CANSparkMax Feeder;
