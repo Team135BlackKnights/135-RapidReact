@@ -7,6 +7,8 @@ import frc.robot.commands.Drive.encoderDrive;
 import frc.robot.commands.Drive.resetEncoders;
 import frc.robot.commands.Intake.deployIntake;
 import frc.robot.commands.Intake.runIntake;
+import frc.robot.commands.Intake.Auto.Autofeeder;
+import frc.robot.commands.Intake.Auto.Autointake;
 import frc.robot.commands.Turret.aimTurret;
 import frc.robot.commands.Turret.runShooter;
 import frc.robot.subsystems.Drive.Drive;
@@ -34,7 +36,7 @@ public class SimpleAuto extends SequentialCommandGroup {
       new encoderDrive(drive, 53.5),
 
 
-      new runIntake(intake), //intake second ball(already have one prematch)
+      new Autointake(intake, 5), //intake second ball(already have one prematch)
       
       
       new resetEncoders(drive),
@@ -42,7 +44,8 @@ public class SimpleAuto extends SequentialCommandGroup {
 
 
       new aimTurret(turret), //calibrate shooter and than shoot first and second ball
-      new runShooter(turret)
+      new runShooter(turret),
+      new Autofeeder(intake, 5)
 
      
      

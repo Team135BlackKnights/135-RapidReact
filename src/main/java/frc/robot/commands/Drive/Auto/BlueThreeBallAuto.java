@@ -10,6 +10,8 @@ import frc.robot.commands.Drive.encoderDrive;
 import frc.robot.commands.Drive.resetEncoders;
 import frc.robot.commands.Intake.deployIntake;
 import frc.robot.commands.Intake.runIntake;
+import frc.robot.commands.Intake.Auto.Autofeeder;
+import frc.robot.commands.Intake.Auto.Autointake;
 import frc.robot.commands.Turret.aimTurret;
 import frc.robot.commands.Turret.runShooter;
 import frc.robot.subsystems.Drive.Drive;
@@ -19,9 +21,9 @@ import frc.robot.subsystems.Turret.Turret;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ThreeBallAuto extends SequentialCommandGroup {
+public class BlueThreeBallAuto extends SequentialCommandGroup {
     /** Creates a new ThreeBallAuto. */
-    public ThreeBallAuto(Drive drive, Intake intake, Turret turret) {
+    public BlueThreeBallAuto(Drive drive, Intake intake, Turret turret) {
       
       super(
             sequence(
@@ -33,7 +35,7 @@ public class ThreeBallAuto extends SequentialCommandGroup {
                 new encoderDrive(drive, 53.5),   //38.2?
 
 
-                new runIntake(intake), //intake second ball(already have one prematch)
+                new Autointake(intake, 5), //intake second ball(already have one prematch)
 
                 new resetEncoders(drive),
                 new angleDrive(drive, 180), //turn robot around to face hub
@@ -41,9 +43,10 @@ public class ThreeBallAuto extends SequentialCommandGroup {
 
                 new aimTurret(turret), //calibrate shooter and than shoot first and second ball
                 new runShooter(turret),
+                new Autofeeder(intake, 5),
 
                 new resetEncoders(drive),
-                new angleDrive(drive, 180), //turn back around       
+                new angleDrive(drive, 160), //turn back around       
 
 
                 new resetEncoders(drive), //drive forward to next ball(terminal)
@@ -53,10 +56,11 @@ public class ThreeBallAuto extends SequentialCommandGroup {
                 new runIntake(intake), //pick up ball
 
                 new resetEncoders(drive),
-                new angleDrive(drive, -180), //turn around 
+                new angleDrive(drive, -160), //turn around 
 
                 new aimTurret(turret), //SHOOT!
-                new runShooter(turret)
+                new runShooter(turret),
+                new Autofeeder(intake, 5)
 
 
             
