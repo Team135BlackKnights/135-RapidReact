@@ -33,20 +33,27 @@ public class Hanging extends CommandBase {
          Hang.Vert1.set(0);
          Hang.Vert2.set(0);
         }
+        
         else if ((x==3300)&& (RobotContainer.hangStick.getRawAxis(1)<=-0.1)) {
             Hang.Vert1.set((RobotContainer.hangStick.getRawAxis(1)/2));
             Hang.Vert2.set((RobotContainer.hangStick.getRawAxis(1)/2));
             x = x-(1)*(RobotContainer.hangStick.getRawAxis(1));
           }
-        if ( x== -0.5) {
+          else if ( x== -0.5) {
           Hang.Vert1.set(0);
           Hang.Vert2.set(0);
         }
-        else if ((x==-0.5)&& (RobotContainer.hangStick.getRawAxis(1)>=.1)) {
+            else if ((x==-0.5)&& (RobotContainer.hangStick.getRawAxis(1)>=.1)) {
             Hang.Vert1.set((RobotContainer.hangStick.getRawAxis(1)/2));
             Hang.Vert2.set((RobotContainer.hangStick.getRawAxis(1)/2));
             x = x+(1)*(RobotContainer.hangStick.getRawAxis(1));
           }
+        else {
+        Hang.Vert1.set((RobotContainer.hangStick.getRawAxis(1))/2);
+        Hang.Vert2.set((RobotContainer.hangStick.getRawAxis(1))/2);
+        }
+
+
 
     
 
