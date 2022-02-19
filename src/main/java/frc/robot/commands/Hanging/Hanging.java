@@ -22,30 +22,30 @@ public class Hanging extends CommandBase {
         //time based limiter code so the hanging system doesn't break itself. added this because the substeam 
         //REFUSED to add limit switches for whatever reason
         //i pray this thing is going to be only temporary 
-        if ((RobotContainer.hangStick.getRawAxis(1)) >= .1) {
-            x = x + (RobotContainer.hangStick.getRawAxis(1));
-        } else if ((RobotContainer.hangStick.getRawAxis(1)) <= -0.1) {
-            x = x - (RobotContainer.hangStick.getRawAxis(1));
+        if ((RobotContainer.manipJoystick.getRawAxis(1)) >= .1) {
+            x = x + (RobotContainer.manipJoystick.getRawAxis(1));
+        } else if ((RobotContainer.manipJoystick.getRawAxis(1)) <= -0.1) {
+            x = x - (RobotContainer.manipJoystick.getRawAxis(1));
         }
 
 
         if (x == 3300) {
             Hang.Vert1.set(0);
             Hang.Vert2.set(0);
-        } else if ((x == 3300) && (RobotContainer.hangStick.getRawAxis(1) <= -0.1)) {
-            Hang.Vert1.set((RobotContainer.hangStick.getRawAxis(1) / 2));
-            Hang.Vert2.set((RobotContainer.hangStick.getRawAxis(1) / 2));
-            x = x - (1) * (RobotContainer.hangStick.getRawAxis(1));
+        } else if ((x == 3300) && (RobotContainer.manipJoystick.getRawAxis(1) <= -0.1)) {
+            Hang.Vert1.set((RobotContainer.manipJoystick.getRawAxis(1) / 2));
+            Hang.Vert2.set((RobotContainer.manipJoystick.getRawAxis(1) / 2));
+            x = x - (1) * (RobotContainer.manipJoystick.getRawAxis(1));
         } else if (x == -0.5) {
             Hang.Vert1.set(0);
             Hang.Vert2.set(0);
-        } else if ((x == -0.5) && (RobotContainer.hangStick.getRawAxis(1) >= .1)) {
-            Hang.Vert1.set((RobotContainer.hangStick.getRawAxis(1) / 2));
-            Hang.Vert2.set((RobotContainer.hangStick.getRawAxis(1) / 2));
-            x = x + (1) * (RobotContainer.hangStick.getRawAxis(1));
+        } else if ((x == -0.5) && (RobotContainer.manipJoystick.getRawAxis(1) >= .1)) {
+            Hang.Vert1.set((RobotContainer.manipJoystick.getRawAxis(1) / 2));
+            Hang.Vert2.set((RobotContainer.manipJoystick.getRawAxis(1) / 2));
+            x = x + (1) * (RobotContainer.manipJoystick.getRawAxis(1));
         } else {
-            Hang.Vert1.set((RobotContainer.hangStick.getRawAxis(1)) / 2);
-            Hang.Vert2.set((RobotContainer.hangStick.getRawAxis(1)) / 2);
+            Hang.Vert1.set((RobotContainer.manipJoystick.getRawAxis(1)) / 2);
+            Hang.Vert2.set((RobotContainer.manipJoystick.getRawAxis(1)) / 2);
         }
 
 
