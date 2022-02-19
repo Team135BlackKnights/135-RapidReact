@@ -6,7 +6,7 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.Hanging.Hang;
 
 public class Hanging extends CommandBase {
-    private final frc.robot.subsystems.Hanging.Hang hang;
+    private final Hang hang;
     public Hanging(Hang subsystem) {
         hang = subsystem;
         addRequirements(subsystem);
@@ -30,22 +30,22 @@ public class Hanging extends CommandBase {
 
 
         if (x == 3300) {
-            Hang.Vert1.set(0);
-            Hang.Vert2.set(0);
+            hang.Vert1.set(0);
+            hang.Vert2.set(0);
         } else if ((x == 3300) && (RobotContainer.manipJoystick.getRawAxis(1) <= -0.1)) {
-            Hang.Vert1.set((RobotContainer.manipJoystick.getRawAxis(1) / 2));
-            Hang.Vert2.set((RobotContainer.manipJoystick.getRawAxis(1) / 2));
+            hang.Vert1.set((RobotContainer.manipJoystick.getRawAxis(1) / 2));
+            hang.Vert2.set((RobotContainer.manipJoystick.getRawAxis(1) / 2));
             x = x - (1) * (RobotContainer.manipJoystick.getRawAxis(1));
         } else if (x == -0.5) {
-            Hang.Vert1.set(0);
-            Hang.Vert2.set(0);
+            hang.Vert1.set(0);
+            hang.Vert2.set(0);
         } else if ((x == -0.5) && (RobotContainer.manipJoystick.getRawAxis(1) >= .1)) {
-            Hang.Vert1.set((RobotContainer.manipJoystick.getRawAxis(1) / 2));
-            Hang.Vert2.set((RobotContainer.manipJoystick.getRawAxis(1) / 2));
+            hang.Vert1.set((RobotContainer.manipJoystick.getRawAxis(1) / 2));
+            hang.Vert2.set((RobotContainer.manipJoystick.getRawAxis(1) / 2));
             x = x + (1) * (RobotContainer.manipJoystick.getRawAxis(1));
         } else {
-            Hang.Vert1.set((RobotContainer.manipJoystick.getRawAxis(1)) / 2);
-            Hang.Vert2.set((RobotContainer.manipJoystick.getRawAxis(1)) / 2);
+            hang.Vert1.set((RobotContainer.manipJoystick.getRawAxis(1)) / 2);
+            hang.Vert2.set((RobotContainer.manipJoystick.getRawAxis(1)) / 2);
         }
 
 

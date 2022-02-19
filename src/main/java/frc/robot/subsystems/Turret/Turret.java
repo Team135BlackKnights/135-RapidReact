@@ -27,7 +27,6 @@ public class Turret extends SubsystemBase {
     public DigitalInput LimitSwitch0, LimitSwitch1;
 
     public Turret() {
-        try {
             LeftPower.enableVoltageCompensation(12);
             RightPower.enableVoltageCompensation(12);
             angleMotor.enableVoltageCompensation(12);
@@ -39,7 +38,6 @@ public class Turret extends SubsystemBase {
 
             LimitSwitch0 = new DigitalInput(3);
             LimitSwitch1 = new DigitalInput(2);
-        } finally {}
     }
 
     @Override

@@ -11,8 +11,8 @@ import frc.robot.RobotMap;
 
 
 public class Hang extends SubsystemBase {
-    public static CANSparkMax Vert1;
-    public static CANSparkMax Vert2;
+    public CANSparkMax Vert1;
+    public CANSparkMax Vert2;
     public DoubleSolenoid Solenoid2, Solenoid3;
     public DigitalInput Limit1;
     public DigitalInput Limit2;
@@ -21,9 +21,6 @@ public class Hang extends SubsystemBase {
     public DigitalInput ColorSensor;
 
     //  public RelativeEncoder EnV, Env2;
-
-
-
 
     public Hang() {
         CANSparkMax Vert1 = new CANSparkMax(RobotMap.Hang.V1_ID, MotorType.kBrushless);
