@@ -58,6 +58,7 @@ public class Drive extends SubsystemBase {
     }
 
     public float navXCorrectOffset(){
+        //math from here: https://www.chiefdelphi.com/t/off-centering-a-gyro/380703/7
         Float x = navx.getQuaternionX() / (float) timer.get();
         x = (float) (x * Math.pow(Math.PI, 2) * 5.67);
         return (float) (.2 * x * timer.get());
