@@ -17,8 +17,7 @@ public class Hanging extends CommandBase {
     }
     public void execute() {
 
-        Hang.Vert1.set((RobotContainer.hangStick.getRawAxis(1))/2);
-        Hang.Vert2.set((RobotContainer.hangStick.getRawAxis(1))/2);
+       
     //time based limiter code so the hanging system doesn't break itself. added this because the substeam 
     //REFUSED to add limit switches for whatever reason
     //i pray this thing is going to be only temporary 
@@ -28,8 +27,12 @@ public class Hanging extends CommandBase {
         else if ((RobotContainer.hangStick.getRawAxis(1))<=-0.1){
           x = x-(RobotContainer.hangStick.getRawAxis(1));
         }
-
-        if (x== 3300) {
+        
+        if ((x<= 3299) && (x>= -.4)) {
+          Hang.Vert1.set((RobotContainer.hangStick.getRawAxis(1))/2);
+          Hang.Vert2.set((RobotContainer.hangStick.getRawAxis(1))/2);
+        }
+        else if (x== 3300) {
          Hang.Vert1.set(0);
          Hang.Vert2.set(0);
         }
