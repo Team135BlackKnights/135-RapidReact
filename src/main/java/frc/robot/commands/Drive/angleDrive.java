@@ -35,17 +35,17 @@ public class angleDrive extends CommandBase {
 
         porOut = error * kp;
         iOut = error * kI;
-        
+
         if (limit(outputs(), .40, -.40) < .07 && limit(outputs(), .40, -.40) > 0) {
             porOut = .07;
         } else if (limit(outputs(), .40, -.40) > -.07 && limit(outputs(), .40, -.40) < 0) {
             porOut = -.07;
         }
         drive.tankDrive(outputs(), -outputs());
-        
+
         if (Math.abs(error) < 1) {
             isFinished = true;
-          }
+        }
     }
 
     double outputs() {
@@ -64,7 +64,7 @@ public class angleDrive extends CommandBase {
 
     @Override
     public boolean isFinished() {
-      return isFinished;
+        return isFinished;
     }
 
 }

@@ -31,92 +31,92 @@ import frc.robot.subsystems.Intake.Intake;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  public static Joystick hangStick = new Joystick(RobotMap.KOI.HSTICK_JOYSTICK);
-  public static Joystick leftJoystick = new Joystick(RobotMap.KOI.LEFT_JOYSTICK);
-  public static Joystick rightJoystick = new Joystick(RobotMap.KOI.RIGHT_JOYSTICK);
-  public static Joystick manipJoystick = new Joystick(RobotMap.KOI.MANIP_JOYSTICK);
+    public static Joystick hangStick = new Joystick(RobotMap.KOI.HSTICK_JOYSTICK);
+    public static Joystick leftJoystick = new Joystick(RobotMap.KOI.LEFT_JOYSTICK);
+    public static Joystick rightJoystick = new Joystick(RobotMap.KOI.RIGHT_JOYSTICK);
+    public static Joystick manipJoystick = new Joystick(RobotMap.KOI.MANIP_JOYSTICK);
 
-  public static JoystickButton
-  rightTrigger = new JoystickButton(rightJoystick, KOI.TRIGGER_BUTTON),
-  rightThumb = new JoystickButton(rightJoystick, KOI.THUMB_BUTTON),
-  rightButton3 = new JoystickButton(rightJoystick, KOI.HANDLE_BOTTOM_LEFT_BUTTON),
-  rightButton5 = new JoystickButton(rightJoystick, KOI.HANDLE_TOP_LEFT_BUTTON),
-  rightButton6 = new JoystickButton(rightJoystick, KOI.HANDLE_TOP_RIGHT_BUTTON),
-  rightButton10 = new JoystickButton(rightJoystick, KOI.BASE_MIDDLE_RIGHT_BUTTON),
-  rightButton11 = new JoystickButton(rightJoystick, KOI.BASE_BOTTOM_LEFT_BUTTON),
-  rightButton12 = new JoystickButton(rightJoystick, KOI.BASE_BOTTOM_RIGHT_BUTTON),
-  leftTrigger = new JoystickButton(leftJoystick, KOI.TRIGGER_BUTTON),
-  leftThumb = new JoystickButton(leftJoystick, KOI.THUMB_BUTTON),
+    public static JoystickButton
+    rightTrigger = new JoystickButton(rightJoystick, KOI.TRIGGER_BUTTON),
+        rightThumb = new JoystickButton(rightJoystick, KOI.THUMB_BUTTON),
+        rightButton3 = new JoystickButton(rightJoystick, KOI.HANDLE_BOTTOM_LEFT_BUTTON),
+        rightButton5 = new JoystickButton(rightJoystick, KOI.HANDLE_TOP_LEFT_BUTTON),
+        rightButton6 = new JoystickButton(rightJoystick, KOI.HANDLE_TOP_RIGHT_BUTTON),
+        rightButton10 = new JoystickButton(rightJoystick, KOI.BASE_MIDDLE_RIGHT_BUTTON),
+        rightButton11 = new JoystickButton(rightJoystick, KOI.BASE_BOTTOM_LEFT_BUTTON),
+        rightButton12 = new JoystickButton(rightJoystick, KOI.BASE_BOTTOM_RIGHT_BUTTON),
+        leftTrigger = new JoystickButton(leftJoystick, KOI.TRIGGER_BUTTON),
+        leftThumb = new JoystickButton(leftJoystick, KOI.THUMB_BUTTON),
 
-  leftButton3 = new JoystickButton(leftJoystick, KOI.HANDLE_BOTTOM_LEFT_BUTTON),
-  leftButton4 = new JoystickButton(leftJoystick, KOI.HANDLE_BOTTOM_RIGHT_BUTTON),
-  leftButton7 = new JoystickButton(leftJoystick, KOI.BASE_TOP_LEFT_BUTTON),
-  leftButton8 = new JoystickButton(leftJoystick, KOI.BASE_TOP_RIGHT_BUTTON),
-  leftButton9 = new JoystickButton(leftJoystick, KOI.BASE_MIDDLE_LEFT_BUTTON),
-  leftButton10 = new JoystickButton(leftJoystick, KOI.BASE_MIDDLE_RIGHT_BUTTON),
-  leftButton11 = new JoystickButton(leftJoystick, KOI.BASE_BOTTOM_LEFT_BUTTON),
-  leftButton12 = new JoystickButton(leftJoystick, KOI.BASE_BOTTOM_RIGHT_BUTTON),
+        leftButton3 = new JoystickButton(leftJoystick, KOI.HANDLE_BOTTOM_LEFT_BUTTON),
+        leftButton4 = new JoystickButton(leftJoystick, KOI.HANDLE_BOTTOM_RIGHT_BUTTON),
+        leftButton7 = new JoystickButton(leftJoystick, KOI.BASE_TOP_LEFT_BUTTON),
+        leftButton8 = new JoystickButton(leftJoystick, KOI.BASE_TOP_RIGHT_BUTTON),
+        leftButton9 = new JoystickButton(leftJoystick, KOI.BASE_MIDDLE_LEFT_BUTTON),
+        leftButton10 = new JoystickButton(leftJoystick, KOI.BASE_MIDDLE_RIGHT_BUTTON),
+        leftButton11 = new JoystickButton(leftJoystick, KOI.BASE_BOTTOM_LEFT_BUTTON),
+        leftButton12 = new JoystickButton(leftJoystick, KOI.BASE_BOTTOM_RIGHT_BUTTON),
 
-  manipTrigger = new JoystickButton(manipJoystick, KOI.TRIGGER_BUTTON),
-  manipThumb = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
-  manipButton3 = new JoystickButton(manipJoystick, KOI.HANDLE_BOTTOM_LEFT_BUTTON),
-  manipButton4 = new JoystickButton(manipJoystick, KOI.HANDLE_BOTTOM_RIGHT_BUTTON),
-  manipButton5 = new JoystickButton(manipJoystick, KOI.HANDLE_TOP_LEFT_BUTTON),
-  manipButton7 = new JoystickButton(manipJoystick, KOI.BASE_TOP_LEFT_BUTTON),
-  manipButton8 = new JoystickButton(manipJoystick, KOI.BASE_TOP_RIGHT_BUTTON),
-  manipButton9 = new JoystickButton(manipJoystick, KOI.BASE_MIDDLE_LEFT_BUTTON),
-  manipButton10 = new JoystickButton(manipJoystick, KOI.BASE_MIDDLE_RIGHT_BUTTON),
-  manipButton11 = new JoystickButton(manipJoystick, KOI.BASE_BOTTOM_LEFT_BUTTON),
-  manipButton12 = new JoystickButton(manipJoystick, KOI.BASE_BOTTOM_RIGHT_BUTTON); //declair all the joystick items that might be used
-  
-  // The robot's subsystems and commands are defined here...
-  public static Turret turret = new Turret(); 
-  public static Drive drive = new Drive();
-  public static Intake intake = new Intake();
+        manipTrigger = new JoystickButton(manipJoystick, KOI.TRIGGER_BUTTON),
+        manipThumb = new JoystickButton(manipJoystick, KOI.THUMB_BUTTON),
+        manipButton3 = new JoystickButton(manipJoystick, KOI.HANDLE_BOTTOM_LEFT_BUTTON),
+        manipButton4 = new JoystickButton(manipJoystick, KOI.HANDLE_BOTTOM_RIGHT_BUTTON),
+        manipButton5 = new JoystickButton(manipJoystick, KOI.HANDLE_TOP_LEFT_BUTTON),
+        manipButton7 = new JoystickButton(manipJoystick, KOI.BASE_TOP_LEFT_BUTTON),
+        manipButton8 = new JoystickButton(manipJoystick, KOI.BASE_TOP_RIGHT_BUTTON),
+        manipButton9 = new JoystickButton(manipJoystick, KOI.BASE_MIDDLE_LEFT_BUTTON),
+        manipButton10 = new JoystickButton(manipJoystick, KOI.BASE_MIDDLE_RIGHT_BUTTON),
+        manipButton11 = new JoystickButton(manipJoystick, KOI.BASE_BOTTOM_LEFT_BUTTON),
+        manipButton12 = new JoystickButton(manipJoystick, KOI.BASE_BOTTOM_RIGHT_BUTTON); //declair all the joystick items that might be used
 
-  private final Command Blue = new ParallelCommandGroup(new aimTurret(turret), new BlueThreeBallAuto(drive, intake, turret));
-  private final Command Red = new ParallelCommandGroup(new aimTurret(turret), new RedThreeBallAuto(drive, intake, turret));
-  private final Command Simple = new ParallelCommandGroup(new aimTurret(turret), new SimpleAuto(drive, intake, turret));
+    // The robot's subsystems and commands are defined here...
+    public static Turret turret = new Turret();
+    public static Drive drive = new Drive();
+    public static Intake intake = new Intake();
 
-
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
+    private final Command Blue = new ParallelCommandGroup(new aimTurret(turret), new BlueThreeBallAuto(drive, intake, turret));
+    private final Command Red = new ParallelCommandGroup(new aimTurret(turret), new RedThreeBallAuto(drive, intake, turret));
+    private final Command Simple = new ParallelCommandGroup(new aimTurret(turret), new SimpleAuto(drive, intake, turret));
 
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
+    SendableChooser < Command > m_chooser = new SendableChooser < > ();
 
-    m_chooser.addOption("BlueAuto", Blue);
-    m_chooser.addOption("RedAuto", Red);
-    m_chooser.addOption("SimpleAuto", Simple);
 
-    SmartDashboard.putData(m_chooser);
+    /** The container for the robot. Contains subsystems, OI devices, and commands. */
+    public RobotContainer() {
 
-    turret.setDefaultCommand(new aimTurret(turret));
-    drive.setDefaultCommand(new tankDrive(drive));
-    intake.setDefaultCommand(new runIntake(intake));
-    
-    // Configure the button bindings
-    configureButtonBindings();
-  }
+        m_chooser.addOption("BlueAuto", Blue);
+        m_chooser.addOption("RedAuto", Red);
+        m_chooser.addOption("SimpleAuto", Simple);
 
-  /**
-   * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
-  private void configureButtonBindings() {
-    rightButton3.whenPressed(new deployIntake(intake));
-    leftTrigger.whenPressed(new runShooter(turret));
-  }
+        SmartDashboard.putData(m_chooser);
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_chooser.getSelected();
-  }
+        turret.setDefaultCommand(new aimTurret(turret));
+        drive.setDefaultCommand(new tankDrive(drive));
+        intake.setDefaultCommand(new runIntake(intake));
+
+        // Configure the button bindings
+        configureButtonBindings();
+    }
+
+    /**
+     * Use this method to define your button->command mappings. Buttons can be created by
+     * instantiating a {@link GenericHID} or one of its subclasses ({@link
+     * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
+     * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+     */
+    private void configureButtonBindings() {
+        rightButton3.whenPressed(new deployIntake(intake));
+        leftTrigger.whenPressed(new runShooter(turret));
+    }
+
+    /**
+     * Use this to pass the autonomous command to the main {@link Robot} class.
+     *
+     * @return the command to run in autonomous
+     */
+    public Command getAutonomousCommand() {
+        // An ExampleCommand will run in autonomous
+        return m_chooser.getSelected();
+    }
 }

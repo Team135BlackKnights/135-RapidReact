@@ -19,8 +19,8 @@ public interface RobotMap {
         public final static int
             V1_ID = 4,
             V2_ID = 5,
-            So1_ID= 8,
-            So2_ID = 9,
+            So3_ID = 10, So4_ID = 11,
+            So5_ID = 12, So6_ID = 13,
             Li_ID = 0,
             Li2_ID = 1,
             Li3_ID = 4,
@@ -31,7 +31,7 @@ public interface RobotMap {
      public final static int 
         InM_ID = 10,
         FM_ID = 11,
-        S1_ID = 12;
+        So1_ID = 14, So2_ID = 15;
       
     }
 
