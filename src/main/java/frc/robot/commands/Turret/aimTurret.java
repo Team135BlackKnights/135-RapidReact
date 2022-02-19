@@ -21,7 +21,7 @@ public class aimTurret extends CommandBase {
     double EndPos, intergralTop, intergralBottom, proportional, intergral, error, desired, lastSeen;
     boolean isFinished = false, RunningSafety = false;
 
-    NetworkTableEntry Ttx = TurretLimelightTable.getEntry("tx"); 
+    NetworkTableEntry Ttx = TurretLimelightTable.getEntry("tx");
     NetworkTableEntry Tv = TurretLimelightTable.getEntry("tv");
 
     public aimTurret(Turret subsystem) {
@@ -32,7 +32,7 @@ public class aimTurret extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        SmartDashboard.putNumber("VisableTarget",Tv.getDouble(0.0));
+        SmartDashboard.putNumber("VisableTarget", Tv.getDouble(0.0));
         turret.turretAngle.reset();
         SmartDashboard.putString("AutoAim:", "Initializing");
 
@@ -67,7 +67,7 @@ public class aimTurret extends CommandBase {
         SmartDashboard.putNumber("Current Error", error);
 
 
-        if (lastSeen != Tv.getDouble(0.0) && Tv.getDouble(0.0) == 1){
+        if (lastSeen != Tv.getDouble(0.0) && Tv.getDouble(0.0) == 1) {
             intergralTop = Ttx.getDouble(0.0) * .34;
             intergralBottom = Ttx.getDouble(0.0) - (Ttx.getDouble(0.0) * 1.34);
         }
@@ -76,19 +76,22 @@ public class aimTurret extends CommandBase {
             SmartDashboard.putNumber("Output", 0);
             turret.angleMotor.set(0);
             SmartDashboard.putBoolean("Error Finished", true); //if there error is negligable dont move
-        } else if(turret.turretAngle.get() > EndPos - 1400 && !RunningSafety) {
+        } else if (turret.turretAngle.get() > EndPos - 1400 && !RunningSafety) {
             if (error < 0) {
                 turret.angleMotor.set(0);
+            } else {
+                powerUpdate();
             }
-            else {powerUpdate();}
-        } else if(turret.turretAngle.get() < 1400 &&  !RunningSafety) {
+        } else if (turret.turretAngle.get() < 1400 && !RunningSafety) {
             if (error > 0) {
                 turret.angleMotor.set(0);
+            } else {
+                powerUpdate();
             }
-            else {powerUpdate();}
+        } else {
+            powerUpdate();
         }
-        else {powerUpdate();}
-        
+
 
 
         if (!turret.LimitSwitch1.get()) {
@@ -111,18 +114,19 @@ public class aimTurret extends CommandBase {
             x;
     }
 
-    public void powerUpdate(){
-        if (Tv.getDouble(0) == 0){
-            if(turret.turretAngle.get() > EndPos - 1400){
+    public void powerUpdate() {
+        if (Tv.getDouble(0) == 0) {
+            if (turret.turretAngle.get() > EndPos - 1400) {
                 turret.angleMotor.set(.4);
             }
-            if (turret.turretAngle.get() < 1400){
+            if (turret.turretAngle.get() < 1400) {
                 turret.angleMotor.set(-.4);
             }
             SmartDashboard.putBoolean("Searching", true);
+        } else {
+            SmartDashboard.putBoolean("Searching", false);
         }
-        else {SmartDashboard.putBoolean("Searching", false);}
-        
+
         if (error < intergralTop && error > intergralBottom && !RunningSafety && Tv.getDouble(0) == 1) {
             SmartDashboard.putNumber("Output", (limit(error * Ki + error * Kp, .8, -.8)));
             turret.angleMotor.set(limit(error * Ki + error * Kp, .8, -.8));

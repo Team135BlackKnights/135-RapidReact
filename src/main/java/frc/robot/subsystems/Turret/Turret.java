@@ -14,50 +14,45 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
 public class Turret extends SubsystemBase {
-  /** Creates a new Turret. */
-  public CANSparkMax LeftPower = new CANSparkMax(RobotMap.Turret.PL_ID, MotorType.kBrushless);
-  public CANSparkMax RightPower = new CANSparkMax(RobotMap.Turret.PR_ID, MotorType.kBrushless);
+    /** Creates a new Turret. */
+    public CANSparkMax LeftPower = new CANSparkMax(RobotMap.Turret.PL_ID, MotorType.kBrushless);
+    public CANSparkMax RightPower = new CANSparkMax(RobotMap.Turret.PR_ID, MotorType.kBrushless);
 
-  public CANSparkMax angleMotor = new CANSparkMax(RobotMap.Turret.R_ID, MotorType.kBrushless);
+    public CANSparkMax angleMotor = new CANSparkMax(RobotMap.Turret.R_ID, MotorType.kBrushless);
 
-  public CANSparkMax hoodMotor = new CANSparkMax(RobotMap.Turret.HA_ID, MotorType.kBrushless);
-  
-  public Encoder shooter, turretAngle, hoodHight; 
+    public CANSparkMax hoodMotor = new CANSparkMax(RobotMap.Turret.HA_ID, MotorType.kBrushless);
 
-  public DigitalInput LimitSwitch0, LimitSwitch1;
+    public Encoder shooter, turretAngle, hoodHight;
 
-  public Turret() {
-    try {
-      LeftPower.enableVoltageCompensation(12);
-      RightPower.enableVoltageCompensation(12);
-      angleMotor.enableVoltageCompensation(12);
-      turretAngle = new Encoder(1, 0, false, Encoder.EncodingType.k4X);
-      shooter =     new Encoder(2, 3, false, Encoder.EncodingType.k4X);
-      hoodHight =   new Encoder(4, 5, false, Encoder.EncodingType.k4X);
+    public DigitalInput LimitSwitch0, LimitSwitch1;
 
-  
-  
-      LimitSwitch0 = new DigitalInput(3);
-      LimitSwitch1 = new DigitalInput(2);
-    } 
-    finally{
+    public Turret() {
+            LeftPower.enableVoltageCompensation(12);
+            RightPower.enableVoltageCompensation(12);
+            angleMotor.enableVoltageCompensation(12);
+            turretAngle = new Encoder(1, 0, false, Encoder.EncodingType.k4X);
+            shooter = new Encoder(2, 3, false, Encoder.EncodingType.k4X);
+            hoodHight = new Encoder(4, 5, false, Encoder.EncodingType.k4X);
+
+
+
+            LimitSwitch0 = new DigitalInput(3);
+            LimitSwitch1 = new DigitalInput(2);
     }
-  }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-    SmartDashboard.putNumber("TurretAngleRaw", turretAngle.get());
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+        SmartDashboard.putNumber("TurretAngleRaw", turretAngle.get());
 
-    SmartDashboard.putBoolean("Limit0", LimitSwitch0.get());
-    SmartDashboard.putBoolean("Limit1", LimitSwitch1.get());
-  }
+        SmartDashboard.putBoolean("Limit0", LimitSwitch0.get());
+        SmartDashboard.putBoolean("Limit1", LimitSwitch1.get());
+    }
 
-  public void setPower(double speed){
-    LeftPower.set(speed);
-    RightPower.set(-speed);
-  }
-  
-  public void resetEncoders() {
-  }
+    public void setPower(double speed) {
+        LeftPower.set(speed);
+        RightPower.set(-speed);
+    }
+
+    public void resetEncoders() {}
 }
