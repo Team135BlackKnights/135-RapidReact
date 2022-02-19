@@ -7,8 +7,10 @@ package frc.robot.subsystems.Drive;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,11 +24,14 @@ public class Drive extends SubsystemBase {
     CANSparkMax FrontRight = new CANSparkMax(RobotMap.Drive.FR_ID, MotorType.kBrushless);
     CANSparkMax BackLeft = new CANSparkMax(RobotMap.Drive.BL_ID, MotorType.kBrushless);
     CANSparkMax BackRight = new CANSparkMax(RobotMap.Drive.BR_ID, MotorType.kBrushless);
-
     public RelativeEncoder e_FrontLeft, e_FrontRight, e_BackLeft, e_BackRight;
+
+    Timer timer = new Timer();
 
     /** Creates a new Drive. */
     public Drive() {
+
+        
 
         FrontLeft.enableVoltageCompensation(12);
         FrontRight.enableVoltageCompensation(12);
@@ -52,6 +57,12 @@ public class Drive extends SubsystemBase {
         tank.tankDrive(left, right);
     }
 
+    public float navXCorrectOffset(){
+        Float x = navx.getQuaternionX() / (float) timer.get();
+        x = (float) (x * Math.pow(Math.PI, 2) * 5.67);
+        return (float) (.2 * x * timer.get());
+    }
+
     public void resetEncoders() {
         e_FrontLeft.setPosition(0);
         e_FrontRight.setPosition(0);
@@ -62,6 +73,12 @@ public class Drive extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+        if (navx.isRotating())
+            timer.start();
+        else {
+            timer.stop();
+            timer.reset();
+        }
 
         SmartDashboard.putNumber("Left Power", (FrontLeft.get() + BackLeft.get()) / 2);
         SmartDashboard.putNumber("Right Power", (FrontRight.get() + BackRight.get()) / 2);
