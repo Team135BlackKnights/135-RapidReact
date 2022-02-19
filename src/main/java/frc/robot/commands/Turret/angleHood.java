@@ -35,7 +35,7 @@ public class angleHood extends CommandBase {
   @Override
   public void execute() {
 
-    desired = -(RobotContainer.leftJoystick.getRawAxis(3) - 1); //change this num with testing
+    desired = -(RobotContainer.manipJoystick.getRawAxis(3) - 1); //change this num with testing
     error = desired - (turret.hoodHight.get() / MaxHight * 2);
 
     iTop = desired * 1.34;

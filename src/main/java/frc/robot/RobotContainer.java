@@ -17,6 +17,7 @@ import frc.robot.commands.Drive.Auto.BlueThreeBallAuto;
 import frc.robot.commands.Drive.Auto.RedThreeBallAuto;
 import frc.robot.commands.Drive.Auto.SimpleAuto;
 import frc.robot.commands.Turret.aimTurret;
+import frc.robot.commands.Turret.angleHood;
 import frc.robot.commands.Turret.runShooter;
 import frc.robot.subsystems.Drive.Drive;
 import frc.robot.subsystems.Turret.Turret;
@@ -108,6 +109,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     rightButton3.whenPressed(new deployIntake(intake));
     leftTrigger.whenPressed(new runShooter(turret));
+    manipTrigger.whenPressed(new angleHood(turret));
   }
 
   /**
