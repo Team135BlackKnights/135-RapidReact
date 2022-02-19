@@ -40,7 +40,7 @@ public class Hanging extends CommandBase {
        
         
         
-        if ((x==3300)&& (RobotContainer.manipJoystick.getRawAxis(1)>=0.1)) {
+        if ((x==70)&& (RobotContainer.manipJoystick.getRawAxis(1)>=0.1)) {
             hang.Vert1.set((RobotContainer.manipJoystick.getRawAxis(1)/2));
             hang.Vert2.set((RobotContainer.manipJoystick.getRawAxis(1)/2));
             x = x-(1)*(RobotContainer.manipJoystick.getRawAxis(1));
@@ -51,10 +51,10 @@ public class Hanging extends CommandBase {
             hang.Vert2.set((RobotContainer.manipJoystick.getRawAxis(1)/2));
             x = x-(1)*(RobotContainer.manipJoystick.getRawAxis(1));
           }
-          else if (x>= 3300) { //change x==abc with testing
+          else if (x>= 70) { //change x==abc with testing
             hang.Vert1.set(0);
             hang.Vert2.set(0);
-            x = 3300;
+            x = 70;
            }
         else if ( x <= -5) {
             hang.Vert1.set(0);
@@ -62,12 +62,8 @@ public class Hanging extends CommandBase {
             x = -5;
           }
         else {
-        hang.Vert1.set((RobotContainer.manipJoystick.getRawAxis(1))/2);
-        hang.Vert2.set((RobotContainer.manipJoystick.getRawAxis(1))/2);
+            hang.VerticalHang((RobotContainer.manipJoystick.getRawAxis(1)/2));
         }
-
-
-
 
 
         if (RobotContainer.rightButton11.get()) {
@@ -90,8 +86,6 @@ public class Hanging extends CommandBase {
         }
 
     }
-
-
 
     public double deadband(double Joystick) {
         return Math.abs(Joystick) > .2 ? 0 : Joystick;

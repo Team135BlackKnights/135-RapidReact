@@ -25,7 +25,8 @@ public class angleDrive extends CommandBase {
     }
 
     public void execute() {
-        error = drive.navx.getYaw() - desired;
+        error = (drive.navx.getYaw() + drive.navXCorrectOffset()) - desired;
+        
         if (error < -180)
             error += 360;
         else if (error > 180)
