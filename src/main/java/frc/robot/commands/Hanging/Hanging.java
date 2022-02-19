@@ -28,11 +28,8 @@ public class Hanging extends CommandBase {
           x = x-(RobotContainer.hangStick.getRawAxis(1));
         }
         
-        if ((x<= 3299) && (x>= -.4)) {
-          Hang.Vert1.set((RobotContainer.hangStick.getRawAxis(1))/2);
-          Hang.Vert2.set((RobotContainer.hangStick.getRawAxis(1))/2);
-        }
-        else if (x== 3300) {
+       
+        if (x== 3300) {
          Hang.Vert1.set(0);
          Hang.Vert2.set(0);
         }
