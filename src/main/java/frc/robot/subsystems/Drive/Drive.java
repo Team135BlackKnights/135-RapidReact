@@ -50,7 +50,8 @@ public class Drive extends SubsystemBase {
         tank = new DifferentialDrive(left, right);
 
         // Declares a new Navx and immediately sets it to 0
-        //navx = new AHRS(RobotMap.Drive.navXPort);
+        navx = new AHRS(RobotMap.Drive.navXPort);
+        navx.reset();
     }
 
     public void tankDrive(double left, double right) {
