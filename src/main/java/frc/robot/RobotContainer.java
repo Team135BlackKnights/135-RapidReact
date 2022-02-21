@@ -32,7 +32,6 @@ import frc.robot.subsystems.Intake.Intake;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  public static Joystick hangStick = new Joystick(RobotMap.KOI.HSTICK_JOYSTICK);
   public static Joystick leftJoystick = new Joystick(RobotMap.KOI.LEFT_JOYSTICK);
   public static Joystick rightJoystick = new Joystick(RobotMap.KOI.RIGHT_JOYSTICK);
   public static Joystick manipJoystick = new Joystick(RobotMap.KOI.MANIP_JOYSTICK);
@@ -75,9 +74,9 @@ public class RobotContainer {
   public static Drive drive = new Drive();
   public static Intake intake = new Intake();
 
-  private final Command Blue = new ParallelCommandGroup(new aimTurret(turret), new BlueThreeBallAuto(drive, intake, turret));
-  private final Command Red = new ParallelCommandGroup(new aimTurret(turret), new RedThreeBallAuto(drive, intake, turret));
-  private final Command Simple = new ParallelCommandGroup(new aimTurret(turret), new SimpleAuto(drive, intake, turret));
+  private final Command Blue = new BlueThreeBallAuto(drive, intake, turret);
+  private final Command Red = new RedThreeBallAuto(drive, intake, turret);
+  private final Command Simple = new SimpleAuto(drive, intake, turret);
 
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();

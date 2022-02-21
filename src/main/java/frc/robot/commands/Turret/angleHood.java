@@ -21,7 +21,7 @@ public class angleHood extends CommandBase {
   double minSpeed, currentSpeed, maxSpeed; //debug numbs
   
   public angleHood(Turret m_Turret) {
-    addRequirements(turret);
+    addRequirements(m_Turret);
     turret = m_Turret;
   }
 

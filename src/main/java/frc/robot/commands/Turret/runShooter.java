@@ -48,7 +48,7 @@ public class runShooter extends CommandBase {
 
     turret.LeftPower.set(outputs());
     turret.RightPower.set(-outputs());
-    SmartDashboard.putNumber("OutPut", outputs());
+    SmartDashboard.putNumber("Shooter OutPut", outputs());
 }
 
 public static double limit(double x, double upperLimit, double lowerLimit) {

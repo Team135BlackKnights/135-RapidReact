@@ -1,24 +1,24 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.I2C;
 
 public interface RobotMap {
 
     public interface Drive {
      public final static int 
-        FL_ID = 10,
-        FR_ID = 11,
+        FL_ID = 11,
+        FR_ID = 42,
         BL_ID = 12,
-        BR_ID = 13;
+        BR_ID = 41;
 
-     public SerialPort.Port navXPort = SerialPort.Port.kUSB;
+        public final I2C.Port navXPort = I2C.Port.kOnboard;
 
     }
     public interface Hang {
         public final static int
-            V1_ID = 4,
-            V2_ID = 5,
+            V1_ID = 24,
+            V2_ID = 32,
             So3_ID = 10, So4_ID = 11,
             So5_ID = 12, So6_ID = 13,
             Li_ID = 0,
@@ -29,18 +29,18 @@ public interface RobotMap {
     }
     public interface Intake { 
      public final static int 
-        InM_ID = 10,
-        FM_ID = 11,
+        InM_ID = 21,
+        FM_ID = 22,
         So1_ID = 14, So2_ID = 15;
       
     }
 
     public interface Turret{
      public final static int
-        PL_ID = 16,
-        PR_ID = 12,
-        R_ID = 13, //rotate ID
-        HA_ID = 11; //Hood Angle
+        PL_ID = 34,
+        PR_ID = 23,
+        R_ID = 35, //rotate ID
+        HA_ID = 33; //Hood Angle
     }   
 
     public interface KOI {
@@ -50,12 +50,10 @@ public interface RobotMap {
         ROTATIONAL_AXIS = 2,
         SLIDER_AXIS = 5;
 
-
-
      public static final int
-        LEFT_JOYSTICK = 1, 
-        RIGHT_JOYSTICK = 2,
-        MANIP_JOYSTICK = 0,
+        LEFT_JOYSTICK = 0, 
+        RIGHT_JOYSTICK = 1,
+        MANIP_JOYSTICK = 2,
         HSTICK_JOYSTICK = 3;
         
      public static final int

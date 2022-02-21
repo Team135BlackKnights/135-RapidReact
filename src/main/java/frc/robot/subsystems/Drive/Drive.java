@@ -19,6 +19,7 @@ import frc.robot.RobotMap;
 
 public class Drive extends SubsystemBase {
     public DifferentialDrive tank;
+    Float x;
     public AHRS navx;
     CANSparkMax FrontLeft = new CANSparkMax(RobotMap.Drive.FL_ID, MotorType.kBrushless);
     CANSparkMax FrontRight = new CANSparkMax(RobotMap.Drive.FR_ID, MotorType.kBrushless);
@@ -30,9 +31,6 @@ public class Drive extends SubsystemBase {
 
     /** Creates a new Drive. */
     public Drive() {
-
-        
-
         FrontLeft.enableVoltageCompensation(12);
         FrontRight.enableVoltageCompensation(12);
         BackLeft.enableVoltageCompensation(12);
@@ -50,7 +48,8 @@ public class Drive extends SubsystemBase {
         tank = new DifferentialDrive(left, right);
 
         // Declares a new Navx and immediately sets it to 0
-        //navx = new AHRS(RobotMap.Drive.navXPort);
+        navx = new AHRS(RobotMap.Drive.navXPort);
+        navx.reset();
     }
 
     public void tankDrive(double left, double right) {
@@ -59,7 +58,10 @@ public class Drive extends SubsystemBase {
 
     public float navXCorrectOffset(){
         //math from here: https://www.chiefdelphi.com/t/off-centering-a-gyro/380703/7
-        Float x = navx.getQuaternionX() / (float) timer.get(); //distance of navx per second
+        if (timer.get() != 0)
+             x = navx.getQuaternionX() / (float) timer.get(); //distance of navx per second
+        else 
+             x = (float) 0;
         x = (float) (x * Math.pow(Math.PI, 2) * 5.67);          //Area of Navx
         return (float) (.2 * x * timer.get());                  //multiply by .2 and then convert to just degrees                    
     }
@@ -84,7 +86,5 @@ public class Drive extends SubsystemBase {
         SmartDashboard.putNumber("Left Power", (FrontLeft.get() + BackLeft.get()) / 2);
         SmartDashboard.putNumber("Right Power", (FrontRight.get() + BackRight.get()) / 2);
         //output side power
-
-
     }
 }

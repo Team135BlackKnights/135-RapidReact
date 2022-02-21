@@ -19,10 +19,13 @@ public class tankDrive extends CommandBase {
   }
 
   // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    drive.navx.calibrate();
-  }
+  
+@Override
+public void initialize() {
+  drive.navx.calibrate();
+  drive.resetEncoders();
+}
+
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -36,6 +39,7 @@ public class tankDrive extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    drive.tankDrive(0, 0);
   }
 
   // Returns true when the command should end.

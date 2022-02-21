@@ -27,21 +27,13 @@ public class Turret extends SubsystemBase {
   public DigitalInput LimitSwitch0, LimitSwitch1;
 
   public Turret() {
-    try {
-      LeftPower.enableVoltageCompensation(12);
-      RightPower.enableVoltageCompensation(12);
       angleMotor.enableVoltageCompensation(12);
-      turretAngle = new Encoder(1, 0, false, Encoder.EncodingType.k4X);
+      turretAngle = new Encoder(4, 5, false, Encoder.EncodingType.k4X); //rotation
       shooter =     new Encoder(2, 3, false, Encoder.EncodingType.k4X);
-      hoodHight =   new Encoder(4, 5, false, Encoder.EncodingType.k4X);
-
+      hoodHight =   new Encoder(0, 1, false, Encoder.EncodingType.k4X);
   
-  
-      LimitSwitch0 = new DigitalInput(3);
-      LimitSwitch1 = new DigitalInput(2);
-    } 
-    finally{
-    }
+      LimitSwitch0 = new DigitalInput(6);
+      LimitSwitch1 = new DigitalInput(7);
   }
 
   @Override
@@ -59,5 +51,8 @@ public class Turret extends SubsystemBase {
   }
   
   public void resetEncoders() {
+    turretAngle.reset();
+    shooter.reset();
+    hoodHight.reset();
   }
 }
