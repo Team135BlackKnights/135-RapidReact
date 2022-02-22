@@ -12,14 +12,40 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Turret.Turret;
 
+ class SafeCenterClass implements Runnable{
+    boolean Forward;
+    Turret turret;
+    public SafeCenterClass(boolean m_Forward, Turret m_turret) {
+        Forward = m_Forward;
+        turret = m_turret;
+    }
+
+    @Override
+    public void run(){
+        Timer timer = new Timer();
+
+        timer.start();
+
+        while (timer.get() < 3) {
+            if (Forward) turret.angleMotor.set(.3);
+            else turret.angleMotor.set(-.3);
+
+        }
+
+        turret.angleMotor.set(0);
+
+        timer.stop();
+    }
+}
+
 public class aimTurret extends CommandBase {
-    /** Creates a new AutoAim. */
+    // Creates a new AutoAim. 
     Turret turret;
     NetworkTable TurretLimelightTable = NetworkTableInstance.getDefault().getTable("limelight-turret");
 
     float Kp = .06f, Ki = -.02f;
-    double EndPos, intergralTop, intergralBottom, proportional, intergral, error, desired, lastSeen;
-    boolean isFinished = false, RunningSafety = false;
+    double EndPos, intergralTop, intergralBottom, proportional, intergral, error, desired, lastSeen, defaultThreadCount;
+    public boolean isFinished = false, RunningSafety = false, thresholding = true, limit0Check = false, limit1Check = false;
 
     NetworkTableEntry Ttx = TurretLimelightTable.getEntry("tx"); 
     NetworkTableEntry Tv = TurretLimelightTable.getEntry("tv");
@@ -35,38 +61,37 @@ public class aimTurret extends CommandBase {
         SmartDashboard.putNumber("VisableTarget",Tv.getDouble(0.0));
         turret.turretAngle.reset();
         SmartDashboard.putString("AutoAim:", "Initializing");
-
-        while (turret.LimitSwitch1.get()) {
-            SmartDashboard.putNumber("TurretAngleRaw", turret.turretAngle.get());
-            turret.angleMotor.set(.1);
-        }
-
-        turret.turretAngle.reset();
-
-        while (turret.LimitSwitch0.get()) {
-            SmartDashboard.putNumber("TurretAngleRaw", turret.turretAngle.get());
-            turret.angleMotor.set(-.1);
-        }
-
-        EndPos = turret.turretAngle.get();
-
-        SafeCenter(true);
-
-        turret.angleMotor.set(.2); //change for competition!!!!!!
-
-        SmartDashboard.putNumber("EndPos", EndPos);
+        defaultThreadCount = Thread.activeCount();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        SmartDashboard.putString("AutoAim:", "Running");
-
         SmartDashboard.putNumber("VisableTarget", Tv.getDouble(0));
         error = Ttx.getDouble(0.0);
         SmartDashboard.putNumber("Current Error", error);
+        if (thresholding){
+            if (!turret.LimitSwitch0.get())
+                limit0Check = true;
+                turret.turretAngle.reset();
+            if (!turret.LimitSwitch1.get())
+                limit1Check = true;
 
-
+            if(!limit0Check && !limit1Check){
+                turret.angleMotor.set(.1);
+            }
+            else if(limit0Check && !limit1Check){
+                turret.angleMotor.set(-.1);
+            }
+            else if(limit0Check && limit1Check){
+                EndPos = turret.turretAngle.get();
+                SmartDashboard.putNumber("EndPos", EndPos);
+                SafeCenter(true);
+                thresholding = false;
+            }
+        }
+        else{
+            SmartDashboard.putString("AutoAim:", "Running");
         if (lastSeen != Tv.getDouble(0.0) && Tv.getDouble(0.0) == 1){
             intergralTop = Ttx.getDouble(0.0) * .34;
             intergralBottom = Ttx.getDouble(0.0) - (Ttx.getDouble(0.0) * 1.34);
@@ -81,15 +106,13 @@ public class aimTurret extends CommandBase {
                 turret.angleMotor.set(0);
             }
             else {powerUpdate();}
-        } else if(turret.turretAngle.get() < 1400 &&  !RunningSafety) {
+        } else if(turret.turretAngle.get() < 1400 && !RunningSafety) {
             if (error > 0) {
                 turret.angleMotor.set(0);
             }
             else {powerUpdate();}
         }
         else {powerUpdate();}
-        
-
 
         if (!turret.LimitSwitch1.get()) {
             SmartDashboard.putBoolean("LIMIT TRIPPED", true);
@@ -101,8 +124,11 @@ public class aimTurret extends CommandBase {
             turret.angleMotor.set(0);
             SafeCenter(true);
         }
-
+    }
         lastSeen = Tv.getDouble(0.0);
+        if (Thread.activeCount() == defaultThreadCount){
+            RunningSafety = false;
+        }
     }
 
     //used to add a cap to motor speed
@@ -133,25 +159,11 @@ public class aimTurret extends CommandBase {
     }
 
     public void SafeCenter(boolean Forward) {
+        if (!RunningSafety){
         RunningSafety = true;
-        Timer timer = new Timer();
-
-        timer.start();
-
-        while (timer.get() < 3) {
-            if (Forward) turret.angleMotor.set(.3);
-            else turret.angleMotor.set(-.3);
-
+        Runnable r = new SafeCenterClass(Forward, turret);
+        new Thread(r).start();
         }
-
-        turret.angleMotor.set(0);
-
-        timer.stop();
-        RunningSafety = false;
-
-        if (Forward) turret.angleMotor.set(.4);
-        else turret.angleMotor.set(-.4);
-
     }
 
     // Called once the command ends or is interrupted.

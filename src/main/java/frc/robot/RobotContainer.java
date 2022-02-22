@@ -17,6 +17,7 @@ import frc.robot.commands.Drive.Auto.BlueThreeBallAuto;
 import frc.robot.commands.Drive.Auto.RedThreeBallAuto;
 import frc.robot.commands.Drive.Auto.SimpleAuto;
 import frc.robot.commands.Turret.aimTurret;
+//import frc.robot.commands.Turret.aimTurret;
 import frc.robot.commands.Turret.angleHood;
 import frc.robot.commands.Turret.runShooter;
 import frc.robot.subsystems.Drive.Drive;
@@ -71,12 +72,12 @@ public class RobotContainer {
   
   // The robot's subsystems and commands are defined here...
   public static Turret turret = new Turret(); 
-  public static Drive drive = new Drive();
+ /* public static Drive drive = new Drive();
   public static Intake intake = new Intake();
 
   private final Command Blue = new BlueThreeBallAuto(drive, intake, turret);
   private final Command Red = new RedThreeBallAuto(drive, intake, turret);
-  private final Command Simple = new SimpleAuto(drive, intake, turret);
+  private final Command Simple = new SimpleAuto(drive, intake, turret); */
 
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -85,15 +86,15 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    m_chooser.addOption("BlueAuto", Blue);
+   /* m_chooser.addOption("BlueAuto", Blue);
     m_chooser.addOption("RedAuto", Red);
-    m_chooser.addOption("SimpleAuto", Simple);
+    m_chooser.addOption("SimpleAuto", Simple); */
 
     SmartDashboard.putData(m_chooser);
 
     turret.setDefaultCommand(new aimTurret(turret));
-    drive.setDefaultCommand(new tankDrive(drive));
-    intake.setDefaultCommand(new runIntake(intake));
+   // drive.setDefaultCommand(new tankDrive(drive));
+    //intake.setDefaultCommand(new runIntake(intake));
     
     // Configure the button bindings
     configureButtonBindings();
@@ -106,9 +107,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    rightButton3.whenPressed(new deployIntake(intake));
+   /* rightButton3.whenPressed(new deployIntake(intake));
     leftTrigger.whenPressed(new runShooter(turret));
-    manipTrigger.whenPressed(new angleHood(turret));
+    manipTrigger.whenPressed(new angleHood(turret)); */
   }
 
   /**
