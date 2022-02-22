@@ -10,14 +10,15 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Turret.Turret;
+import frc.robot.subsystems.Turret.Aiming;
+
 
  class SafeCenterClass implements Runnable{
     boolean Forward;
-    Turret turret;
-    public SafeCenterClass(boolean m_Forward, Turret m_turret) {
+    Aiming aiming;
+    public SafeCenterClass(boolean m_Forward, Aiming m_aiming) {
         Forward = m_Forward;
-        turret = m_turret;
+        aiming = m_aiming;
     }
 
     @Override
@@ -27,12 +28,12 @@ import frc.robot.subsystems.Turret.Turret;
         timer.start();
 
         while (timer.get() < 3) {
-            if (Forward) turret.angleMotor.set(.3);
-            else turret.angleMotor.set(-.3);
+            if (Forward) aiming.angleMotor.set(.3);
+            else aiming.angleMotor.set(-.3);
 
         }
 
-        turret.angleMotor.set(0);
+        aiming.angleMotor.set(0);
 
         timer.stop();
     }
@@ -40,7 +41,7 @@ import frc.robot.subsystems.Turret.Turret;
 
 public class aimTurret extends CommandBase {
     // Creates a new AutoAim. 
-    Turret turret;
+    Aiming aiming;
     NetworkTable TurretLimelightTable = NetworkTableInstance.getDefault().getTable("limelight-turret");
 
     float Kp = .06f, Ki = -.02f;
@@ -50,16 +51,16 @@ public class aimTurret extends CommandBase {
     NetworkTableEntry Ttx = TurretLimelightTable.getEntry("tx"); 
     NetworkTableEntry Tv = TurretLimelightTable.getEntry("tv");
 
-    public aimTurret(Turret subsystem) {
+    public aimTurret(Aiming subsystem) {
         addRequirements(subsystem); //declare depencincy 
-        turret = subsystem;
+        aiming = subsystem;
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
         SmartDashboard.putNumber("VisableTarget",Tv.getDouble(0.0));
-        turret.turretAngle.reset();
+        aiming.turretAngle.reset();
         SmartDashboard.putString("AutoAim:", "Initializing");
         defaultThreadCount = Thread.activeCount();
     }
@@ -71,20 +72,20 @@ public class aimTurret extends CommandBase {
         error = Ttx.getDouble(0.0);
         SmartDashboard.putNumber("Current Error", error);
         if (thresholding){
-            if (!turret.LimitSwitch0.get())
+            if (!aiming.LimitSwitch0.get())
                 limit0Check = true;
-                turret.turretAngle.reset();
-            if (!turret.LimitSwitch1.get())
+                aiming.turretAngle.reset();
+            if (!aiming.LimitSwitch1.get())
                 limit1Check = true;
 
             if(!limit0Check && !limit1Check){
-                turret.angleMotor.set(.1);
+                aiming.angleMotor.set(.1);
             }
             else if(limit0Check && !limit1Check){
-                turret.angleMotor.set(-.1);
+                aiming.angleMotor.set(-.1);
             }
             else if(limit0Check && limit1Check){
-                EndPos = turret.turretAngle.get();
+                EndPos = aiming.turretAngle.get();
                 SmartDashboard.putNumber("EndPos", EndPos);
                 SafeCenter(true);
                 thresholding = false;
@@ -99,29 +100,29 @@ public class aimTurret extends CommandBase {
 
         if (Math.abs(error) < 1 && !RunningSafety && Tv.getDouble(0) == 1) {
             SmartDashboard.putNumber("Output", 0);
-            turret.angleMotor.set(0);
+            aiming.angleMotor.set(0);
             SmartDashboard.putBoolean("Error Finished", true); //if there error is negligable dont move
-        } else if(turret.turretAngle.get() > EndPos - 1400 && !RunningSafety) {
+        } else if(aiming.turretAngle.get() > EndPos - 1400 && !RunningSafety) {
             if (error < 0) {
-                turret.angleMotor.set(0);
+                aiming.angleMotor.set(0);
             }
             else {powerUpdate();}
-        } else if(turret.turretAngle.get() < 1400 && !RunningSafety) {
+        } else if(aiming.turretAngle.get() < 1400 && !RunningSafety) {
             if (error > 0) {
-                turret.angleMotor.set(0);
+                aiming.angleMotor.set(0);
             }
             else {powerUpdate();}
         }
         else {powerUpdate();}
 
-        if (!turret.LimitSwitch1.get()) {
+        if (!aiming.LimitSwitch1.get()) {
             SmartDashboard.putBoolean("LIMIT TRIPPED", true);
-            turret.angleMotor.set(0);
+            aiming.angleMotor.set(0);
             SafeCenter(false);
         }
-        if (!turret.LimitSwitch0.get()) {
+        if (!aiming.LimitSwitch0.get()) {
             SmartDashboard.putBoolean("LIMIT TRIPPED", true);
-            turret.angleMotor.set(0);
+            aiming.angleMotor.set(0);
             SafeCenter(true);
         }
     }
@@ -139,11 +140,11 @@ public class aimTurret extends CommandBase {
 
     public void powerUpdate(){
         if (Tv.getDouble(0) == 0){
-            if(turret.turretAngle.get() > EndPos - 1400){
-                turret.angleMotor.set(.4);
+            if(aiming.turretAngle.get() > EndPos - 1400){
+                aiming.angleMotor.set(.4);
             }
-            if (turret.turretAngle.get() < 1400){
-                turret.angleMotor.set(-.4);
+            if (aiming.turretAngle.get() < 1400){
+                aiming.angleMotor.set(-.4);
             }
             SmartDashboard.putBoolean("Searching", true);
         }
@@ -151,17 +152,17 @@ public class aimTurret extends CommandBase {
         
         if (error < intergralTop && error > intergralBottom && !RunningSafety && Tv.getDouble(0) == 1) {
             SmartDashboard.putNumber("Output", (limit(error * Ki + error * Kp, .8, -.8)));
-            turret.angleMotor.set(limit(error * Ki + error * Kp, .8, -.8));
+            aiming.angleMotor.set(limit(error * Ki + error * Kp, .8, -.8));
         } else if (!RunningSafety && Tv.getDouble(0) == 1) {
             SmartDashboard.putNumber("Output", (limit(error * Kp, .8, -.8)));
-            turret.angleMotor.set(limit(error * Kp, .8, -.8));
+            aiming.angleMotor.set(limit(error * Kp, .8, -.8));
         }
     }
 
     public void SafeCenter(boolean Forward) {
         if (!RunningSafety){
         RunningSafety = true;
-        Runnable r = new SafeCenterClass(Forward, turret);
+        Runnable r = new SafeCenterClass(Forward, aiming);
         new Thread(r).start();
         }
     }
