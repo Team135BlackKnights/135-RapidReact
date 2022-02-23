@@ -16,9 +16,11 @@ import frc.robot.commands.Drive.tankDrive;
 import frc.robot.commands.Drive.Auto.BlueThreeBallAuto;
 import frc.robot.commands.Drive.Auto.RedThreeBallAuto;
 import frc.robot.commands.Drive.Auto.SimpleAuto;
+import frc.robot.commands.Hanging.SelfHang;
 import frc.robot.commands.Turret.aimTurret;
 import frc.robot.commands.Turret.runShooter;
 import frc.robot.subsystems.Drive.Drive;
+import frc.robot.subsystems.Hanging.Hang;
 import frc.robot.subsystems.Turret.Turret;
 
 import frc.robot.commands.Intake.deployIntake;
@@ -72,6 +74,7 @@ public class RobotContainer {
     public static Turret turret = new Turret();
     public static Drive drive = new Drive();
     public static Intake intake = new Intake();
+    public static Hang hang = new Hang();
 
     private final Command Blue = new ParallelCommandGroup(new aimTurret(turret), new BlueThreeBallAuto(drive, intake, turret));
     private final Command Red = new ParallelCommandGroup(new aimTurret(turret), new RedThreeBallAuto(drive, intake, turret));
@@ -107,6 +110,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
         rightButton3.whenPressed(new deployIntake(intake));
         leftTrigger.whenPressed(new runShooter(turret));
+        manipButton10.whenPressed(new SelfHang(drive));
     }
 
     /**
