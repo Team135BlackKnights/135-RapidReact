@@ -60,7 +60,6 @@ public class SingleSide extends CommandBase {
         else if (side==1) {
             drive.tankDrive(0,outputs());
         }
-        drive.tankDrive(outputs(), outputs());
 
         if (Math.abs(error) < 1) {
             isFinished = true;
