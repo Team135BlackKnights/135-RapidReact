@@ -19,8 +19,13 @@ public interface RobotMap {
         public final static int
             V1_ID = 24,
             V2_ID = 32,
+<<<<<<< Updated upstream
             So3_ID = 10, So4_ID = 11,
             So5_ID = 12, So6_ID = 13,
+=======
+            So1_ID= 8,
+            So2_ID = 9,
+>>>>>>> Stashed changes
             Li_ID = 0,
             Li2_ID = 1,
             Li3_ID = 4,
@@ -31,14 +36,22 @@ public interface RobotMap {
      public final static int 
         InM_ID = 21,
         FM_ID = 22,
+<<<<<<< Updated upstream
         So1_ID = 14, So2_ID = 15;
+=======
+        S1_ID = 12;
+>>>>>>> Stashed changes
       
     }
 
     public interface Turret{
      public final static int
         PL_ID = 34,
+<<<<<<< Updated upstream
         PR_ID = 23,
+=======
+        PR_ID = 22,
+>>>>>>> Stashed changes
         R_ID = 35, //rotate ID
         HA_ID = 33; //Hood Angle
     }   
@@ -54,7 +67,11 @@ public interface RobotMap {
         LEFT_JOYSTICK = 0, 
         RIGHT_JOYSTICK = 1,
         MANIP_JOYSTICK = 2,
+<<<<<<< Updated upstream
         HSTICK_JOYSTICK = 3;
+=======
+        HSTICK_JOYSTICK = 2;
+>>>>>>> Stashed changes
         
      public static final int
      TRIGGER_BUTTON = 1, THUMB_BUTTON = 2,

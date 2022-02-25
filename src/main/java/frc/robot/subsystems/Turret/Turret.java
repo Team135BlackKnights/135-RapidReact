@@ -26,10 +26,34 @@ public class Turret extends SubsystemBase {
   public DigitalInput LimitSwitch0, LimitSwitch1;
 
   public Turret() {
+<<<<<<< Updated upstream
       shooter =     new Encoder(2, 3, false, Encoder.EncodingType.k4X);
       hoodHight =   new Encoder(0, 1, false, Encoder.EncodingType.k4X);
   
   }
+=======
+      LeftPower.enableVoltageCompensation(12);
+      RightPower.enableVoltageCompensation(12);
+      angleMotor.enableVoltageCompensation(12);
+      turretAngle = new Encoder(1, 0, false, Encoder.EncodingType.k4X);
+      shooter =     new Encoder(3, 2, false, Encoder.EncodingType.k4X);
+      hoodHight =   new Encoder(0, 0, false, Encoder.EncodingType.k4X);
+  
+      LimitSwitch0 = new DigitalInput(7);
+      LimitSwitch1 = new DigitalInput(8);
+  }
+
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("TurretAngleRaw", turretAngle.get());
+    SmartDashboard.putNumber("TurretHoodRaw", hoodHight.get());
+
+    SmartDashboard.putBoolean("Limit0", LimitSwitch0.get());
+    SmartDashboard.putBoolean("Limit1", LimitSwitch1.get());
+  }
+
+>>>>>>> Stashed changes
   public void setPower(double speed){
     LeftPower.set(speed);
     RightPower.set(-speed);
