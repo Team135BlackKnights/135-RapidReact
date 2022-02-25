@@ -22,7 +22,7 @@ public class encoderDrive extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    iTop = Desired * 1.34;
+    iTop = Desired * .34;
     iBottom = Desired - (Desired * 1.34);
     kP = 0; //change when testing
     kI = 0; //change when testing
@@ -30,10 +30,6 @@ public class encoderDrive extends CommandBase {
     drive.resetEncoders();
     
     SmartDashboard.putBoolean("encoder drive", true);
-
-
-    
-   
   }
 
   // Called every time the scheduler runs while the command is scheduled.

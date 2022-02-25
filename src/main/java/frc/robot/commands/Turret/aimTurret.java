@@ -33,7 +33,7 @@ import frc.robot.subsystems.Turret.Aiming;
 
         }
 
-        aiming.angleMotor.set(0);
+        aiming.angleMotor.set(.1);
 
         timer.stop();
     }
@@ -61,28 +61,33 @@ public class aimTurret extends CommandBase {
     public void initialize() {
         SmartDashboard.putNumber("VisableTarget",Tv.getDouble(0.0));
         aiming.turretAngle.reset();
+        thresholding = true;
         SmartDashboard.putString("AutoAim:", "Initializing");
         defaultThreadCount = Thread.activeCount();
+        SmartDashboard.putNumber("ThreadCountStart", defaultThreadCount);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        SmartDashboard.putNumber("ThreadCount", Thread.activeCount());
         SmartDashboard.putNumber("VisableTarget", Tv.getDouble(0));
+        SmartDashboard.putBoolean("SafeCenter", RunningSafety);
         error = Ttx.getDouble(0.0);
         SmartDashboard.putNumber("Current Error", error);
         if (thresholding){
-            if (!aiming.LimitSwitch0.get())
+            if (!aiming.LimitValue(aiming.LimitSwitch0)){
                 limit0Check = true;
                 aiming.turretAngle.reset();
-            if (!aiming.LimitSwitch1.get())
+            }
+            if (!aiming.LimitValue(aiming.LimitSwitch1))
                 limit1Check = true;
 
             if(!limit0Check && !limit1Check){
-                aiming.angleMotor.set(.1);
+                aiming.angleMotor.set(.07);
             }
             else if(limit0Check && !limit1Check){
-                aiming.angleMotor.set(-.1);
+                aiming.angleMotor.set(-.07);
             }
             else if(limit0Check && limit1Check){
                 EndPos = aiming.turretAngle.get();
@@ -113,20 +118,24 @@ public class aimTurret extends CommandBase {
             }
             else {powerUpdate();}
         }
-        else {powerUpdate();}
-
-        if (!aiming.LimitSwitch1.get()) {
-            SmartDashboard.putBoolean("LIMIT TRIPPED", true);
-            aiming.angleMotor.set(0);
-            SafeCenter(false);
+        else {
+            powerUpdate();
+            SmartDashboard.putBoolean("Error Finished", false); 
         }
-        if (!aiming.LimitSwitch0.get()) {
-            SmartDashboard.putBoolean("LIMIT TRIPPED", true);
+
+        if (!aiming.LimitValue(aiming.LimitSwitch1)) {
+            SmartDashboard.putBoolean("LIMIT1 TRIPPED", true);
             aiming.angleMotor.set(0);
-            SafeCenter(true);
+            //SafeCenter(false);
+        }
+        if (!aiming.LimitValue(aiming.LimitSwitch0)) {
+            SmartDashboard.putBoolean("LIMIT0 TRIPPED", true);
+            aiming.angleMotor.set(0);
+            //SafeCenter(true);
         }
     }
         lastSeen = Tv.getDouble(0.0);
+
         if (Thread.activeCount() == defaultThreadCount){
             RunningSafety = false;
         }
@@ -141,12 +150,15 @@ public class aimTurret extends CommandBase {
     public void powerUpdate(){
         if (Tv.getDouble(0) == 0){
             if(aiming.turretAngle.get() > EndPos - 1400){
-                aiming.angleMotor.set(.4);
+                aiming.angleMotor.set(.1);
+                SmartDashboard.putNumber("Output", .1);
+                SmartDashboard.putBoolean("Searching", true);
             }
-            if (aiming.turretAngle.get() < 1400){
-                aiming.angleMotor.set(-.4);
+            else if (aiming.turretAngle.get() < 1400){
+                aiming.angleMotor.set(-.1);
+                SmartDashboard.putNumber("Output", -.1);
+                SmartDashboard.putBoolean("Searching", true);
             }
-            SmartDashboard.putBoolean("Searching", true);
         }
         else {SmartDashboard.putBoolean("Searching", false);}
         
@@ -170,7 +182,6 @@ public class aimTurret extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        SmartDashboard.putString("AutoAim:", "Finished");
     }
 
     // Returns true when the command should end.

@@ -3,6 +3,7 @@ package frc.robot.subsystems.Turret;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -13,35 +14,33 @@ public class Aiming extends SubsystemBase {
 
     public CANSparkMax angleMotor = new CANSparkMax(RobotMap.Turret.R_ID, MotorType.kBrushless);
 
-
-    public CANSparkMax hoodMotor = new CANSparkMax(RobotMap.Turret.HA_ID, MotorType.kBrushless);
   
-    public Encoder shooter, turretAngle, hoodHight; 
+    public Encoder turretAngle; 
   
-    public DigitalInput LimitSwitch0, LimitSwitch1;
+    public AnalogInput LimitSwitch0, LimitSwitch1;
   
 
 public Aiming() {
     angleMotor.enableVoltageCompensation(12);
     turretAngle = new Encoder(4, 5, false, Encoder.EncodingType.k4X); //rotation
-    shooter =     new Encoder(2, 3, false, Encoder.EncodingType.k4X);
-    hoodHight =   new Encoder(0, 1, false, Encoder.EncodingType.k4X);
 
-    LimitSwitch0 = new DigitalInput(8);
-    LimitSwitch1 = new DigitalInput(9);
+    LimitSwitch0 = new AnalogInput(0);
+    LimitSwitch1 = new AnalogInput(2);
+}
+
+public boolean LimitValue(AnalogInput LimitSwitch){
+  return LimitSwitch.getVoltage() >= .2 ? true : false;
 }
 
 @Override
 public void periodic() {
   // This method will be called once per scheduler run
   SmartDashboard.putNumber("TurretAngleRaw", turretAngle.get());
-  SmartDashboard.putBoolean("Limit0", LimitSwitch0.get());
-  SmartDashboard.putBoolean("Limit1", LimitSwitch1.get());
+  SmartDashboard.putBoolean("Limit0", LimitValue(LimitSwitch0));
+  SmartDashboard.putBoolean("Limit1", LimitValue(LimitSwitch1));
 }
 
 public void resetEncoders() {
   turretAngle.reset();
-  shooter.reset();
-  hoodHight.reset();
 }
 }

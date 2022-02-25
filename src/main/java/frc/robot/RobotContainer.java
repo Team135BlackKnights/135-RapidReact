@@ -71,11 +71,12 @@ public class RobotContainer {
   manipButton12 = new JoystickButton(manipJoystick, KOI.BASE_BOTTOM_RIGHT_BUTTON); //declair all the joystick items that might be used
   
   // The robot's subsystems and commands are defined here...
-  public static Turret turret = new Turret(); 
+  //public static Turret turret = new Turret(); 
+  //
   public static Aiming aiming = new Aiming();
- /* public static Drive drive = new Drive();
-  public static Intake intake = new Intake();
-
+  public static Drive drive = new Drive();
+  //public static Intake intake = new Intake();
+/*
   private final Command Blue = new BlueThreeBallAuto(drive, intake, turret);
   private final Command Red = new RedThreeBallAuto(drive, intake, turret);
   private final Command Simple = new SimpleAuto(drive, intake, turret); */
@@ -93,9 +94,9 @@ public class RobotContainer {
 
     SmartDashboard.putData(m_chooser);
 
-    aiming.setDefaultCommand(new aimTurret(aiming));
-    turret.setDefaultCommand(new runShooter(turret));
-   // drive.setDefaultCommand(new tankDrive(drive));
+     aiming.setDefaultCommand(new aimTurret(aiming));
+    //turret.setDefaultCommand(new runShooter(turret));
+    drive.setDefaultCommand(new tankDrive(drive));
     //intake.setDefaultCommand(new runIntake(intake));
     
     // Configure the button bindings
