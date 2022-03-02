@@ -22,8 +22,8 @@ public class Intake extends SubsystemBase {
 
   public Intake() {
     
-    Feeder = new CANSparkMax(RobotMap.Intake.FM_ID,MotorType.kBrushless);
-    IntakeMotor = new CANSparkMax(RobotMap.Intake.InM_ID,MotorType.kBrushless);
+    Feeder = new CANSparkMax(RobotMap.Intake.FM_ID, MotorType.kBrushless);
+    IntakeMotor = new CANSparkMax(RobotMap.Intake.InM_ID, MotorType.kBrushless);
     //Solenoid1 = new DoubleSolenoid(2, PneumaticsModuleType.REVPH, 0, 1);
     //Solenoid2 = new DoubleSolenoid(2, PneumaticsModuleType.REVPH, 2, 3);
 

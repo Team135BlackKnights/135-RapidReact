@@ -13,7 +13,7 @@ public class angleHood extends CommandBase {
   /** Creates a new angleHood. */
   Turret turret;
   
-  double MaxHight = 0;
+  double MaxHight = 10000;
 
   boolean isFinished = false;
 
@@ -38,7 +38,7 @@ public class angleHood extends CommandBase {
     desired = -(RobotContainer.manipJoystick.getRawAxis(3) - 1); //change this num with testing
     error = desired - (turret.hoodHight.get() / MaxHight * 2);
 
-    iTop = desired * 1.34;
+    iTop = desired * .34;
     iBottom = desired - (desired * 1.34);
     kP = .2; //change when testing
     kI = -.08; //change when testing
@@ -48,7 +48,7 @@ public class angleHood extends CommandBase {
 
     turret.hoodMotor.set(outputs());
 
-    SmartDashboard.putNumber("Output", outputs());
+    SmartDashboard.putNumber("Hood Output", outputs());
 
     if (Math.abs(error) < 20) {
       isFinished = true;

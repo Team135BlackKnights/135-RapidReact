@@ -30,12 +30,12 @@ public class runIntake extends CommandBase {
     if (RobotContainer.rightTrigger.get())
     {
       //Take in
-      intake.IntakeMotor.set(.9);
+      intake.IntakeMotor.set(.5);
     }
     else if(RobotContainer.rightButton6.get())
     {
       //Spit out
-      intake.IntakeMotor.set(-.9);
+      intake.IntakeMotor.set(-.4);
     }
     else 
     {
@@ -45,11 +45,11 @@ public class runIntake extends CommandBase {
 
     if (RobotContainer.rightThumb.get()) {
       //pull in feeder
-      intake.Feeder.set(.8);
+      intake.Feeder.set(-.6);
     }
     else if (RobotContainer.rightButton10.get()) {
       //move down feeder
-      intake.Feeder.set(-.8);
+      intake.Feeder.set(.8);
     }
     else {
       //don't move

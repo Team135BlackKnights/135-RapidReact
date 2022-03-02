@@ -29,7 +29,7 @@ public Aiming() {
 }
 
 public boolean LimitValue(AnalogInput LimitSwitch){
-  return LimitSwitch.getVoltage() >= .2 ? true : false;
+  return LimitSwitch.getVoltage() >= .1 ? true : false;
 }
 
 @Override

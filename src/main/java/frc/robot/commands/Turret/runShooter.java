@@ -31,17 +31,21 @@ public class runShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putNumber("Joysticks", limit(-RobotContainer.leftJoystick.getRawAxis(3), .8, 0));
-    SmartDashboard.putNumber("RPM G", turret.shooter.getRate() * 60);
-    SmartDashboard.putNumber("RPM", turret.shooter.getRate() * 60);
-    
+    SmartDashboard.putNumber("RPM G", -turret.shooter.getRate() * 60);
+    SmartDashboard.putNumber("RPM", -turret.shooter.getRate() * 60);
+    SmartDashboard.putNumber("Shooter Error", error);
     desired = limit(-RobotContainer.manipJoystick.getRawAxis(3), .8, 0); 
-    error = desired - (turret.shooter.getRate() * 60) / 10000;
+    SmartDashboard.putNumber("Shooter Desired", desired * 10000);
+
+    error = desired + (turret.shooter.getRate() * 60) / 10000;
 
     iTop = desired * 1.34;
-    iBottom = desired - (desired * 1.34);
-    kP = 3; //change when testing
-    kI = -1.3; //change when testing
+    iBottom = (desired * 1.34) - desired;
+    SmartDashboard.putNumber("ITop", iTop);
+    SmartDashboard.putNumber("IBottom", iBottom);
+
+    kP = 8; //change when testing
+    kI = 7.3; //change when testing
 
     porOut = error * kP;
     iOut = error * kI;
@@ -58,8 +62,10 @@ public static double limit(double x, double upperLimit, double lowerLimit) {
 
 double outputs() {
   if (porOut > iBottom && porOut < iTop) {
+      SmartDashboard.putBoolean("I?", true);
       return limit(porOut + iOut, .8, 0);
   } else {
+    SmartDashboard.putBoolean("I?", false);
       return limit(porOut, .8, 0);
   }
 }
