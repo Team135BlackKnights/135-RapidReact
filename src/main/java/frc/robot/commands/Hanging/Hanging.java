@@ -21,7 +21,7 @@ public class Hanging extends CommandBase {
 
        
 
-        
+
     //time based limiter code so the hanging system doesn't break itself. added this because the substeam 
     //REFUSED to add limit switches for whatever reason
     //i pray this thing is going to be only temporary 
@@ -67,7 +67,6 @@ public class Hanging extends CommandBase {
             hang.VerticalHang((RobotContainer.manipJoystick.getRawAxis(1)/2));
         }
 
-
         if (RobotContainer.rightButton11.get()) {
             hang.Solenoid2.set(Value.kForward);
 
@@ -92,4 +91,4 @@ public class Hanging extends CommandBase {
     public double deadband(double Joystick) {
         return Math.abs(Joystick) > .2 ? 0 : Joystick;
     }
-}
+} 
