@@ -15,16 +15,14 @@ import frc.robot.RobotMap;
 public class Intake extends SubsystemBase {
 
     /** Creates a new Intake. */
-    public DoubleSolenoid Solenoid1;
 
-    public CANSparkMax Feeder;
-    public CANSparkMax IntakeMotor;
+    public CANSparkMax Feeder = new CANSparkMax(RobotMap.Intake.FM_ID, MotorType.kBrushless);
+    public CANSparkMax IntakeMotor = new CANSparkMax(RobotMap.Intake.InM_ID, MotorType.kBrushless);
+    public DoubleSolenoid Solenoid1 = new DoubleSolenoid(2, PneumaticsModuleType.REVPH, RobotMap.Intake.So1_ID, RobotMap.Intake.So2_ID);
 
     public Intake() {
 
-        Feeder = new CANSparkMax(RobotMap.Intake.FM_ID, MotorType.kBrushless);
-        IntakeMotor = new CANSparkMax(RobotMap.Intake.InM_ID, MotorType.kBrushless);
-        Solenoid1 = new DoubleSolenoid(2, PneumaticsModuleType.REVPH, RobotMap.Intake.So1_ID, RobotMap.Intake.So2_ID);
+
     }
 
     @Override
