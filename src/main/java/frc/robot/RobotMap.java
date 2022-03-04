@@ -17,8 +17,8 @@ public interface RobotMap {
     }
     public interface Hang {
         public final static int
-            V1_ID = 24,
-            V2_ID = 32,
+            V1_ID = 51,
+            V2_ID = 52,
             So3_ID = 10, So4_ID = 11,
             So5_ID = 12, So6_ID = 13,
             Li_ID = 0,
