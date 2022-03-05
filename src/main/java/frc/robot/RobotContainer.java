@@ -96,7 +96,7 @@ public class RobotContainer {
 
     SmartDashboard.putData(m_chooser);
 
-  //  aiming.setDefaultCommand(new aimTurret(aiming));
+    //aiming.setDefaultCommand(new aimTurret(aiming));
     turret.setDefaultCommand(new runShooter(turret));
     drive.setDefaultCommand(new tankDrive(drive));
     intake.setDefaultCommand(new runIntake(intake));
@@ -114,8 +114,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
    /* rightButton3.whenPressed(new deployIntake(intake));
-    leftTrigger.whenPressed(new runShooter(turret));
-    manipTrigger.whenPressed(new angleHood(turret)); */
+    leftTrigger.whenPressed(new runShooter(turret)); */
+    manipTrigger.whenPressed(new angleHood(turret)); 
   }
 
   /**

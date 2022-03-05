@@ -13,11 +13,11 @@ public class angleHood extends CommandBase {
   /** Creates a new angleHood. */
   Turret turret;
   
-  double MaxHight = 10000;
+  double MaxHight = 6000; //~47 degrees
 
   boolean isFinished = false;
 
-  double desired, lastOutput, kI, kP, porOut, error, iOut, iTop, iBottom; //pid Numbers
+  double desired, lastOutput, kI, kP, porOut, error, iOut, iTop, iBottom, X; //pid Numbers
   double minSpeed, currentSpeed, maxSpeed; //debug numbs
   
   public angleHood(Turret m_Turret) {
@@ -28,20 +28,31 @@ public class angleHood extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    isFinished = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartDashboard.putBoolean("Hood Running", true);
+    if (RobotContainer.manipJoystick.getPOV() == 0){
+      turret.hoodMotor.set(.2);
+    }
+    else if (RobotContainer.manipJoystick.getPOV() == 180){
+      turret.hoodMotor.set(-.2);
+    }
+    else {
+      turret.hoodMotor.set(0);
+      isFinished = true;
+    }
+   /* X -= RobotContainer.manipJoystick.getRawAxis(5);
 
-    desired = -(RobotContainer.manipJoystick.getRawAxis(3) - 1); //change this num with testing
-    error = desired - (turret.hoodHight.get() / MaxHight * 2);
+    desired = (X); //change this num with testing
+    error = desired - (turret.hoodHight.get() / MaxHight);
 
-    iTop = desired * .34;
+    iTop = desired * 1.34;
     iBottom = desired - (desired * 1.34);
     kP = .2; //change when testing
-    kI = -.08; //change when testing
 
     porOut = error * kP;
     iOut = error * kI;
@@ -52,7 +63,8 @@ public class angleHood extends CommandBase {
 
     if (Math.abs(error) < 20) {
       isFinished = true;
-    }
+      SmartDashboard.putBoolean("Hood Running", false);
+    }*/
   }
 
   public static double limit(double x, double upperLimit, double lowerLimit) {
@@ -70,11 +82,14 @@ public class angleHood extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    turret.hoodMotor.set(0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    SmartDashboard.putBoolean("Hood Running", false);
     return isFinished;
   }
 }

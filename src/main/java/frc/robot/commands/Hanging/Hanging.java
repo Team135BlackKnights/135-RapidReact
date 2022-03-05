@@ -40,14 +40,14 @@ public class Hanging extends CommandBase {
         
         
         if ((x==220)&& (RobotContainer.manipJoystick.getRawAxis(1)>=0.1)) {
-            hang.Vert1.set((RobotContainer.manipJoystick.getRawAxis(1)/2));
-            hang.Vert2.set((RobotContainer.manipJoystick.getRawAxis(1)/2));
+            hang.Vert1.set(deadband(RobotContainer.manipJoystick.getRawAxis(1)/2));
+            hang.Vert2.set(deadband(RobotContainer.manipJoystick.getRawAxis(1)/2));
             x = x-((1)*(RobotContainer.manipJoystick.getRawAxis(1)));
           }
         
         else if ((x==-5)&& (RobotContainer.manipJoystick.getRawAxis(1)<=-.1)) {
-            hang.Vert1.set((RobotContainer.manipJoystick.getRawAxis(1)/2));
-            hang.Vert2.set((RobotContainer.manipJoystick.getRawAxis(1)/2));
+            hang.Vert1.set(deadband(RobotContainer.manipJoystick.getRawAxis(1)/2));
+            hang.Vert2.set(deadband(RobotContainer.manipJoystick.getRawAxis(1)/2));
             x = x-((1)*(RobotContainer.manipJoystick.getRawAxis(1)));
           }
           else if (x>= 220) { //change x==abc with testing
@@ -61,7 +61,7 @@ public class Hanging extends CommandBase {
             x = -5;
           }
         else {
-            hang.VerticalHang((RobotContainer.manipJoystick.getRawAxis(1)/2));
+            hang.VerticalHang(deadband(RobotContainer.manipJoystick.getRawAxis(1)/2));
         }
 
         /*if (RobotContainer.rightButton11.get()) {

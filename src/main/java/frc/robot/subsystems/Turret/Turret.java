@@ -27,12 +27,18 @@ public class Turret extends SubsystemBase {
 
   public Turret() {
       shooter =     new Encoder(2, 3, false, Encoder.EncodingType.k4X);
-      hoodHight =   new Encoder(0, 1, false, Encoder.EncodingType.k4X);
+      hoodHight =   new Encoder(0, 1, true, Encoder.EncodingType.k4X);
     LeftPower.setIdleMode(IdleMode.kCoast);
     RightPower.setIdleMode(IdleMode.kCoast);
 
     shooter.setDistancePerPulse(.00048828125);
 
+  }
+  
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("HoodHightRaw", hoodHight.get());
   }
 
   public void setPower(double speed){
