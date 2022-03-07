@@ -45,11 +45,12 @@ public class aimTurret extends CommandBase {
     NetworkTable TurretLimelightTable = NetworkTableInstance.getDefault().getTable("limelight-turret");
 
     float Kp = .06f, Ki = -.02f;
-    double EndPos, intergralTop, intergralBottom, proportional, intergral, error, desired, lastSeen, defaultThreadCount;
-    public boolean isFinished = false, RunningSafety = false, thresholding = true, limit0Check = false, limit1Check = false;
+    double EndPos = 12230, intergralTop, intergralBottom, proportional, intergral, error, desired, lastSeen, defaultThreadCount, distance, angleGoalDegree;
+    public boolean isFinished = false, RunningSafety = false, thresholding = true, limit0Check = false, limit1Check = true;
 
     NetworkTableEntry Ttx = TurretLimelightTable.getEntry("tx"); 
     NetworkTableEntry Tv = TurretLimelightTable.getEntry("tv");
+    NetworkTableEntry Ty = TurretLimelightTable.getEntry("ty"); 
 
     public aimTurret(Aiming subsystem) {
         addRequirements(subsystem); //declare depencincy 
@@ -70,9 +71,15 @@ public class aimTurret extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        SmartDashboard.putNumber("TY", Ty.getDouble(0.0));
         SmartDashboard.putNumber("ThreadCount", Thread.activeCount());
         SmartDashboard.putNumber("VisableTarget", Tv.getDouble(0));
         SmartDashboard.putBoolean("SafeCenter", RunningSafety);
+        angleGoalDegree = 53 + Ty.getDouble(0.0);
+        SmartDashboard.putNumber("Distance Rad", Math.toRadians(angleGoalDegree));
+        distance = 161 / Math.tan(Math.toRadians(angleGoalDegree)); //distance in IN (hight of tape - hight of limelight) / tan(angle of limelight + angle of target)
+        SmartDashboard.putNumber("Distance To Target", distance);
+
         error = Ttx.getDouble(0.0);
         SmartDashboard.putNumber("Current Error", error);
         if (thresholding){
@@ -83,16 +90,16 @@ public class aimTurret extends CommandBase {
             if (!aiming.LimitValue(aiming.LimitSwitch1))
                 limit1Check = true;
 
-            if(!limit0Check && !limit1Check){
+            if(!limit0Check){
                 aiming.angleMotor.set(.07);
             }
             else if(limit0Check && !limit1Check){
                 aiming.angleMotor.set(-.07);
             }
             else if(limit0Check && limit1Check){
-                EndPos = aiming.turretAngle.get();
+                //EndPos = aiming.turretAngle.get();
                 SmartDashboard.putNumber("EndPos", EndPos);
-                SafeCenter(true);
+                SafeCenter(false);
                 thresholding = false;
             }
         }

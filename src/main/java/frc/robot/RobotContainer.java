@@ -20,6 +20,7 @@ import frc.robot.commands.Hanging.Hanging;
 import frc.robot.commands.Turret.aimTurret;
 import frc.robot.commands.Turret.angleHood;
 import frc.robot.commands.Turret.runShooter;
+import frc.robot.commands.Turret.runShooterDistance;
 import frc.robot.subsystems.Hang;
 import frc.robot.subsystems.Drive.Drive;
 import frc.robot.subsystems.Turret.Aiming;
@@ -96,8 +97,8 @@ public class RobotContainer {
 
     SmartDashboard.putData(m_chooser);
 
-    //aiming.setDefaultCommand(new aimTurret(aiming));
-    turret.setDefaultCommand(new runShooter(turret));
+    aiming.setDefaultCommand(new aimTurret(aiming));
+    turret.setDefaultCommand(new runShooterDistance(turret));
     drive.setDefaultCommand(new tankDrive(drive));
     intake.setDefaultCommand(new runIntake(intake));
     hang.setDefaultCommand(new Hanging(hang));

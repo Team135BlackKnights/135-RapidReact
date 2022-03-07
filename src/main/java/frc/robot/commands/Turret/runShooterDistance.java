@@ -4,9 +4,9 @@
 
 package frc.robot.commands.Turret;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
@@ -18,11 +18,13 @@ public class runShooterDistance extends CommandBase {
   boolean isFinished = false;
 
   NetworkTable TurretLimelightTable = NetworkTableInstance.getDefault().getTable("limelight-turret");
+  NetworkTableEntry Ty = TurretLimelightTable.getEntry("ty"); 
 
-  NetworkTableEntry Ts = TurretLimelightTable.getEntry("ts"); 
+  double angleGoalDegree, distance;
+  double speedDesired, SkI, SkP, sError; //pid Numbers Shooter
+  double hoodDesired, HkI, HkP, hError;
 
-  double distance, d1, desired, lastOutput, kI, kP, porOut, error, iOut, iTop, iBottom; //pid Numbers
-  double minSpeed, currentSpeed, maxSpeed; //debug numbs
+  
   
   public runShooterDistance(Turret subystem) {
     addRequirements(subystem);
@@ -38,29 +40,48 @@ public class runShooterDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putNumber("Joysticks", limit(-RobotContainer.leftJoystick.getRawAxis(3), .8, 0));
-    SmartDashboard.putNumber("RPM G", turret.shooter.getRate() * 60);
-    SmartDashboard.putNumber("RPM", turret.shooter.getRate() * 60);
+    //<Distance>
+    angleGoalDegree = 53 + Ty.getDouble(0.0);
+        SmartDashboard.putNumber("Distance Rad", Math.toRadians(angleGoalDegree));
+        distance = 161 / Math.tan(Math.toRadians(angleGoalDegree)); //distance in IN (hight of tape - hight of limelight) / tan(angle of limelight + angle of target)
+    //</Distance>
+
+    //<Shooter Speed>
+    SmartDashboard.putNumber("RPM G", -turret.shooter.getRate() * 60);
+    SmartDashboard.putNumber("RPM", -turret.shooter.getRate() * 60);
+    SmartDashboard.putNumber("Shooter sError", sError);
+    SmartDashboard.putNumber("Shooter Speed Desired", speedDesired * 10000);
+
+    speedDesired = limit(-(RobotContainer.manipJoystick.getRawAxis(3) + 1) / 2, .8, 0); 
+    sError = speedDesired + (speedDesired * .05) + (turret.shooter.getRate() * 60) / 10000;
+
+    SkP = 13; //change when testing
+    SkI = 5.5; //change when testing
+
+    turret.LeftPower.set(outputs(sError * SkP, sError * SkI, speedDesired * 1.34, (speedDesired * 1.34) - speedDesired));
+    turret.RightPower.set(-outputs(sError * SkP, sError * SkI, speedDesired * 1.34, (speedDesired * 1.34) - speedDesired));
+    SmartDashboard.putNumber("Shooter Output", outputs(sError * SkP, sError * SkI, speedDesired * 1.34, (speedDesired * 1.34) - speedDesired));
+
+    //</Shooter Speed>
     
+    //<Turret Hight>
+    hoodDesired = Math.floor(5.0895 * distance - 274.833);
 
-    distance = (102.5-20.5) / Math.tan(40+Ts.getDouble(0.0)); //distance in IN (hight of tape - hight of limelight) / tan(angle of limelight + angle of target)
-    SmartDashboard.putNumber("Distance To Target", distance);
-    //d1 = distance * xyz; //use trial and error to find speed that works with a given angle & distance
+    hError = turret.hoodHight.get() - hoodDesired;
 
-    desired = limit(d1, .8, 0) * 10000; 
-    error = desired - (turret.shooter.getRate() * 60);
+    HkP = .004;
+    HkI = .002;
 
-    iTop = desired * 1.34;
-    iBottom = desired - (desired * 1.34);
-    kP = 3; //change when testing
-    kI = 1.3; //change when testing
+    if (hError < 20)
+      turret.hoodMotor.set(0);
+    else if (turret.hoodHight.get() > 2500 && outputs(hError * HkP, hError * HkI, hoodDesired * 1.34, (hoodDesired * 1.34) - hoodDesired) > 0)
+      turret.hoodMotor.set(0);
+    else if (turret.hoodHight.get() < 50 && outputs(hError * HkP, hError * HkI, hoodDesired * 1.34, (hoodDesired * 1.34) - hoodDesired) < 0)
+      turret.hoodMotor.set(0); //HEY DUMB DUMB, THIS IS WHATS BROKN, FIX THE LIMITS BEFORE TESTING MORE!
+    else
+    turret.hoodMotor.set(-outputs(hError * HkP, hError * HkI, hoodDesired * 1.34, (hoodDesired * 1.34) - hoodDesired));
 
-    porOut = error * kP;
-    iOut = error * kI;
-
-    turret.LeftPower.set(limit(outputs(), 0, .8));
-    turret.RightPower.set(-limit(outputs(), 0, .8));
-    SmartDashboard.putNumber("OutPut", outputs());
+    //</Turret Hight>
 }
 
 public static double limit(double x, double upperLimit, double lowerLimit) {
@@ -68,11 +89,13 @@ public static double limit(double x, double upperLimit, double lowerLimit) {
       x;
 }
 
-double outputs() {
+double outputs(double porOut, double iOut, double iBottom, double iTop) {
   if (porOut > iBottom && porOut < iTop) {
-      return limit(porOut + iOut, .4, -.4);
+      SmartDashboard.putBoolean("I?", true);
+      return limit(porOut + iOut, .85, 0);
   } else {
-      return limit(porOut, .4, -.4);
+    SmartDashboard.putBoolean("I?", false);
+      return limit(porOut, .85, 0);
   }
 }
   // Called once the command ends or is interrupted.

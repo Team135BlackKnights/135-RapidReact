@@ -39,6 +39,8 @@ public class Turret extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("HoodHightRaw", hoodHight.get());
+    SmartDashboard.putNumber("HoodMotor", hoodMotor.get());
+    SmartDashboard.putNumber("Shooter Temp", (LeftPower.getMotorTemperature() + RightPower.getMotorTemperature()) / 2);
   }
 
   public void setPower(double speed){

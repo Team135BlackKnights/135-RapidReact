@@ -34,18 +34,18 @@ public class runShooter extends CommandBase {
     SmartDashboard.putNumber("RPM G", -turret.shooter.getRate() * 60);
     SmartDashboard.putNumber("RPM", -turret.shooter.getRate() * 60);
     SmartDashboard.putNumber("Shooter Error", error);
-    desired = limit(-RobotContainer.manipJoystick.getRawAxis(3), .8, 0); 
+    desired = limit(-(RobotContainer.manipJoystick.getRawAxis(3) + 1) / 2, .8, 0); 
     SmartDashboard.putNumber("Shooter Desired", desired * 10000);
 
-    error = desired + (turret.shooter.getRate() * 60) / 10000;
+    error = desired + (desired * .05) + (turret.shooter.getRate() * 60) / 10000;
 
     iTop = desired * 1.34;
     iBottom = (desired * 1.34) - desired;
     SmartDashboard.putNumber("ITop", iTop);
     SmartDashboard.putNumber("IBottom", iBottom);
 
-    kP = 8; //change when testing
-    kI = 7.3; //change when testing
+    kP = 13; //change when testing
+    kI = 5.5; //change when testing
 
     porOut = error * kP;
     iOut = error * kI;
@@ -63,10 +63,10 @@ public static double limit(double x, double upperLimit, double lowerLimit) {
 double outputs() {
   if (porOut > iBottom && porOut < iTop) {
       SmartDashboard.putBoolean("I?", true);
-      return limit(porOut + iOut, .8, 0);
+      return limit(porOut + iOut, .85, 0);
   } else {
     SmartDashboard.putBoolean("I?", false);
-      return limit(porOut, .8, 0);
+      return limit(porOut, .85, 0);
   }
 }
   // Called once the command ends or is interrupted.
