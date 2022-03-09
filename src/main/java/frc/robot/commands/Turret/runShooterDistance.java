@@ -33,6 +33,8 @@ public class runShooterDistance extends CommandBase {
     Color RobotColor, inverseColor;
     private final Color kBlueTarget = new Color(0.143, 0.427, 0.429);
     private final Color kRedTarget = new Color(0.561, 0.232, 0.114);
+    private final Color kGreenTarget = new Color(0.197, 0.561, 0.240);
+
     ColorMatch m_colorMatcher = new ColorMatch();
 
 
@@ -55,6 +57,7 @@ public class runShooterDistance extends CommandBase {
       
       m_colorMatcher.addColorMatch(kBlueTarget);
       m_colorMatcher.addColorMatch(kRedTarget);
+      m_colorMatcher.addColorMatch(kGreenTarget);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -99,6 +102,8 @@ public class runShooterDistance extends CommandBase {
           SmartDashboard.putString("Ball Color", "Blue");
         else if (match.color == kRedTarget)
           SmartDashboard.putString("Ball Color", "Red");
+        else  if (match.color == kGreenTarget)
+         SmartDashboard.putString("Ball Color", "Nothing");
         else 
          SmartDashboard.putString("Ball Color", "Unknown");
 
