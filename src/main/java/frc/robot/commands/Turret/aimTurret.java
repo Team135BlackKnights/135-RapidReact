@@ -46,7 +46,7 @@ public class aimTurret extends CommandBase {
 
     float Kp = .06f, Ki = -.02f;
     double EndPos = 12230, intergralTop, intergralBottom, proportional, intergral, error, desired, lastSeen, defaultThreadCount, distance, angleGoalDegree;
-    public boolean isFinished = false, RunningSafety = false, thresholding = true, limit0Check = false, limit1Check = true;
+    public boolean isFinished = false, RunningSafety = false, thresholding = true, limit0Check = false, limit1Check = false;
 
     NetworkTableEntry Ttx = TurretLimelightTable.getEntry("tx"); 
     NetworkTableEntry Tv = TurretLimelightTable.getEntry("tv");
@@ -97,9 +97,9 @@ public class aimTurret extends CommandBase {
                 aiming.angleMotor.set(-.07);
             }
             else if(limit0Check && limit1Check){
-                //EndPos = aiming.turretAngle.get();
+                EndPos = aiming.turretAngle.get();
                 SmartDashboard.putNumber("EndPos", EndPos);
-                SafeCenter(false);
+                SafeCenter(true);
                 thresholding = false;
             }
         }

@@ -19,7 +19,6 @@ import frc.robot.commands.Drive.Auto.SimpleAuto;
 import frc.robot.commands.Hanging.Hanging;
 import frc.robot.commands.Turret.aimTurret;
 import frc.robot.commands.Turret.angleHood;
-import frc.robot.commands.Turret.runShooter;
 import frc.robot.commands.Turret.runShooterDistance;
 import frc.robot.subsystems.Hang;
 import frc.robot.subsystems.Drive.Drive;

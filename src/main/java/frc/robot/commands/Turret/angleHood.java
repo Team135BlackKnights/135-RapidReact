@@ -10,7 +10,7 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.Turret.Turret;
 
 public class angleHood extends CommandBase {
-  /** Creates a new angleHood. */
+  
   Turret turret;
   
   double MaxHight = 3000; //~47 degrees

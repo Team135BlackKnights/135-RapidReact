@@ -2,6 +2,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.I2C.Port;
 
 public interface RobotMap {
 
@@ -12,7 +14,7 @@ public interface RobotMap {
         BL_ID = 12,
         BR_ID = 41;
 
-        public final I2C.Port navXPort = I2C.Port.kOnboard;
+        public final SerialPort.Port navXPort = SerialPort.Port.kUSB;
 
     }
     public interface Hang {
@@ -32,6 +34,7 @@ public interface RobotMap {
         InM_ID = 21,
         FM_ID = 22,
         So1_ID = 14, So2_ID = 15;
+        public final I2C.Port colorPort = I2C.Port.kOnboard;
     }
 
     public interface Turret{
@@ -50,8 +53,8 @@ public interface RobotMap {
         SLIDER_AXIS = 5;
 
      public static final int
-        LEFT_JOYSTICK = 1, 
-        RIGHT_JOYSTICK = 0,
+        LEFT_JOYSTICK = 0, 
+        RIGHT_JOYSTICK = 1,
         MANIP_JOYSTICK = 2;
                 
      public static final int

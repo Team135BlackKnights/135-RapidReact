@@ -5,6 +5,7 @@
 package frc.robot.subsystems.Turret;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ColorSensorV3;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -18,21 +19,27 @@ import frc.robot.RobotMap;
 
 public class Turret extends SubsystemBase {
   /** Creates a new Turret. */
-  public CANSparkMax LeftPower = new CANSparkMax(RobotMap.Turret.PL_ID, MotorType.kBrushless);
+  //public CANSparkMax LeftPower = new CANSparkMax(RobotMap.Turret.PL_ID, MotorType.kBrushless);
   public CANSparkMax RightPower = new CANSparkMax(RobotMap.Turret.PR_ID, MotorType.kBrushless);
 
   public CANSparkMax hoodMotor = new CANSparkMax(RobotMap.Turret.HA_ID, MotorType.kBrushless);
   
   public Encoder shooter, hoodHight; 
+  public ColorSensorV3 colorSensor = new ColorSensorV3(RobotMap.Intake.colorPort);
 
   public Turret() {
-      shooter =     new Encoder(2, 3, false, Encoder.EncodingType.k4X);
-      hoodHight =   new Encoder(0, 1, true, Encoder.EncodingType.k4X);
-    LeftPower.setIdleMode(IdleMode.kCoast);
+    shooter =     new Encoder(2, 3, false, Encoder.EncodingType.k4X);
+    hoodHight =   new Encoder(0, 1, true, Encoder.EncodingType.k4X);
+
+    //LeftPower.setIdleMode(IdleMode.kCoast);
     RightPower.setIdleMode(IdleMode.kCoast);
+    //LeftPower.enableVoltageCompensation(12);
+    RightPower.setSmartCurrentLimit(80);
+    RightPower.enableVoltageCompensation(12);
 
+    hoodHight.reset();
+    hoodMotor.setIdleMode(IdleMode.kBrake);
     shooter.setDistancePerPulse(.00048828125);
-
   }
   
   @Override
@@ -40,11 +47,11 @@ public class Turret extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("HoodHightRaw", hoodHight.get());
     SmartDashboard.putNumber("HoodMotor", hoodMotor.get());
-    SmartDashboard.putNumber("Shooter Temp", (LeftPower.getMotorTemperature() + RightPower.getMotorTemperature()) / 2);
+    SmartDashboard.putNumber("Shooter Temp", (RightPower.getMotorTemperature()));
   }
 
   public void setPower(double speed){
-    LeftPower.set(speed);
+    //LeftPower.set(speed);
     RightPower.set(-speed);
   }
   
