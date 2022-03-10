@@ -42,15 +42,15 @@ public class BlueThreeBallAuto extends SequentialCommandGroup {
                 new runShooterDistance(turret),
                 new Autofeeder(intake, 5),   // shoot first and second ball
 
-                new resetEncoders(drive),
-                new angleDrive(drive, 160), //turn back around       
+               // new resetEncoders(drive),
+               // new angleDrive(drive, 160), //turn back around       
 
 
                 new resetEncoders(drive), //drive forward to next ball(terminal), intake
                 new ParallelCommandGroup(new encoderDrive(drive, 53.5), new Autointake(intake, 5)),
 
-                new resetEncoders(drive),
-                new angleDrive(drive, -160), //turn around 
+                //new resetEncoders(drive),
+                //new angleDrive(drive, -160), //turn around 
 
                                          //SHOOT!
                 new runShooterDistance(turret),
