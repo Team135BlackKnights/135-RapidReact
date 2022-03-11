@@ -27,10 +27,12 @@ public class runShooterDistance extends CommandBase {
     NetworkTableEntry Tv = TurretLimelightTable.getEntry("tv");
 
     double angleGoalDegree, distance;
-    double speedDesired, SkI, SkP, sError; //pid Numbers Shooter
+    double speedDesired, SkI, SkP, sError, x, shooterOn; //pid Numbers Shooter
     double hoodDesired, HkI, HkP, hError;
 
-    Color RobotColor, inverseColor;
+    boolean ballPersistant = false;
+
+    Color RobotColor, inverseColor, lastSeenColor;
     private final Color kBlueTarget = new Color(0.143, 0.427, 0.429);
     private final Color kRedTarget = new Color(0.561, 0.232, 0.114);
     private final Color kGreenTarget = new Color(0.197, 0.561, 0.240);
@@ -55,6 +57,8 @@ public class runShooterDistance extends CommandBase {
         inverseColor = kRedTarget;
       }    
       
+      shooterOn = 0;
+
       m_colorMatcher.addColorMatch(kBlueTarget);
       m_colorMatcher.addColorMatch(kRedTarget);
       m_colorMatcher.addColorMatch(kGreenTarget);
@@ -86,12 +90,22 @@ public class runShooterDistance extends CommandBase {
         SmartDashboard.putNumber("RPM G", -turret.shooter.getRate() * 60);
         SmartDashboard.putNumber("RPM", -turret.shooter.getRate() * 60);
         SmartDashboard.putNumber("Shooter sError", sError);
-        SmartDashboard.putNumber("Shooter Speed Desired", speedDesired * 10000);
+        SmartDashboard.putNumber("Shooter Speed Desired", speedDesired);
 
-        speedDesired = limit((-RobotContainer.manipJoystick.getRawAxis(3) + 1) / 2, .8, 0);
-        SmartDashboard.putNumber("Shooter Speed Desired", speedDesired * 10000);
+        //speedDesired = limit((-RobotContainer.manipJoystick.getRawAxis(3) + 1) / 2, .8, 0);
+        //SmartDashboard.putNumber("Shooter Speed Desired", speedDesired * 10000);
 
-        sError = speedDesired + (speedDesired * .05) + (turret.shooter.getRate() * 60) / 10000;
+        if (RobotContainer.manipButton3.get()){
+          shooterOn = 1;
+        }
+        else if (RobotContainer.manipButton4.get()){
+          shooterOn = 0;
+        }
+
+        speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 3477.57) * shooterOn); //increaded M by 200
+
+
+        sError = (speedDesired + (speedDesired * .05) + (turret.shooter.getRate() * 60)) / 10000;
 
         SkP = 13; //change when testing
         SkI = 5.5; //change when testing
@@ -107,11 +121,26 @@ public class runShooterDistance extends CommandBase {
         else 
          SmartDashboard.putString("Ball Color", "Unknown");
 
-        if (match.color == RobotColor){
-          turret.setPower(outputs(sError * SkP, sError * SkI, speedDesired * 1.34, (speedDesired * 1.34) - speedDesired));
-          SmartDashboard.putString("FireReady?", "READY");
-          SmartDashboard.putNumber("Shooter Output", outputs(sError * SkP, sError * SkI, speedDesired * 1.34, (speedDesired * 1.34) - speedDesired));
-        } else if(match.color == inverseColor){
+        SmartDashboard.putString("Raw Ball Color", match.color.toString());
+
+        if (lastSeenColor != match.color && lastSeenColor != kGreenTarget){
+          x = 0;
+          ballPersistant = true;
+        }
+
+        SmartDashboard.putNumber("X", x);
+
+        if (x > 50)
+        {
+          ballPersistant = false;
+        }
+
+       // if (match.color == RobotColor || (ballPersistant == true && lastSeenColor == RobotColor)){
+        turret.setPower(outputs(sError * SkP, sError * SkI, speedDesired * 1.34, (speedDesired * 1.34) - speedDesired));
+        SmartDashboard.putString("FireReady?", "READY");
+        SmartDashboard.putNumber("Shooter Output", outputs(sError * SkP, sError * SkI, speedDesired * 1.34, (speedDesired * 1.34) - speedDesired));
+
+     /*   } else if(match.color == inverseColor || (ballPersistant == true && lastSeenColor == inverseColor)){
           turret.setPower(.1);
           SmartDashboard.putString("FireReady?", "WRONG COLOR");
           SmartDashboard.putNumber("Shooter Output", .1);
@@ -120,7 +149,9 @@ public class runShooterDistance extends CommandBase {
           SmartDashboard.putString("FireReady?", "NO BALL");
           SmartDashboard.putNumber("Shooter Output", 0);
         }
-
+ */
+        if (ballPersistant = false)
+          lastSeenColor = match.color;
 
         //</Shooter Speed>
 

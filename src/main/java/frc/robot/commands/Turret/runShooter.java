@@ -51,7 +51,7 @@ public class runShooter extends CommandBase {
     iOut = error * kI;
 
     //turret.LeftPower.set(outputs());
-    turret.RightPower.set(-outputs());
+    turret.LeftPower.set(-outputs());
     SmartDashboard.putNumber("Shooter OutPut", outputs());
 }
 

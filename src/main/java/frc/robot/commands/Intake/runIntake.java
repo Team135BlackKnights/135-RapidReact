@@ -4,6 +4,11 @@
 
 package frc.robot.commands.Intake;
 
+import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
+
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Intake.Intake;
@@ -13,6 +18,15 @@ import frc.robot.subsystems.Intake.Intake;
 public class runIntake extends CommandBase {
 
   public final Intake intake;
+
+  private final Color kBlueTarget = new Color(0.143, 0.427, 0.429);
+  private final Color kRedTarget = new Color(0.561, 0.232, 0.114);
+  private final Color kGreenTarget = new Color(0.197, 0.561, 0.240);
+
+  Color RobotColor, inverseColor;
+
+
+  ColorMatch m_colorMatcher = new ColorMatch();
   public runIntake(Intake subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     intake = subsystem;
@@ -21,41 +35,71 @@ public class runIntake extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    if (DriverStation.getAlliance() == DriverStation.Alliance.Red){
+      RobotColor = kRedTarget;
+      inverseColor = kBlueTarget;
+    }
+    if (DriverStation.getAlliance() == DriverStation.Alliance.Blue){
+      RobotColor = kBlueTarget;
+      inverseColor = kRedTarget;
+    }    
+    
+    m_colorMatcher.addColorMatch(kBlueTarget);
+    m_colorMatcher.addColorMatch(kRedTarget);
+    m_colorMatcher.addColorMatch(kGreenTarget);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    if (RobotContainer.rightTrigger.get())
-    {
-      //Take in
-      intake.IntakeMotor.set(.5);
-    }
-    else if(RobotContainer.rightButton6.get())
-    {
-      //Spit out
-      intake.IntakeMotor.set(-.4);
-    }
-    else 
-    {
-      //Stop draining the battery
-      intake.IntakeMotor.set(0);
-    }
+    //<Color Selector>
+      if (RobotContainer.manipButton7.get()){
+        RobotColor = kRedTarget;
+        inverseColor = kBlueTarget;
+      }
+      if (RobotContainer.manipButton8.get()){
+        RobotColor = kBlueTarget;
+        inverseColor = kRedTarget;
+      }
 
-    if (RobotContainer.rightThumb.get()) {
-      //pull in feeder
-      intake.Feeder.set(-.6);
-    }
-    else if (RobotContainer.rightButton10.get()) {
-      //move down feeder
-      intake.Feeder.set(.8);
-    }
-    else {
-      //don't move
-      intake.Feeder.set(0);
-    } 
+      ColorMatchResult match = m_colorMatcher.matchClosestColor(intake.colorSensorV3.getColor());
+    //</Color Selector>
+    
+    //<Intake>
+
+        if (RobotContainer.rightTrigger.get())
+        {
+          intake.IntakeMotor.set(.5);
+        }
+
+        if (RobotContainer.manipTrigger.get()) {
+          intake.Feeder.set(-.6);
+        }
+    //</Intake>
+
+    //<Spit Out>
+      if(RobotContainer.manipButton9.get() && !RobotContainer.rightTrigger.get())
+      {
+        intake.IntakeMotor.set(-.4);
+      }
+    
+      if (RobotContainer.manipButton12.get() && !RobotContainer.manipTrigger.get()) {
+        intake.Feeder.set(.8);
+      }
+    //</Spit Out>
+
+    //<Shut Off>
+      if (!RobotContainer.manipButton9.get() && !RobotContainer.rightTrigger.get()){
+        intake.IntakeMotor.set(0);
+      }
+
+      if (!RobotContainer.manipButton12.get() && !RobotContainer.manipTrigger.get()){
+        intake.Feeder.set(0);
+      }
+    //</Shut Off>
   }
+
     public void runCommand(boolean power) {
       if (power) {
       intake.IntakeMotor.set(.9);

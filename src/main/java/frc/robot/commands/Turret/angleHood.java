@@ -34,10 +34,10 @@ public class angleHood extends CommandBase {
   public void execute() {
     SmartDashboard.putBoolean("Hood Running", true);
     if (RobotContainer.manipJoystick.getPOV() == 0){
-      turret.hoodMotor.set(.2);
+      turret.hoodMotor.set(.1);
     }
     else if (RobotContainer.manipJoystick.getPOV() == 180){
-      turret.hoodMotor.set(-.2);
+      turret.hoodMotor.set(-.1);
     }
     else {
       turret.hoodMotor.set(0);
