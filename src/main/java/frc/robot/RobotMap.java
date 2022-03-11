@@ -42,7 +42,7 @@ public interface RobotMap {
         PL_ID = 34,
         PR_ID = 23,
         R_ID = 35, //rotate ID
-        HA_ID = 33; //Hood Angle
+        HA_ID = 32; //Hood Angle
     }   
 
     public interface KOI {

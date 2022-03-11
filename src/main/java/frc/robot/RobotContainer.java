@@ -78,10 +78,10 @@ public class RobotContainer {
   public static Drive drive = new Drive();
   public static Intake intake = new Intake();
   public static Hang hang = new Hang();
-/*
+
   private final Command Blue = new BlueThreeBallAuto(drive, intake, turret);
   private final Command Red = new RedThreeBallAuto(drive, intake, turret);
-  private final Command Simple = new SimpleAuto(drive, intake, turret); */
+  private final Command Simple = new SimpleAuto(drive, intake, turret); 
 
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -90,9 +90,9 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-   /* m_chooser.addOption("BlueAuto", Blue);
+   m_chooser.addOption("BlueAuto", Blue);
     m_chooser.addOption("RedAuto", Red);
-    m_chooser.addOption("SimpleAuto", Simple); */
+    m_chooser.addOption("SimpleAuto", Simple); 
 
     SmartDashboard.putData(m_chooser);
 
@@ -115,7 +115,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
    /* rightButton3.whenPressed(new deployIntake(intake));
     leftTrigger.whenPressed(new runShooter(turret)); */
-    manipTrigger.whenPressed(new angleHood(turret)); 
+    //manipTrigger.whenPressed(new angleHood(turret)); 
   }
 
   /**

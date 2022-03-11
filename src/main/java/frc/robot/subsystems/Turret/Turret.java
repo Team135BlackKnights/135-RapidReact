@@ -19,8 +19,8 @@ import frc.robot.RobotMap;
 
 public class Turret extends SubsystemBase {
   /** Creates a new Turret. */
-  //public CANSparkMax LeftPower = new CANSparkMax(RobotMap.Turret.PL_ID, MotorType.kBrushless);
-  public CANSparkMax RightPower = new CANSparkMax(RobotMap.Turret.PR_ID, MotorType.kBrushless);
+  public CANSparkMax LeftPower = new CANSparkMax(RobotMap.Turret.PL_ID, MotorType.kBrushless);
+  //public CANSparkMax RightPower = new CANSparkMax(RobotMap.Turret.PR_ID, MotorType.kBrushless);
 
   public CANSparkMax hoodMotor = new CANSparkMax(RobotMap.Turret.HA_ID, MotorType.kBrushless);
   
@@ -31,11 +31,10 @@ public class Turret extends SubsystemBase {
     shooter =     new Encoder(2, 3, false, Encoder.EncodingType.k4X);
     hoodHight =   new Encoder(0, 1, true, Encoder.EncodingType.k4X);
 
-    //LeftPower.setIdleMode(IdleMode.kCoast);
-    RightPower.setIdleMode(IdleMode.kCoast);
-    //LeftPower.enableVoltageCompensation(12);
-    RightPower.setSmartCurrentLimit(80);
-    RightPower.enableVoltageCompensation(12);
+    LeftPower.setIdleMode(IdleMode.kCoast);
+    //RightPower.setIdleMode(IdleMode.kCoast);
+    LeftPower.enableVoltageCompensation(12);
+    //RightPower.enableVoltageCompensation(12);
 
     hoodHight.reset();
     hoodMotor.setIdleMode(IdleMode.kBrake);
@@ -47,12 +46,12 @@ public class Turret extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("HoodHightRaw", hoodHight.get());
     SmartDashboard.putNumber("HoodMotor", hoodMotor.get());
-    SmartDashboard.putNumber("Shooter Temp", (RightPower.getMotorTemperature()));
+    SmartDashboard.putNumber("Shooter Temp", (LeftPower.getMotorTemperature()));
   }
 
   public void setPower(double speed){
-    //LeftPower.set(speed);
-    RightPower.set(-speed);
+    LeftPower.set(speed);
+    //RightPower.set(-speed);
   }
   
   public void resetEncoders() {

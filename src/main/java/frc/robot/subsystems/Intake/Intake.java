@@ -5,6 +5,7 @@
 package frc.robot.subsystems.Intake;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ColorSensorV3;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -19,6 +20,7 @@ public class Intake extends SubsystemBase {
 
   public CANSparkMax Feeder;
   public CANSparkMax IntakeMotor;
+  public ColorSensorV3 colorSensorV3 = new ColorSensorV3(RobotMap.Intake.colorPort);
 
   public Intake() {
     
