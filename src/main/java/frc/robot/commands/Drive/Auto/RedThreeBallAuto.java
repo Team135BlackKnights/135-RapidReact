@@ -30,8 +30,6 @@ public class RedThreeBallAuto extends SequentialCommandGroup {
           sequence(
 
               new deployIntake(intake), //intake goes down(Solenoids)
-
-
               new resetEncoders(drive), //run encoders, drive to first ball, intake ball
               new ParallelCommandGroup(new encoderDrive(drive, 53.5), new Autointake(intake, 5)), 
 
@@ -42,15 +40,15 @@ public class RedThreeBallAuto extends SequentialCommandGroup {
               new runShooterDistance(turret),     //than shoot first and second ball
               new Autofeeder(intake, 5),
 
-              new resetEncoders(drive),
-              new angleDrive(drive, -160), //turn back around       
+           // new resetEncoders(drive),
+           // new angleDrive(drive, -160), //turn back around       
 
 
               new resetEncoders(drive), //drive forward to next ball(terminal)
               new ParallelCommandGroup(new encoderDrive(drive, 53.5), new Autointake(intake, 5)), //pick up ball
 
-              new resetEncoders(drive),
-              new angleDrive(drive, 160), //turn around 
+            //new resetEncoders(drive),
+            //new angleDrive(drive, 160), //turn around 
 
                             
               new runShooterDistance(turret),    //SHOOT!
