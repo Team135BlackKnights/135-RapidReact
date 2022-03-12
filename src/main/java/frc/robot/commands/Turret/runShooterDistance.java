@@ -102,8 +102,25 @@ public class runShooterDistance extends CommandBase {
           shooterOn = 0;
         }
 
-        speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 3477.57) * shooterOn); //increaded M by 200
 
+        if (speedDesired < 100)
+        {speedDesired = 100;}
+
+        if (distance < 75){
+         speedDesired = calcPercent(0, 75, 4600, 4100, distance);
+        } else if (distance < 100){ 
+          speedDesired = calcPercent(75, 100, 4350, 3950, distance);
+        } else if (distance < 145){
+          speedDesired = calcPercent(100, 145, 4250, 4000, distance);
+        } else if(distance < 207){
+          speedDesired = calcPercent(145, 207, 4750, 4100, distance);
+        } else if (distance < 285){
+          speedDesired = calcPercent(207, 285, 5625, 5500, distance);
+        } else {
+          speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 3027.57)); //decreased by 250
+        }
+
+        speedDesired = speedDesired * shooterOn;
 
         sError = (speedDesired + (speedDesired * .05) + (turret.shooter.getRate() * 60)) / 10000;
 
@@ -136,7 +153,9 @@ public class runShooterDistance extends CommandBase {
         }
 
        // if (match.color == RobotColor || (ballPersistant == true && lastSeenColor == RobotColor)){
+
         turret.setPower(outputs(sError * SkP, sError * SkI, speedDesired * 1.34, (speedDesired * 1.34) - speedDesired));
+         
         SmartDashboard.putString("FireReady?", "READY");
         SmartDashboard.putNumber("Shooter Output", outputs(sError * SkP, sError * SkI, speedDesired * 1.34, (speedDesired * 1.34) - speedDesired));
 
@@ -156,7 +175,7 @@ public class runShooterDistance extends CommandBase {
         //</Shooter Speed>
 
         //<Turret Hight>
-        hoodDesired = Math.floor(15.26864 * distance - 650.50656);
+        hoodDesired = Math.floor(19.26864 * distance - 210.50656); //decreased M by 515 | X increased by 4
         SmartDashboard.putNumber("HoodDesired", hoodDesired);
 
         hError = turret.hoodHight.get() - hoodDesired;
@@ -174,7 +193,7 @@ public class runShooterDistance extends CommandBase {
         } else if (turret.hoodHight.get() > 2900 && outputs(hError * HkP, hError * HkI, hoodDesired * 1.34, (hoodDesired * 1.34) - hoodDesired) < 0) {
             turret.hoodMotor.set(0);
             SmartDashboard.putString("HoodMotorMode", "AtLimit");
-        } else if (turret.hoodHight.get() < 50 && outputs(hError * HkP, hError * HkI, hoodDesired * 1.34, (hoodDesired * 1.34) - hoodDesired) > 0) {
+        } else if (turret.hoodHight.get() < 950 && outputs(hError * HkP, hError * HkI, hoodDesired * 1.34, (hoodDesired * 1.34) - hoodDesired) > 0) {
             turret.hoodMotor.set(0);
             SmartDashboard.putString("HoodMotorMode", "AtLimit");
         } else {
@@ -200,6 +219,13 @@ public class runShooterDistance extends CommandBase {
             return limit(porOut, .85, -.8);
         }
     }
+
+    public static double calcPercent(double minDistance, double maxDistance, double maxOutput, double minOutput, double distance){
+      double distanceRange = maxDistance - minDistance;
+      double percent = (maxDistance - distance) / distanceRange;
+      return ((maxOutput - minOutput)*percent) + minOutput;
+  }
+
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {}
