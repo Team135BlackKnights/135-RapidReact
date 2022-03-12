@@ -17,12 +17,13 @@ import frc.robot.commands.Drive.Auto.BlueThreeBallAuto;
 import frc.robot.commands.Drive.Auto.RedThreeBallAuto;
 import frc.robot.commands.Drive.Auto.SimpleAuto;
 import frc.robot.commands.Hanging.Hanging;
+import frc.robot.commands.Hanging.autoHanging;
 import frc.robot.commands.Turret.aimTurret;
 import frc.robot.commands.Turret.angleHood;
 import frc.robot.commands.Turret.runShooterDistance;
 
 import frc.robot.subsystems.Drive.Drive;
-import frc.robot.subsystems.Turret.Aiming;
+import frc.robot.subsystems.Hanging.Hang;
 import frc.robot.subsystems.Turret.Turret;
 
 import frc.robot.commands.Intake.deployIntake;
@@ -74,7 +75,6 @@ public class RobotContainer {
   
   // The robot's subsystems and commands are defined here...
   public static Turret turret = new Turret(); 
-  public static Aiming aiming = new Aiming();
   public static Drive drive = new Drive();
   public static Intake intake = new Intake();
   public static Hang hang = new Hang();
@@ -96,7 +96,6 @@ public class RobotContainer {
 
     SmartDashboard.putData(m_chooser);
 
-    aiming.setDefaultCommand(new aimTurret(aiming));
     turret.setDefaultCommand(new runShooterDistance(turret));
     drive.setDefaultCommand(new tankDrive(drive));
     intake.setDefaultCommand(new runIntake(intake));
@@ -116,6 +115,7 @@ public class RobotContainer {
    /* rightButton3.whenPressed(new deployIntake(intake));
     leftTrigger.whenPressed(new runShooter(turret)); */
     manipTrigger.whenPressed(new angleHood(turret)); 
+    manipButton8.whenPressed(new autoHanging(drive, hang));
   }
 
   /**

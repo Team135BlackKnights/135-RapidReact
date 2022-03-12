@@ -65,26 +65,6 @@ public class Hanging extends CommandBase {
             hang.Solenoid2.set(Value.kOff);
 
         }
-        if (RobotContainer.rightButton6.get()//&& navx shit
-        ) {
-           y = y+1;
-        }
-         if (y==1) {
-            SelfHang(Drive, Hanging);
-         }
-         else if (y==2) {
-            hangLeft(Hang hang);
-         }
-         else if (y==3) {
-            hang.Solenoid3.set(Value.kForward);
-
-         }
-         else if (y==4 /*&& navx shit */) {
-
-            hangLeft2(Hang hang);
-            hangRight2(Hang hang);
-         }
-   
 
         if (RobotContainer.leftButton11.get()) {
             hang.Solenoid3.set(Value.kForward);

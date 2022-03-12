@@ -1,4 +1,4 @@
-package frc.robot.commands.Hanging;
+package frc.robot.commands.Hanging.Auto;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -7,7 +7,7 @@ import frc.robot.subsystems.Hanging.Hang;
 
 public class hangLeft2 extends CommandBase{
     private final Hang hang;
-    
+    boolean isFinished = false;
 
     public hangLeft2(Hang subsystem) {
         hang = subsystem;
@@ -24,10 +24,10 @@ public class hangLeft2 extends CommandBase{
             hang.Vert1.set(0);
             wah = true;
             hang.Solenoid3.set(Value.kOff);
-
         }
-        else if (x==-5) {
+        else if (x <= -5) {
             hang.Vert1.set(0);
+            isFinished = true;
         }
         else if (x<220) {
             hang.Vert1.set(1);
@@ -39,5 +39,9 @@ public class hangLeft2 extends CommandBase{
         
 
 }
-
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return isFinished;
+    }
 }
