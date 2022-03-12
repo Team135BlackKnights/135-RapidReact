@@ -7,7 +7,7 @@ package frc.robot.commands.Hanging;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Hanging.Auto.AutoSolenoids;
-import frc.robot.commands.Hanging.Auto.SelfHang;
+//import frc.robot.commands.Hanging.Auto.SelfHang;
 import frc.robot.commands.Hanging.Auto.hangLeft;
 import frc.robot.commands.Hanging.Auto.hangLeft2;
 import frc.robot.commands.Hanging.Auto.hangRight;
@@ -22,7 +22,7 @@ public class autoHanging extends SequentialCommandGroup {
   /** Creates a new autoHanging. */
   public autoHanging(Drive drive, Hang hang) {
     addCommands(
-      new SelfHang(drive, hang),
+      //new SelfHang(drive, hang),
       new ParallelCommandGroup(new hangLeft(hang), new hangRight(hang)),
       new AutoSolenoids(hang),
       new ParallelCommandGroup(new hangLeft2(hang), new hangRight2(hang))
