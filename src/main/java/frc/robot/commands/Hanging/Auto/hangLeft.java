@@ -29,7 +29,7 @@ public class hangLeft extends CommandBase{
             wah = false;
             isFinished = true;
         }
-        else if (x<110) {
+        else if (x<110 && wah==false) {
             hang.Vert1.set(1);
             x= x+1;
         }
