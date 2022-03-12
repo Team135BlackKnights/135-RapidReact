@@ -35,8 +35,10 @@ public class encoderDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    encodervalue = (drive.e_BackLeft.getPosition() + drive.e_BackRight.getPosition() + drive.e_FrontRight.getPosition() + drive.e_FrontLeft.getPosition())/4 ;
+     encodervalue = ((drive.e_BackLeft.getPosition() + drive.e_BackRight.getPosition())/2); //average of dr
    
+    encodervalue =  encodervalue + ((drive.e_FrontRight.getPosition() + drive.e_FrontLeft.getPosition())/2);
+
     encodervalue = encodervalue / 42;
 
     encodervalue *= Math.PI * 6; 

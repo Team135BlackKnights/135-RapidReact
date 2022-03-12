@@ -26,28 +26,28 @@ public class BlueThreeBallAuto extends SequentialCommandGroup {
       
       super(
             sequence(
-
+//start backwards
                 new deployIntake(intake), //intake goes down(Solenoids)
 
 
                 new resetEncoders(drive), //run encoders, drive to first ball, and intake ball
                 new ParallelCommandGroup(new encoderDrive(drive, 53.5), new Autointake(intake, 5)),
                 
-                new resetEncoders(drive),
-                new angleDrive(drive, 180), //turn robot around to face hub
+              //  new resetEncoders(drive),
+              //  new angleDrive(drive, 180), //turn robot around to face hub
 
                                         
                 new ParallelCommandGroup(new Autofeeder(intake, 5), new runShooterAuto(turret, 5)), // shoot first and second ball
 
-                new resetEncoders(drive),
-                new angleDrive(drive, 180), //turn back around       
+             //   new resetEncoders(drive),
+             //   new angleDrive(drive, 180), //turn back around       
 
 
                 new resetEncoders(drive), //drive forward to next ball(terminal), intake
                 new ParallelCommandGroup(new encoderDrive(drive, 53.5), new Autointake(intake, 5)),
 
-                new resetEncoders(drive),
-                new angleDrive(drive, 180), //turn around 
+             //   new resetEncoders(drive),
+             //   new angleDrive(drive, 180), //turn around 
 
                                          //SHOOT!
                 new ParallelCommandGroup(new runShooterAuto(turret, 5), new Autofeeder(intake, 5))

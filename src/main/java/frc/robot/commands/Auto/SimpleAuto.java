@@ -34,9 +34,6 @@ public class SimpleAuto extends SequentialCommandGroup {
       new resetEncoders(drive), //run encoders, drive to first ball, intake
       new ParallelCommandGroup(new encoderDrive(drive, 53.5), new Autointake(intake, 5)), 
       
-      
-      new resetEncoders(drive),
-      new angleDrive(drive, 180), //turn robot around to face hub
 
 
      
