@@ -13,12 +13,10 @@ import frc.robot.RobotMap;
 public class Aiming extends SubsystemBase {
 
     public CANSparkMax angleMotor = new CANSparkMax(RobotMap.Turret.R_ID, MotorType.kBrushless);
-
-  
     public Encoder turretAngle; 
-  
     public AnalogInput LimitSwitch0, LimitSwitch1;
   
+    public double EndPos;
 
 public Aiming() {
     angleMotor.enableVoltageCompensation(12);

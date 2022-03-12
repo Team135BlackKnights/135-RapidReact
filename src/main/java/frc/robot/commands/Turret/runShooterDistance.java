@@ -106,7 +106,9 @@ public class runShooterDistance extends CommandBase {
         if (speedDesired < 100)
         {speedDesired = 100;}
 
-        if (distance < 75){
+        if (Tv.getDouble(0.0) == 0){
+          speedDesired = 3000;
+        } else if (distance < 75){
          speedDesired = calcPercent(0, 75, 4600, 4100, distance);
         } else if (distance < 100){ 
           speedDesired = calcPercent(75, 100, 4350, 3950, distance);
