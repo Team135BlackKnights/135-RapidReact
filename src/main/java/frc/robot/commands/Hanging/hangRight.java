@@ -20,19 +20,19 @@ public class hangRight extends CommandBase{
     public void execute() {
         SmartDashboard.putNumber("Hang X", x);
         if (x==110) {
-            Hang.Vert2.set(-1);
-            boolean wah = true;
+            hang.Vert2.set(-1);
+             wah = true;
         }
         else if (x==-5) {
-            Hang.Vert2.set(0);
-            boolean wah = false;
+            hang.Vert2.set(0);
+             wah = false;
         }
         else if (x<110) {
-            Hang.Vert2.set(1);
+            hang.Vert2.set(1);
         }
         if (wah==true) {
             x= x-1;
-            Hang.Vert2.set(-1);
+            hang.Vert2.set(-1);
         }
         
 
