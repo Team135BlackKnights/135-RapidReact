@@ -20,23 +20,23 @@ public class hangLeft extends CommandBase{
     public void execute() {
         SmartDashboard.putNumber("Hang X", x);
         if (x==110) {
-            Hang.Vert1.set(0);
+            hang.Vert1.set(0);
             wah = true;
-            
+
         }
         
         else if (x==-5) {
-            Hang.Vert1.set(0);
+            hang.Vert1.set(0);
             wah = false;
         }
         else if (x<110) {
-            Hang.Vert1.set(1);
+            hang.Vert1.set(1);
             x= x+1;
         }
     
         if (wah==true) {
             x= x-1;
-            Hang.vert1.set(-1);
+            hang.Vert1.set(-1);
         }
 
 }

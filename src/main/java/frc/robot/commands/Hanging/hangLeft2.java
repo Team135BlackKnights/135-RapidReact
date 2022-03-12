@@ -21,20 +21,20 @@ public class hangLeft2 extends CommandBase{
     public void execute() {
         SmartDashboard.putNumber("Hang X", x);
         if (x==220) {
-            Hang.Vert1.set(0);
+            hang.Vert1.set(0);
             wah = true;
             hang.Solenoid3.set(Value.kOff);
 
         }
         else if (x==-5) {
-            Hang.Vert1.set(0);
+            hang.Vert1.set(0);
         }
         else if (x<220) {
-            Hang.Vert1.set(1);
+            hang.Vert1.set(1);
         }
         if (wah==true) {
             x = x-1;
-            Hang.Vert1.set(-1);
+            hang.Vert1.set(-1);
         }
         
 
