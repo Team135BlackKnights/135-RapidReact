@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.Drive.Drive;
 import frc.robot.subsystems.Hanging.Hang;
 
 public class Hanging extends CommandBase {
@@ -13,7 +14,7 @@ public class Hanging extends CommandBase {
         addRequirements(subsystem);
     }
     double x = 0;
-
+    double y = 0;
     public void initialize() {
 
     }
@@ -25,19 +26,7 @@ public class Hanging extends CommandBase {
     //time based limiter code so the hanging system doesn't break itself. added this because the substeam 
     //REFUSED to add limit switches for whatever reason
     //i pray this thing is going to be only temporary 
-    if (x<= -5) {
-        x= -5;
-    }
-    else if (x>=70) {
-        x=70;
-    }
-        else if ((RobotContainer.manipJoystick.getRawAxis(1))>=.1){
-          x = x-(RobotContainer.manipJoystick.getRawAxis(1));
-        }
-        else if ((RobotContainer.manipJoystick.getRawAxis(1))<=-0.1){
-          x = x-(RobotContainer.manipJoystick.getRawAxis(1));
-        }
-        
+   
         SmartDashboard.putNumber("Hang X", x);
        
         
@@ -76,6 +65,26 @@ public class Hanging extends CommandBase {
             hang.Solenoid2.set(Value.kOff);
 
         }
+        if (RobotContainer.rightButton6.get()//&& navx shit
+        ) {
+           y = y+1;
+        }
+         if (y==1) {
+            SelfHang(Drive, Hanging);
+         }
+         else if (y==2) {
+            hangLeft(Hang hang);
+         }
+         else if (y==3) {
+            hang.Solenoid3.set(Value.kForward);
+
+         }
+         else if (y==4 /*&& navx shit */) {
+
+            hangLeft2(Hang hang);
+            hangRight2(Hang hang);
+         }
+   
 
         if (RobotContainer.leftButton11.get()) {
             hang.Solenoid3.set(Value.kForward);
