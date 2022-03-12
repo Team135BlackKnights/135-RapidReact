@@ -44,7 +44,7 @@ public class aimTurret extends CommandBase {
     Aiming aiming;
     NetworkTable TurretLimelightTable = NetworkTableInstance.getDefault().getTable("limelight-turret");
 
-    float Kp = .06f, Ki = -.02f;
+    float Kp = .12f, Ki = -.02f;
     double EndPos = 12230, intergralTop, intergralBottom, proportional, intergral, error, desired, lastSeen, defaultThreadCount, distance, angleGoalDegree;
     public boolean isFinished = false, RunningSafety = false, thresholding = true, limit0Check = false, limit1Check = false;
 
@@ -91,10 +91,10 @@ public class aimTurret extends CommandBase {
                 limit1Check = true;
 
             if(!limit0Check){
-                aiming.angleMotor.set(.07);
+                aiming.angleMotor.set(.2);
             }
             else if(limit0Check && !limit1Check){
-                aiming.angleMotor.set(-.07);
+                aiming.angleMotor.set(-.2);
             }
             else if(limit0Check && limit1Check){
                 EndPos = aiming.turretAngle.get();

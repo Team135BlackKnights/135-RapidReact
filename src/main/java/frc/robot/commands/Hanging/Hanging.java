@@ -22,18 +22,6 @@ public class Hanging extends CommandBase {
     //REFUSED to add limit switches for whatever reason
     //i pray this thing is going to be only temporary 
   
-    if (x<= -5) {
-        x= -5;
-    }
-    else if (x>=220) {
-        x=220;
-    }
-        else if ((RobotContainer.manipJoystick.getRawAxis(1))>=.1){
-          x = x-(RobotContainer.manipJoystick.getRawAxis(1));
-        }
-        else if ((RobotContainer.manipJoystick.getRawAxis(1))<=-0.1){
-          x = x-(RobotContainer.manipJoystick.getRawAxis(1));
-        }
         
         SmartDashboard.putNumber("Hang X", x);
        
@@ -64,23 +52,15 @@ public class Hanging extends CommandBase {
             hang.VerticalHang(deadband(RobotContainer.manipJoystick.getRawAxis(1)/2));
         }
 
-        /*if (RobotContainer.rightButton11.get()) {
+     /*   if (RobotContainer.rightButton11.get()) {
             hang.Solenoid2.set(Value.kForward);
-
+            hang.Solenoid1.set(Value.kForward);
         } else if (RobotContainer.rightButton12.get()) {
             hang.Solenoid2.set(Value.kOff);
+            hang.Solenoid1.set(Value.kOff);
         } else {
             hang.Solenoid2.set(Value.kOff);
-
-        }
-
-        if (RobotContainer.leftButton11.get()) {
-            hang.Solenoid3.set(Value.kForward);
-
-        } else if (RobotContainer.leftButton12.get()) {
-            hang.Solenoid3.set(Value.kOff);
-        } else {
-            hang.Solenoid3.set(Value.kOff);
+            hang.Solenoid1.set(Value.kOff);
         } */
 
     }

@@ -30,8 +30,8 @@ public void initialize() {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double leftSpeed = -RobotContainer.leftJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS);
-    double rightSpeed = RobotContainer.rightJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS);
+    double leftSpeed = -RobotContainer.leftJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS) * (-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2;
+    double rightSpeed = RobotContainer.rightJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS) * (-RobotContainer.rightJoystick.getRawAxis(3) + 1) / 2;  
 
     drive.tankDrive(-leftSpeed, -rightSpeed);
   }
