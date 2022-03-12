@@ -5,15 +5,35 @@
 package frc.robot.commands.Hanging;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.RobotContainer;
+import frc.robot.commands.Drive.SingleSide;
+import frc.robot.commands.Drive.encoderDrive;
+import frc.robot.commands.Drive.resetEncoders;
+import frc.robot.subsystems.Drive.Drive;
+import frc.robot.subsystems.Hanging.Hang;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class SelfHang extends SequentialCommandGroup {
   /** Creates a new SelfHang. */
-  public SelfHang() {
+  public SelfHang(Drive drive, Hang Hanging) {
+    super(
+      sequence(
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands();
+    new resetEncoders(drive),
+    new SingleSide(drive, 1, 180),
+    new encoderDrive(drive, 64)
+    //fire solenoids now
+    /*
+
+    */
+    
+    
+      ));
+    ;
   }
+
+  
 }
