@@ -37,7 +37,7 @@ public class SimpleAuto extends SequentialCommandGroup {
 
 
      
-      new ParallelCommandGroup(new runShooterAuto(turret, 5), new Autofeeder(intake, 5))
+      new ParallelCommandGroup(new runShooterAuto(turret, 4), new Autofeeder(intake, 4))
      
      
      ));
