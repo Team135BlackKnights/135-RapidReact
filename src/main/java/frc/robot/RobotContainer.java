@@ -9,13 +9,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotMap.KOI;
+import frc.robot.commands.Auto.BlueThreeBallAuto;
+import frc.robot.commands.Auto.RedThreeBallAuto;
+import frc.robot.commands.Auto.SimpleAuto;
 import frc.robot.commands.Drive.tankDrive;
-import frc.robot.commands.Drive.Auto.BlueThreeBallAuto;
-import frc.robot.commands.Drive.Auto.RedThreeBallAuto;
-import frc.robot.commands.Drive.Auto.SimpleAuto;
 import frc.robot.commands.Hanging.Hanging;
 import frc.robot.commands.Turret.aimTurret;
 import frc.robot.commands.Turret.angleHood;
@@ -24,8 +23,6 @@ import frc.robot.subsystems.Hang;
 import frc.robot.subsystems.Drive.Drive;
 import frc.robot.subsystems.Turret.Aiming;
 import frc.robot.subsystems.Turret.Turret;
-
-import frc.robot.commands.Intake.deployIntake;
 import frc.robot.commands.Intake.runIntake;
 import frc.robot.subsystems.Intake.Intake;
 /**
@@ -90,7 +87,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-   m_chooser.addOption("BlueAuto", Blue);
+    m_chooser.addOption("BlueAuto", Blue);
     m_chooser.addOption("RedAuto", Red);
     m_chooser.addOption("SimpleAuto", Simple); 
 
@@ -115,7 +112,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
    /* rightButton3.whenPressed(new deployIntake(intake));
     leftTrigger.whenPressed(new runShooter(turret)); */
-    //manipTrigger.whenPressed(new angleHood(turret)); 
+   // manipTrigger.whenPressed(new angleHood(turret)); 
   }
 
   /**
