@@ -35,8 +35,6 @@ public class Turret extends SubsystemBase {
     //RightPower.setIdleMode(IdleMode.kCoast);
     LeftPower.enableVoltageCompensation(12);
     //RightPower.enableVoltageCompensation(12);
-
-    hoodHight.reset();
     hoodMotor.setIdleMode(IdleMode.kBrake);
     shooter.setDistancePerPulse(.00048828125);
   }

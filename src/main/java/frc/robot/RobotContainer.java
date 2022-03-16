@@ -112,7 +112,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
    /* rightButton3.whenPressed(new deployIntake(intake));
     leftTrigger.whenPressed(new runShooter(turret)); */
-   // manipTrigger.whenPressed(new angleHood(turret)); 
+    leftTrigger.whenPressed(new angleHood(turret)); 
   }
 
   /**
