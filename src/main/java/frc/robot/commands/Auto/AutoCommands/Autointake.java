@@ -6,7 +6,7 @@ package frc.robot.commands.Auto.AutoCommands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Intake.Intake;
+import frc.robot.subsystems.Intake;
 
 public class Autointake extends CommandBase {
     /** Creates a new Autointake. */

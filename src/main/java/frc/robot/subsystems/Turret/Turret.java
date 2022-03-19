@@ -9,10 +9,7 @@ import com.revrobotics.ColorSensorV3;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PWM;
-import edu.wpi.first.wpilibj.Counter.Mode;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
@@ -28,8 +25,8 @@ public class Turret extends SubsystemBase {
   public ColorSensorV3 colorSensor = new ColorSensorV3(RobotMap.Intake.colorPort);
 
   public Turret() {
-    shooter =     new Encoder(2, 3, false, Encoder.EncodingType.k4X);
-    hoodHight =   new Encoder(0, 1, true, Encoder.EncodingType.k4X);
+    shooter =     new Encoder(4, 5, true, Encoder.EncodingType.k4X);
+    hoodHight =   new Encoder(6, 7, true, Encoder.EncodingType.k4X);
 
     LeftPower.setIdleMode(IdleMode.kCoast);
     //RightPower.setIdleMode(IdleMode.kCoast);
@@ -43,7 +40,7 @@ public class Turret extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("HoodHightRaw", hoodHight.get());
-    SmartDashboard.putNumber("HoodMotor", hoodMotor.get());
+    SmartDashboard.putNumber("HoodOutput", hoodMotor.get());
     SmartDashboard.putNumber("Shooter Temp", (LeftPower.getMotorTemperature()));
   }
 

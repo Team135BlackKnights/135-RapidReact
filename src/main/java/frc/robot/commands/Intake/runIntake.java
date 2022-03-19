@@ -5,13 +5,12 @@
 package frc.robot.commands.Intake;
 
 import com.revrobotics.ColorMatch;
-import com.revrobotics.ColorMatchResult;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Intake.Intake;
+import frc.robot.subsystems.Intake;
 
 
 
@@ -63,38 +62,38 @@ public class runIntake extends CommandBase {
         inverseColor = kRedTarget;
       }
 
-      ColorMatchResult match = m_colorMatcher.matchClosestColor(intake.colorSensorV3.getColor());
+     // ColorMatchResult match = m_colorMatcher.matchClosestColor(intake.colorSensorV3.getColor());
     //</Color Selector>
     
     //<Intake>
 
         if (RobotContainer.rightTrigger.get())
         {
-          intake.IntakeMotor.set(.5);
+          intake.IntakeMotor.set(-.5);
         }
 
         if (RobotContainer.manipTrigger.get()) {
-          intake.Feeder.set(-.6);
+          intake.Feeder.set(.6);
         }
     //</Intake>
 
     //<Spit Out>
-      if(RobotContainer.manipButton9.get() && !RobotContainer.rightTrigger.get())
+      if(RobotContainer.manipButton5.get() && !RobotContainer.rightTrigger.get())
       {
-        intake.IntakeMotor.set(-.4);
+        intake.IntakeMotor.set(.4);
       }
     
-      if (RobotContainer.manipButton12.get() && !RobotContainer.manipTrigger.get()) {
-        intake.Feeder.set(.8);
+      if (RobotContainer.manipButton6.get() && !RobotContainer.manipTrigger.get()) {
+        intake.Feeder.set(-.8);
       }
     //</Spit Out>
 
     //<Shut Off>
-      if (!RobotContainer.manipButton9.get() && !RobotContainer.rightTrigger.get()){
+      if (!RobotContainer.manipButton5.get() && !RobotContainer.rightTrigger.get()){
         intake.IntakeMotor.set(0);
       }
 
-      if (!RobotContainer.manipButton12.get() && !RobotContainer.manipTrigger.get()){
+      if (!RobotContainer.manipButton6.get() && !RobotContainer.manipTrigger.get()){
         intake.Feeder.set(0);
       }
     //</Shut Off>

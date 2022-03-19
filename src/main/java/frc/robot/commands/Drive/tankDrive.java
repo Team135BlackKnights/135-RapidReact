@@ -7,12 +7,12 @@ package frc.robot.commands.Drive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.RobotMap;
-import frc.robot.subsystems.Drive.Drive;
+import frc.robot.subsystems.DriveRobot;
 
 public class tankDrive extends CommandBase {
-  private final Drive drive;
+  private final DriveRobot drive;
   /** Creates a new tankDrive. */
-  public tankDrive(Drive subsystem) {
+  public tankDrive(DriveRobot subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     drive = subsystem;
     addRequirements(subsystem);
@@ -22,7 +22,7 @@ public class tankDrive extends CommandBase {
   
 @Override
 public void initialize() {
-  drive.navx.calibrate();
+ // drive.navx.calibrate();
   drive.resetEncoders();
 }
 

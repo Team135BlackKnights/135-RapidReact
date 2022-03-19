@@ -10,6 +10,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Turret.Aiming;
 
 
@@ -32,10 +33,8 @@ import frc.robot.subsystems.Turret.Aiming;
             else aiming.angleMotor.set(-.3);
 
         }
-
-        aiming.angleMotor.set(.1);
-
         timer.stop();
+        aiming.angleMotor.set(0);
     }
 }
 
@@ -60,6 +59,7 @@ public class aimTurret extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        NetworkTableInstance.getDefault().getTable("limelight-turret").getEntry("ledMode").setNumber(1);
         SmartDashboard.putNumber("VisableTarget",Tv.getDouble(0.0));
         aiming.turretAngle.reset();
         thresholding = true;
@@ -75,12 +75,18 @@ public class aimTurret extends CommandBase {
         SmartDashboard.putNumber("ThreadCount", Thread.activeCount());
         SmartDashboard.putNumber("VisableTarget", Tv.getDouble(0));
         SmartDashboard.putBoolean("SafeCenter", RunningSafety);
-        angleGoalDegree = 53 + Ty.getDouble(0.0);
-        SmartDashboard.putNumber("Distance Rad", Math.toRadians(angleGoalDegree));
-        distance = 161 / Math.tan(Math.toRadians(angleGoalDegree)); //distance in IN (hight of tape - hight of limelight) / tan(angle of limelight + angle of target)
+        //<Light Controll>
+        if (RobotContainer.manipButton3.get()){
+            NetworkTableInstance.getDefault().getTable("limelight-turret").getEntry("ledMode").setNumber(3);
+        } else if (RobotContainer.manipButton4.get()){
+            NetworkTableInstance.getDefault().getTable("limelight-turret").getEntry("ledMode").setNumber(1);
+        }
+        //</Light Controll>
 
         error = Ttx.getDouble(0.0);
-        SmartDashboard.putNumber("Current Error", error);
+        SmartDashboard.putNumber("Rotate Current Error", error);
+
+        //<Thresholding>
         if (thresholding){
             if (!aiming.LimitValue(aiming.LimitSwitch0)){
                 limit0Check = true;
@@ -102,44 +108,40 @@ public class aimTurret extends CommandBase {
                 thresholding = false;
             }
         }
-        else{
-            SmartDashboard.putString("AutoAim:", "Running");
-        if (lastSeen != Tv.getDouble(0.0) && Tv.getDouble(0.0) == 1){
-            intergralTop = Ttx.getDouble(0.0) * .34;
-            intergralBottom = Ttx.getDouble(0.0) - (Ttx.getDouble(0.0) * 1.34);
-        }
-
-        if (Math.abs(error) < 1 && !RunningSafety && Tv.getDouble(0) == 1) {
-            SmartDashboard.putNumber("Output", 0);
-            aiming.angleMotor.set(0);
-            SmartDashboard.putBoolean("Error Finished", true); //if there error is negligable dont move
-        } else if(aiming.turretAngle.get() > EndPos - 1400 && !RunningSafety) {
-            if (error < 0) {
-                aiming.angleMotor.set(0);
-            }
-            else {powerUpdate();}
-        } else if(aiming.turretAngle.get() < 1400 && !RunningSafety) {
-            if (error > 0) {
-                aiming.angleMotor.set(0);
-            }
-            else {powerUpdate();}
-        }
+         //<Thresholding>
+         
         else {
-            powerUpdate();
-            SmartDashboard.putBoolean("Error Finished", false); 
-        }
+         //<Auto Run>
+            SmartDashboard.putString("AutoAim:", "Running");
+            if (lastSeen != Tv.getDouble(0.0) && Tv.getDouble(0.0) == 1)
+            {
+                intergralTop = Ttx.getDouble(0.0) * .34;
+                intergralBottom = Ttx.getDouble(0.0) - (Ttx.getDouble(0.0) * 1.34);
+            }
 
-        if (!aiming.LimitValue(aiming.LimitSwitch1)) {
-            SmartDashboard.putBoolean("LIMIT1 TRIPPED", true);
-            aiming.angleMotor.set(0);
-            //SafeCenter(false);
-        }
-        if (!aiming.LimitValue(aiming.LimitSwitch0)) {
-            SmartDashboard.putBoolean("LIMIT0 TRIPPED", true);
-            aiming.angleMotor.set(0);
-            //SafeCenter(true);
-        }
-    }
+            if (RobotContainer.manipJoystick.getPOV() != -1){
+                powerUpdate();
+            } else if (Math.abs(error) < 1 && !RunningSafety && Tv.getDouble(0) == 1) {
+                SmartDashboard.putNumber("Rotate Output", 0);
+                aiming.angleMotor.set(0);
+                SmartDashboard.putBoolean("Error Finished", true); //if there error is negligable dont move
+            } else if(aiming.turretAngle.get() > EndPos - 1400 && !RunningSafety) {
+                if (error < 0) {
+                    aiming.angleMotor.set(0);
+                }
+                else {powerUpdate();}
+            } else if(aiming.turretAngle.get() < 1400 && !RunningSafety) {
+                if (error > 0) {
+                    aiming.angleMotor.set(0);
+                }
+                else {powerUpdate();}
+            } else {
+                powerUpdate();
+                SmartDashboard.putBoolean("Error Finished", false); 
+            }
+         //</Auto Run>
+         }
+        
         lastSeen = Tv.getDouble(0.0);
 
         if (Thread.activeCount() == defaultThreadCount){
@@ -154,26 +156,22 @@ public class aimTurret extends CommandBase {
     }
 
     public void powerUpdate(){
-        if (Tv.getDouble(0) == 0){
-            if(aiming.turretAngle.get() > EndPos - 1400){
-                aiming.angleMotor.set(.1);
-                SmartDashboard.putNumber("Output", .1);
-                SmartDashboard.putBoolean("Searching", true);
-            }
-            else if (aiming.turretAngle.get() < 1400){
-                aiming.angleMotor.set(-.1);
-                SmartDashboard.putNumber("Output", -.1);
-                SmartDashboard.putBoolean("Searching", true);
-            }
-        }
-        else {SmartDashboard.putBoolean("Searching", false);}
-        
-        if (error < intergralTop && error > intergralBottom && !RunningSafety && Tv.getDouble(0) == 1) {
-            SmartDashboard.putNumber("Output", (limit(error * Ki + error * Kp, .8, -.8)));
+        //<Override>
+        if (RobotContainer.manipJoystick.getPOV() == 90){
+            aiming.angleMotor.set(.1);
+        } else if (RobotContainer.manipJoystick.getPOV() == 270){
+            aiming.angleMotor.set(-.1);
+        }else if (RobotContainer.manipJoystick.getPOV() == 180) {
+            aiming.angleMotor.set(0);
+        //</Override>
+        } else if (error < intergralTop && error > intergralBottom && !RunningSafety && Tv.getDouble(0) == 1) {
+            SmartDashboard.putNumber("Rotate Output", (limit(error * Ki + error * Kp, .8, -.8)));
             aiming.angleMotor.set(limit(error * Ki + error * Kp, .8, -.8));
         } else if (!RunningSafety && Tv.getDouble(0) == 1) {
-            SmartDashboard.putNumber("Output", (limit(error * Kp, .8, -.8)));
+            SmartDashboard.putNumber("Rotate Output", (limit(error * Kp, .8, -.8)));
             aiming.angleMotor.set(limit(error * Kp, .8, -.8));
+        } else if (RobotContainer.manipJoystick.getPOV() == -1){
+            aiming.angleMotor.set(0);
         }
     }
 

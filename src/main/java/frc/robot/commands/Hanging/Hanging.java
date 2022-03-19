@@ -15,7 +15,8 @@ public class Hanging extends CommandBase {
     double x = 0;
 
     public void initialize() {
-
+        hang.LiftSolenoid.set(Value.kReverse);
+        hang.LiftSolenoid.set(Value.kOff);
     }
     public void execute() {
     //time based limiter code so the hanging system doesn't break itself. added this because the substeam 
@@ -52,16 +53,25 @@ public class Hanging extends CommandBase {
             hang.VerticalHang(deadband(RobotContainer.manipJoystick.getRawAxis(1)/2));
         }
 
-     /*   if (RobotContainer.rightButton11.get()) {
-            hang.Solenoid2.set(Value.kForward);
-            hang.Solenoid1.set(Value.kForward);
-        } else if (RobotContainer.rightButton12.get()) {
-            hang.Solenoid2.set(Value.kOff);
-            hang.Solenoid1.set(Value.kOff);
-        } else {
-            hang.Solenoid2.set(Value.kOff);
-            hang.Solenoid1.set(Value.kOff);
-        } */
+        if (RobotContainer.manipButton7.get()) {
+            hang.LiftSolenoid.set(Value.kForward);
+        } else if (RobotContainer.manipButton8.get()) {
+            hang.LiftSolenoid.set(Value.kReverse);
+        } else if (RobotContainer.manipButton9.get()){
+            hang.LiftSolenoid.set(Value.kOff);
+        }
+
+        SmartDashboard.putString("LiftSolenoid", hang.LiftSolenoid.get().toString());
+
+        if (RobotContainer.manipButton10.get()) {
+            hang.HookSolenoid.set(Value.kForward);
+        } else if (RobotContainer.manipButton11.get()) {
+            hang.HookSolenoid.set(Value.kReverse);
+        } else if (RobotContainer.manipButton12.get()){
+            hang.HookSolenoid.set(Value.kOff);
+        }
+
+        SmartDashboard.putString("HookSolenoid", hang.HookSolenoid.get().toString());
 
     }
 

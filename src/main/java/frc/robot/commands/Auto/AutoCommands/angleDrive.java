@@ -1,17 +1,17 @@
-package frc.robot.commands.Drive;
+package frc.robot.commands.Auto.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drive.Drive;
+import frc.robot.subsystems.DriveRobot;
 
 public class angleDrive extends CommandBase {
 
     boolean isFinished = false;
 
-    public Drive drive;
+    public DriveRobot drive;
     public double porOut, lastOut, iOut, iTop, iBottom, desired, error, kp, kI;
 
 
-    public angleDrive(Drive subsystem, double _angleDesired) {
+    public angleDrive(DriveRobot subsystem, double _angleDesired) {
         desired = _angleDesired;
         drive = subsystem;
         addRequirements(drive);
@@ -25,7 +25,7 @@ public class angleDrive extends CommandBase {
     }
 
     public void execute() {
-        error = drive.navx.getYaw() - desired;
+       // error = drive.navx.getYaw() - desired;
         if (error < -180)
             error += 360;
         else if (error > 180)

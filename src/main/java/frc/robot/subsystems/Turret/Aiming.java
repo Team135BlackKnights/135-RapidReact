@@ -4,7 +4,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,7 +19,7 @@ public class Aiming extends SubsystemBase {
 
 public Aiming() {
     angleMotor.enableVoltageCompensation(12);
-    turretAngle = new Encoder(4, 5, false, Encoder.EncodingType.k4X); //rotation
+    turretAngle = new Encoder(8, 9, false, Encoder.EncodingType.k4X); //rotation
 
     LimitSwitch0 = new AnalogInput(0);
     LimitSwitch1 = new AnalogInput(2);

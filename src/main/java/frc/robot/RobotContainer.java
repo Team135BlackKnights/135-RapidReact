@@ -13,18 +13,19 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotMap.KOI;
 import frc.robot.commands.Auto.BlueThreeBallAuto;
 import frc.robot.commands.Auto.RedThreeBallAuto;
-import frc.robot.commands.Auto.SimpleAuto;
+import frc.robot.commands.Auto.AutoCommands.TimedAuto;
 import frc.robot.commands.Drive.tankDrive;
 import frc.robot.commands.Hanging.Hanging;
 import frc.robot.commands.Turret.aimTurret;
 import frc.robot.commands.Turret.angleHood;
 import frc.robot.commands.Turret.runShooterDistance;
+import frc.robot.subsystems.DriveRobot;
 import frc.robot.subsystems.Hang;
-import frc.robot.subsystems.Drive.Drive;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Turret.Aiming;
 import frc.robot.subsystems.Turret.Turret;
+import frc.robot.commands.Intake.deployIntake;
 import frc.robot.commands.Intake.runIntake;
-import frc.robot.subsystems.Intake.Intake;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -40,6 +41,7 @@ public class RobotContainer {
   rightTrigger = new JoystickButton(rightJoystick, KOI.TRIGGER_BUTTON),
   rightThumb = new JoystickButton(rightJoystick, KOI.THUMB_BUTTON),
   rightButton3 = new JoystickButton(rightJoystick, KOI.HANDLE_BOTTOM_LEFT_BUTTON),
+  rightButton4 = new JoystickButton(rightJoystick, KOI.HANDLE_BOTTOM_RIGHT_BUTTON),
   rightButton5 = new JoystickButton(rightJoystick, KOI.HANDLE_TOP_LEFT_BUTTON),
   rightButton6 = new JoystickButton(rightJoystick, KOI.HANDLE_TOP_RIGHT_BUTTON),
   rightButton10 = new JoystickButton(rightJoystick, KOI.BASE_MIDDLE_RIGHT_BUTTON),
@@ -50,6 +52,7 @@ public class RobotContainer {
 
   leftButton3 = new JoystickButton(leftJoystick, KOI.HANDLE_BOTTOM_LEFT_BUTTON),
   leftButton4 = new JoystickButton(leftJoystick, KOI.HANDLE_BOTTOM_RIGHT_BUTTON),
+  leftButton5 = new JoystickButton(leftJoystick, KOI.HANDLE_TOP_LEFT_BUTTON),
   leftButton7 = new JoystickButton(leftJoystick, KOI.BASE_TOP_LEFT_BUTTON),
   leftButton8 = new JoystickButton(leftJoystick, KOI.BASE_TOP_RIGHT_BUTTON),
   leftButton9 = new JoystickButton(leftJoystick, KOI.BASE_MIDDLE_LEFT_BUTTON),
@@ -62,6 +65,7 @@ public class RobotContainer {
   manipButton3 = new JoystickButton(manipJoystick, KOI.HANDLE_BOTTOM_LEFT_BUTTON),
   manipButton4 = new JoystickButton(manipJoystick, KOI.HANDLE_BOTTOM_RIGHT_BUTTON),
   manipButton5 = new JoystickButton(manipJoystick, KOI.HANDLE_TOP_LEFT_BUTTON),
+  manipButton6 = new JoystickButton(manipJoystick, KOI.HANDLE_TOP_RIGHT_BUTTON),
   manipButton7 = new JoystickButton(manipJoystick, KOI.BASE_TOP_LEFT_BUTTON),
   manipButton8 = new JoystickButton(manipJoystick, KOI.BASE_TOP_RIGHT_BUTTON),
   manipButton9 = new JoystickButton(manipJoystick, KOI.BASE_MIDDLE_LEFT_BUTTON),
@@ -72,13 +76,13 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static Turret turret = new Turret(); 
   public static Aiming aiming = new Aiming();
-  public static Drive drive = new Drive();
+  public static DriveRobot drive = new DriveRobot();
   public static Intake intake = new Intake();
   public static Hang hang = new Hang();
 
   private final Command Blue = new BlueThreeBallAuto(drive, intake, turret);
   private final Command Red = new RedThreeBallAuto(drive, intake, turret);
-  private final Command Simple = new SimpleAuto(drive, intake, turret); 
+  private final Command TimedAuto = new TimedAuto(drive); 
 
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -89,12 +93,12 @@ public class RobotContainer {
 
     m_chooser.addOption("BlueAuto", Blue);
     m_chooser.addOption("RedAuto", Red);
-    m_chooser.addOption("SimpleAuto", Simple); 
+    m_chooser.addOption("TimedAuto", TimedAuto); 
 
     SmartDashboard.putData(m_chooser);
 
     aiming.setDefaultCommand(new aimTurret(aiming));
-    turret.setDefaultCommand(new runShooterDistance(turret));
+   turret.setDefaultCommand(new runShooterDistance(turret));
     drive.setDefaultCommand(new tankDrive(drive));
     intake.setDefaultCommand(new runIntake(intake));
     hang.setDefaultCommand(new Hanging(hang));
@@ -110,8 +114,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-   /* rightButton3.whenPressed(new deployIntake(intake));
-    leftTrigger.whenPressed(new runShooter(turret)); */
+    manipThumb.whenPressed(new deployIntake(intake));
     leftTrigger.whenPressed(new angleHood(turret)); 
   }
 

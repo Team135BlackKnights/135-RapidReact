@@ -1,12 +1,12 @@
 package frc.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drive.Drive;
+import frc.robot.subsystems.DriveRobot;
 
 public class resetEncoders extends CommandBase {
-  Drive drive;
+  DriveRobot drive;
 
-  public resetEncoders(Drive subsystem) {
+  public resetEncoders(DriveRobot subsystem) {
     drive = subsystem;
   }
 
@@ -14,7 +14,7 @@ public class resetEncoders extends CommandBase {
   public void initialize() {
     // Runs method to reset the encoders from drivetrain
     drive.resetEncoders();
-    drive.navx.reset();
+    //drive.navx.reset();
     addRequirements(drive);
   }
 }

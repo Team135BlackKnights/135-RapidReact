@@ -105,27 +105,23 @@ public class runShooterDistance extends CommandBase {
 
 
         //<Ranges>
-        if (Tv.getDouble(0.0) == 0){
-          speedDesired = 3000;
-        } else if (distance < 75){
-         speedDesired = calcPercent(0, 75, 4050, 3900, distance);
+        if (distance < 75){
+         speedDesired = calcPercent(0, 75, 4200, 3900, distance);
         } else if (distance < 100){ 
           speedDesired = calcPercent(75, 100, 4300, 4000, distance); 
         } else if (distance < 145){
-          speedDesired = calcPercent(100, 145, 4450, 4100, distance);
-        } else if(distance < 207){
-          speedDesired = calcPercent(145, 207, 5000, 4500, distance);
-        } else if (distance < 285){
-          speedDesired = calcPercent(207, 285, 5625, 5500, distance);
+          speedDesired = calcPercent(100, 145, 4450, 4200, distance);
+        } else if(distance < 200){
+          speedDesired = calcPercent(145, 200, 5400, 4500, distance);
         } else {
-          speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 3027.57)); //decreased by 250
+          speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 3127.57)); //decreased by 350
         }
         //</Ranges>
 
         speedDesired = speedDesired * shooterOn;
 
-        if (speedDesired < 400 && Tv.getDouble(0.0) != 0)
-        {speedDesired = 400;}
+        if (speedDesired < 800 || Tv.getDouble(0.0) == 0)
+        {speedDesired = 800;}
 
         sError = (speedDesired + (speedDesired * .05) + (turret.shooter.getRate() * 60)) / 10000;
 
@@ -181,14 +177,14 @@ public class runShooterDistance extends CommandBase {
 
         //<Turret Hight>
         //hoodDesired = Math.floor(19.26864 * distance - 110.50656); //decreased M by 615 | X increased by 5
-        hoodDesired = Math.floor((-0.0287835 * Math.pow(distance, 2)) + (18.023 * distance) + 410.1803); 
+        hoodDesired = Math.floor((-0.0297835 * Math.pow(distance, 2)) + (18.023 * distance) + 810.1803); //a decreased by .001 c increaded by 400
         SmartDashboard.putNumber("HoodDesired", hoodDesired);
 
         hError = turret.hoodHight.get() - hoodDesired;
         SmartDashboard.putNumber("HoodError", hError);
 
         HkP = .001;
-        HkI = .0005;
+        HkI = .005;
 
         if (Math.abs(hError) < 30) {
             turret.hoodMotor.set(0);
@@ -203,8 +199,7 @@ public class runShooterDistance extends CommandBase {
             turret.hoodMotor.set(0);
             SmartDashboard.putString("HoodMotorMode", "AtLimit");
         } else {
-            turret.hoodMotor.set(limit(outputs(hError * HkP, hError * HkI, hoodDesired * 1.34, (hoodDesired * 1.34) - hoodDesired), .5, -.5));
-            SmartDashboard.putNumber("HoodOutput", outputs(hError * HkP, hError * HkI, hoodDesired * 1.34, (hoodDesired * 1.34) - hoodDesired));
+           turret.hoodMotor.set(limit(outputs(hError * HkP, hError * HkI, hoodDesired * 1.34, (hoodDesired * 1.34) - hoodDesired), .5, -.5));
             SmartDashboard.putString("HoodMotorMode", "Ajusting");
         }
 
