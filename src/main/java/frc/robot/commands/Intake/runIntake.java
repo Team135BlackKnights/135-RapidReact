@@ -52,7 +52,7 @@ public class runIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //<Color Selector>
+ /*   //<Color Selector>
       if (RobotContainer.manipButton7.get()){
         RobotColor = kRedTarget;
         inverseColor = kBlueTarget;
@@ -60,14 +60,14 @@ public class runIntake extends CommandBase {
       if (RobotContainer.manipButton8.get()){
         RobotColor = kBlueTarget;
         inverseColor = kRedTarget;
-      }
+      } */
 
      // ColorMatchResult match = m_colorMatcher.matchClosestColor(intake.colorSensorV3.getColor());
     //</Color Selector>
     
     //<Intake>
 
-        if (RobotContainer.rightTrigger.get())
+        if (RobotContainer.manipButton9.get())
         {
           intake.IntakeMotor.set(-.5);
         }
@@ -78,22 +78,18 @@ public class runIntake extends CommandBase {
     //</Intake>
 
     //<Spit Out>
-      if(RobotContainer.manipButton5.get() && !RobotContainer.rightTrigger.get())
-      {
+      if(RobotContainer.rightTrigger.get()) {
         intake.IntakeMotor.set(.4);
-      }
+      } 
     
-      if (RobotContainer.manipButton6.get() && !RobotContainer.manipTrigger.get()) {
+      if (RobotContainer.manipButton8.get() && !RobotContainer.manipTrigger.get()) {
         intake.Feeder.set(-.8);
       }
     //</Spit Out>
 
     //<Shut Off>
-      if (!RobotContainer.manipButton5.get() && !RobotContainer.rightTrigger.get()){
+      if (!RobotContainer.leftButton11.get() && !RobotContainer.rightTrigger.get()){
         intake.IntakeMotor.set(0);
-      }
-
-      if (!RobotContainer.manipButton6.get() && !RobotContainer.manipTrigger.get()){
         intake.Feeder.set(0);
       }
     //</Shut Off>

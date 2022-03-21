@@ -99,10 +99,10 @@ public class RobotContainer {
 
     SmartDashboard.putData(m_chooser);
 
-    //aiming.setDefaultCommand(new aimTurret(aiming));
-    //turret.setDefaultCommand(new runShooterDistance(turret));
+    aiming.setDefaultCommand(new aimTurret(aiming));
+    turret.setDefaultCommand(new runShooterDistance(turret));
     drive.setDefaultCommand( new tankDrive(drive));
-    //+intake.setDefaultCommand(new runIntake(intake));
+    intake.setDefaultCommand(new runIntake(intake));
     hang.setDefaultCommand(  new Hanging(hang));
     
     // Configure the button bindings

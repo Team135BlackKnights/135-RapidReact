@@ -67,15 +67,16 @@ public class runShooterDistance extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        //<Color Selector>
+     /*   //<Color Selector>
         if (RobotContainer.manipButton7.get()){
           RobotColor = kRedTarget;
           inverseColor = kBlueTarget;
         }
         if (RobotContainer.manipButton8.get()){
           RobotColor = kBlueTarget;
-          inverseColor = kRedTarget;
-        }
+          inverseColor = kRedTarget; 
+        }*/
+        
 
         SmartDashboard.putString("Robot Color", RobotColor.toString());
         //<</Color Selector>

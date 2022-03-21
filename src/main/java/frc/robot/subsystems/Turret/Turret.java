@@ -35,7 +35,7 @@ public class Turret extends SubsystemBase {
 
     LeftPower.burnFlash();
    // hoodMotor.burnFlash();
-   hoodMotor.setIdleMode(IdleMode.kBrake);
+   hoodMotor.burnFlash();
 
    // shooter.set(.00048828125);
    hoodHeight.reset();

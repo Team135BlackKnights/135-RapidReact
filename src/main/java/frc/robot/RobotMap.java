@@ -33,7 +33,7 @@ public interface RobotMap {
 
     public interface Turret{
      public final static int
-        PL_ID = 31, //power motor
+        PL_ID = 31, //shooter motor
         R_ID =  33, //rotate ID
         HA_ID = 32; //Hood Angle
     }   
