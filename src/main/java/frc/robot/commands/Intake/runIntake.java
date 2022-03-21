@@ -82,7 +82,7 @@ public class runIntake extends CommandBase {
         intake.IntakeMotor.set(.4);
       } 
     
-      if (RobotContainer.manipButton8.get() && !RobotContainer.manipTrigger.get()) {
+      if (RobotContainer.manipButton8.get()) {
         intake.Feeder.set(-.8);
       }
     //</Spit Out>
