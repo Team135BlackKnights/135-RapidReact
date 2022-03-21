@@ -62,7 +62,7 @@ public class aimTurret extends CommandBase {
     public void initialize() {
         NetworkTableInstance.getDefault().getTable("limelight-turret").getEntry("ledMode").setNumber(3);
         SmartDashboard.putNumber("VisableTarget",Tv.getDouble(0.0));
-        aiming.turretAngle.setPosition(0);
+        aiming.turretAngle.reset();
         thresholding = true;
         SmartDashboard.putString("AutoAim:", "Initializing");
         defaultThreadCount = Thread.activeCount();
@@ -84,7 +84,7 @@ public class aimTurret extends CommandBase {
         if (thresholding){
             if (!aiming.LimitValue(aiming.LimitSwitch0)){
                 limit0Check = true;
-                aiming.turretAngle.setPosition(0);
+                aiming.turretAngle.reset();
             }
             if (!aiming.LimitValue(aiming.LimitSwitch1))
                 limit1Check = true;
@@ -119,12 +119,12 @@ public class aimTurret extends CommandBase {
                 SmartDashboard.putNumber("Rotate Output", 0);
                 aiming.angleMotor.set(0);
                 SmartDashboard.putBoolean("Error Finished", true); //if there error is negligable dont move
-            } else if(-aiming.turretAngle.getPosition() > EndPos - 14 && !RunningSafety) {
+            } else if(-aiming.turretAngle.get() > EndPos - 14 && !RunningSafety) {
                 if (error > 0) {
                     aiming.angleMotor.set(0);
                 }
                 else {powerUpdate();}
-            } else if(-aiming.turretAngle.getPosition() < 14 && !RunningSafety) {
+            } else if(-aiming.turretAngle.get() < 14 && !RunningSafety) {
                 if (error < 0) {
                     aiming.angleMotor.set(0);
                 }
