@@ -31,7 +31,7 @@ public void initialize() {
   @Override
   public void execute() {
     double leftSpeed = -RobotContainer.leftJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS) * (-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2;
-    double rightSpeed = RobotContainer.rightJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS) * (-RobotContainer.rightJoystick.getRawAxis(3) + 1) / 2;  
+    double rightSpeed = RobotContainer.rightJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS) * (-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2;  
 
     drive.tankDrive(-leftSpeed, -rightSpeed);
   }

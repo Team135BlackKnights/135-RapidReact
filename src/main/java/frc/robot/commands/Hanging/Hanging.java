@@ -67,7 +67,7 @@ public class Hanging extends CommandBase {
             hang.HookSolenoid.set(Value.kForward);
         } else if (RobotContainer.manipButton11.get()) {
             hang.HookSolenoid.set(Value.kReverse);
-        } else if (RobotContainer.manipThumb.get()){
+        } else if (RobotContainer.leftButton12.get()){
             hang.HookSolenoid.set(Value.kOff);
         }
 
