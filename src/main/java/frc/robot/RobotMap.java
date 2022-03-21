@@ -2,18 +2,17 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.SerialPort;
 
 public interface RobotMap {
 
     public interface Drive {
      public final static int 
-        FL_ID = 21,
-        FR_ID = 34,
-        BL_ID = 22,
-        BR_ID = 33;
+        FL_ID = 12,
+        FR_ID = 14,
+        BL_ID = 11,
+        BR_ID = 13;
 
-        public final I2C.Port navXPort = I2C.Port.kOnboard;
+        public final I2C.Port navXPort = I2C.Port.kOnboard; 
     }
     public interface Hang {
         public final static int
@@ -26,8 +25,8 @@ public interface RobotMap {
     }
     public interface Intake { 
      public final static int 
-        InM_ID = 44,
-        FM_ID = 43,
+        InM_ID = 22,
+        FM_ID = 21,
         So1_ID = 14, So2_ID = 15;
         public final I2C.Port colorPort = I2C.Port.kOnboard;
     }
@@ -35,8 +34,8 @@ public interface RobotMap {
     public interface Turret{
      public final static int
         PL_ID = 31, //power motor
-        R_ID = 32, //rotate ID
-        HA_ID = 24; //Hood Angle
+        R_ID =  33, //rotate ID
+        HA_ID = 32; //Hood Angle
     }   
 
     public interface KOI {

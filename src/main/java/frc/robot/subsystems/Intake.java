@@ -17,16 +17,18 @@ public class Intake extends SubsystemBase {
 /** Creates a new Intake. */
   //public DoubleSolenoid Solenoid1, Solenoid2;
 
-  public CANSparkMax Feeder;
-  public CANSparkMax IntakeMotor;
+  public CANSparkMax Feeder = new CANSparkMax(RobotMap.Intake.FM_ID, MotorType.kBrushless);
+  public CANSparkMax IntakeMotor = new CANSparkMax(RobotMap.Intake.InM_ID, MotorType.kBrushless);
+
   //public ColorSensorV3 colorSensorV3 = new ColorSensorV3(RobotMap.Intake.colorPort);
-  public DoubleSolenoid Solenoid;
+  public DoubleSolenoid Solenoid = new DoubleSolenoid(2, PneumaticsModuleType.REVPH, 0, 1);
 
   public Intake() {
-    
-    Feeder = new CANSparkMax(RobotMap.Intake.FM_ID, MotorType.kBrushless);
-    IntakeMotor = new CANSparkMax(RobotMap.Intake.InM_ID, MotorType.kBrushless);
-    Solenoid = new DoubleSolenoid(2, PneumaticsModuleType.REVPH, 0, 1);
+      Feeder.setSmartCurrentLimit(5);
+      IntakeMotor.setSmartCurrentLimit(50);
+
+      Feeder.burnFlash();
+      IntakeMotor.burnFlash();
      }
 
   @Override

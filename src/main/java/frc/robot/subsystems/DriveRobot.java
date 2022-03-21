@@ -36,6 +36,16 @@ public class DriveRobot extends SubsystemBase {
         BackLeft.enableVoltageCompensation(12);
         BackRight.enableVoltageCompensation(12);
 
+        FrontLeft.setSmartCurrentLimit(80);
+        FrontRight.setSmartCurrentLimit(80);
+        BackLeft.setSmartCurrentLimit(80);
+        BackRight.setSmartCurrentLimit(80); 
+
+        FrontLeft.burnFlash();
+        FrontRight.burnFlash();
+        BackLeft.burnFlash();
+        BackRight.burnFlash();
+        
         LeftSide =  new Encoder(0, 1, true, Encoder.EncodingType.k4X);
         RightSide = new Encoder(2, 3, true, Encoder.EncodingType.k4X);
 

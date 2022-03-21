@@ -6,6 +6,7 @@ package frc.robot.subsystems.Turret;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ColorSensorV3;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -17,30 +18,36 @@ import frc.robot.RobotMap;
 public class Turret extends SubsystemBase {
   /** Creates a new Turret. */
   public CANSparkMax LeftPower = new CANSparkMax(RobotMap.Turret.PL_ID, MotorType.kBrushless);
-  //public CANSparkMax RightPower = new CANSparkMax(RobotMap.Turret.PR_ID, MotorType.kBrushless);
-
   public CANSparkMax hoodMotor = new CANSparkMax(RobotMap.Turret.HA_ID, MotorType.kBrushless);
   
-  public Encoder shooter, hoodHight; 
+  //public Encoder hoodHight; 
+  public RelativeEncoder shooter;
+  public Encoder hoodHeight;
   public ColorSensorV3 colorSensor = new ColorSensorV3(RobotMap.Intake.colorPort);
 
   public Turret() {
-    shooter =     new Encoder(4, 5, true, Encoder.EncodingType.k4X);
-    hoodHight =   new Encoder(6, 7, true, Encoder.EncodingType.k4X);
-
-    LeftPower.setIdleMode(IdleMode.kCoast);
-    //RightPower.setIdleMode(IdleMode.kCoast);
+    //shooter =     new Encoder(4, 5, false, Encoder.EncodingType.k4X);
+    shooter = LeftPower.getEncoder();
+    hoodHeight = new Encoder(6, 7, true, Encoder.EncodingType.k4X);
+    //hoodMotor.setSmartCurrentLimit(1);
+    LeftPower.setSmartCurrentLimit(80);
     LeftPower.enableVoltageCompensation(12);
-    //RightPower.enableVoltageCompensation(12);
-    hoodMotor.setIdleMode(IdleMode.kBrake);
-    shooter.setDistancePerPulse(.00048828125);
+
+    LeftPower.burnFlash();
+   // hoodMotor.burnFlash();
+   hoodMotor.setIdleMode(IdleMode.kBrake);
+
+   // shooter.set(.00048828125);
+   hoodHeight.reset();
+   shooter.setVelocityConversionFactor(2);
   }
   
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("HoodHightRaw", hoodHight.get());
+    SmartDashboard.putNumber("HoodHightRaw", hoodHeight.get());
     SmartDashboard.putNumber("HoodOutput", hoodMotor.get());
+    SmartDashboard.putNumber("ShooterMotorRaw", LeftPower.get());
     SmartDashboard.putNumber("Shooter Temp", (LeftPower.getMotorTemperature()));
   }
 
@@ -50,7 +57,7 @@ public class Turret extends SubsystemBase {
   }
   
   public void resetEncoders() {
-    shooter.reset();
-    hoodHight.reset();
+    shooter.setPosition(0);
+    hoodHeight.reset();
   }
 }

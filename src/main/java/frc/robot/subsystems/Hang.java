@@ -1,7 +1,6 @@
 // all of this is subject to change and we dont know much of anything about hang right now
 package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -19,9 +18,6 @@ public class Hang extends SubsystemBase{
   public DoubleSolenoid HookSolenoid = new DoubleSolenoid(2, PneumaticsModuleType.REVPH, RobotMap.Hang.So4_ID, RobotMap.Hang.So5_ID);
 
       public Hang(){
-          Vert1.setIdleMode(IdleMode.kBrake);
-          Vert2.setIdleMode(IdleMode.kBrake);
-
           LiftSolenoid.set(Value.kReverse);
           LiftSolenoid.set(Value.kOff);
       }
