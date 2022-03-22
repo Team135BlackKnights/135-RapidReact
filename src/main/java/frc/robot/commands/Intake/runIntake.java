@@ -53,11 +53,11 @@ public class runIntake extends CommandBase {
   @Override
   public void execute() {
     //<Color Selector>
-      if (RobotContainer.manipButton7.get()){
+      if (RobotContainer.leftButton11.get()){
         RobotColor = kRedTarget;
         inverseColor = kBlueTarget;
       }
-      if (RobotContainer.manipButton8.get()){
+      if (RobotContainer.leftButton8.get()){
         RobotColor = kBlueTarget;
         inverseColor = kRedTarget;
       }
@@ -78,12 +78,11 @@ public class runIntake extends CommandBase {
     //</Intake>
 
     //<Spit Out>
-      if(RobotContainer.manipButton5.get() && !RobotContainer.rightTrigger.get())
-      {
+      if(RobotContainer.manipButton9.get()) {
         intake.IntakeMotor.set(.4);
       }
     
-      if (RobotContainer.manipButton6.get() && !RobotContainer.manipTrigger.get()) {
+      if (RobotContainer.manipButton8.get()) {
         intake.Feeder.set(-.8);
       }
     //</Spit Out>

@@ -87,7 +87,7 @@ public class RobotContainer {
 
   private final Command Blue = new BlueThreeBallAuto(drive, intake, turret);
   private final Command Red = new RedThreeBallAuto(drive, intake, turret);
-  private final Command TimedAuto = new TimedAuto(drive);
+  //private final Command TimedAuto = new TimedAuto(drive);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -98,7 +98,7 @@ public class RobotContainer {
 
     m_chooser.addOption("BlueAuto", Blue);
     m_chooser.addOption("RedAuto", Red);
-    m_chooser.addOption("TimedAuto", TimedAuto);
+    //m_chooser.addOption("TimedAuto", TimedAuto);
 
     SmartDashboard.putData(m_chooser);
 
