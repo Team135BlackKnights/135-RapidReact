@@ -117,7 +117,7 @@ public class runShooterDistance extends CommandBase {
         // if (speedDesired < 800 || Tv.getDouble(0.0) == 0)
         // {speedDesired = 800;}
 
-        sError = (speedDesired + (speedDesired * .05) + (turret.shooter.getRate() * 60)) / 10000;
+        sError = (speedDesired + (speedDesired * .05) + (turret.shooter.getVelocity() * 60)) / 10000;
 
         SkP = 2.6; // change when testing
         SkI = 1.1; // change when testing
@@ -199,7 +199,7 @@ public class runShooterDistance extends CommandBase {
                                                                                                          // increaded by
                                                                                                          // 400
         SmartDashboard.putNumber("HoodDesired", hoodDesired);
-        hError = turret.hoodHeight.get() - hoodDesired;
+        hError = turret.hoodHight.get() - hoodDesired;
         SmartDashboard.putNumber("HoodError", hError);
 
         HkP = .001;
@@ -211,11 +211,11 @@ public class runShooterDistance extends CommandBase {
         } else if (Tv.getDouble(0.0) == 0) {
             turret.hoodMotor.set(0);
             SmartDashboard.putString("HoodMotorMode", "LostTarget");
-        } else if (turret.hoodHeight.get() > 2900
+        } else if (turret.hoodHight.get() > 2900
                 && outputs(hError * HkP, hError * HkI, hoodDesired * 1.34, (hoodDesired * 1.34) - hoodDesired) < 0) {
             turret.hoodMotor.set(0);
             SmartDashboard.putString("HoodMotorMode", "AtLimit");
-        } else if (turret.hoodHeight.get() < 950
+        } else if (turret.hoodHight.get() < 950
                 && outputs(hError * HkP, hError * HkI, hoodDesired * 1.34, (hoodDesired * 1.34) - hoodDesired) > 0) {
             turret.hoodMotor.set(0);
             SmartDashboard.putString("HoodMotorMode", "AtLimit");
