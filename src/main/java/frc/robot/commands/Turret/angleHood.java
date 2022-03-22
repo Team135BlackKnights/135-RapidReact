@@ -44,13 +44,13 @@ public class angleHood extends CommandBase {
       isFinished = true;
     }
   
-  }
+  } 
 
   public static double limit(double x, double upperLimit, double lowerLimit) {
     return x > upperLimit ? upperLimit : x < lowerLimit ? lowerLimit :
         x;
   }
-
+  
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {

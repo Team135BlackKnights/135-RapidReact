@@ -13,16 +13,6 @@ public interface RobotMap {
         BL_ID = 22,
         BR_ID = 33;
 
-        public final I2C.Port navXPort = I2C.Port.kOnboard;
-    }
-    public interface Hang {
-        public final static int
-            V1_ID = 41,
-            V2_ID = 42,
-            So2_ID = 2, So3_ID = 3,
-            So4_ID = 4, So5_ID = 5,
-    
-            Co_S_ID = 6;
     }
     public interface Intake { 
      public final static int 

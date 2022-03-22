@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -26,7 +27,7 @@ public class DriveRobot extends SubsystemBase {
     CANSparkMax BackLeft = new CANSparkMax(RobotMap.Drive.BL_ID, MotorType.kBrushless);
     CANSparkMax BackRight = new CANSparkMax(RobotMap.Drive.BR_ID, MotorType.kBrushless);
     public Encoder LeftSide, RightSide;
-
+    public RelativeEncoder lFront, lBack, rFront, rBack;
     Timer timer = new Timer();
 
     /** Creates a new Drive. */
@@ -36,9 +37,21 @@ public class DriveRobot extends SubsystemBase {
         BackLeft.enableVoltageCompensation(12);
         BackRight.enableVoltageCompensation(12);
 
-        LeftSide =  new Encoder(0, 1, true, Encoder.EncodingType.k4X);
-        RightSide = new Encoder(2, 3, true, Encoder.EncodingType.k4X);
+        FrontLeft.setSmartCurrentLimit(80);
+        FrontRight.setSmartCurrentLimit(80);
+        BackLeft.setSmartCurrentLimit(80);
+        BackRight.setSmartCurrentLimit(80); 
 
+        FrontLeft.burnFlash();
+        FrontRight.burnFlash();
+        BackLeft.burnFlash();
+        BackRight.burnFlash();
+        
+        lFront= FrontLeft.getEncoder();
+        lBack = BackLeft.getEncoder();
+        rFront= FrontRight.getEncoder();
+        rBack = BackRight.getEncoder();
+        
         MotorControllerGroup left = new MotorControllerGroup(FrontLeft, BackLeft);
         MotorControllerGroup right = new MotorControllerGroup(FrontRight, BackRight);
 
@@ -66,6 +79,7 @@ public class DriveRobot extends SubsystemBase {
     public void resetEncoders() {
         LeftSide.reset();
         RightSide.reset();
+        
     }
 
     @Override
