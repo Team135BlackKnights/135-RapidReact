@@ -7,6 +7,7 @@ package frc.robot.subsystems.Turret;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -21,11 +22,12 @@ public class Turret extends SubsystemBase {
 
   public CANSparkMax hoodMotor = new CANSparkMax(RobotMap.Turret.HA_ID, MotorType.kBrushless);
   
-  public Encoder shooter, hoodHight; 
+  public Encoder hoodHight; 
+  public RelativeEncoder shooter;
   public ColorSensorV3 colorSensor = new ColorSensorV3(RobotMap.Intake.colorPort);
 
   public Turret() {
-    shooter =     new Encoder(4, 5, true, Encoder.EncodingType.k4X);
+    shooter =     LeftPower.getEncoder();
     hoodHight =   new Encoder(6, 7, true, Encoder.EncodingType.k4X);
 
     LeftPower.setIdleMode(IdleMode.kCoast);
@@ -33,7 +35,9 @@ public class Turret extends SubsystemBase {
     LeftPower.enableVoltageCompensation(12);
     //RightPower.enableVoltageCompensation(12);
     hoodMotor.setIdleMode(IdleMode.kBrake);
-    shooter.setDistancePerPulse(.00048828125);
+    //shooter.setDistancePerPulse(.00048828125);
+    LeftPower.burnFlash();
+    shooter.setVelocityConversionFactor(2);
   }
   
   @Override
@@ -50,7 +54,7 @@ public class Turret extends SubsystemBase {
   }
   
   public void resetEncoders() {
-    shooter.reset();
+    shooter.setPosition(0);
     hoodHight.reset();
   }
 }
