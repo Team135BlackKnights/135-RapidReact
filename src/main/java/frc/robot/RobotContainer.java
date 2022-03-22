@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotMap.KOI;
 import frc.robot.commands.Auto.BlueThreeBallAuto;
 import frc.robot.commands.Auto.RedThreeBallAuto;
-import frc.robot.commands.Auto.AutoCommands.TimedAuto;
+import frc.robot.commands.Auto.TimedAuto;
 import frc.robot.commands.Auto.AutoCommands.encoderDrive;
 import frc.robot.commands.Drive.tankDrive;
 import frc.robot.commands.Hanging.Hanging;
@@ -87,7 +87,7 @@ public class RobotContainer {
 
   private final Command Blue = new BlueThreeBallAuto(drive, intake, turret);
   private final Command Red = new RedThreeBallAuto(drive, intake, turret);
-  private final Command TimedAuto = new TimedAuto(drive, turret, intake, aiming);
+  private final Command TimedAuto = new TimedAuto(drive);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
