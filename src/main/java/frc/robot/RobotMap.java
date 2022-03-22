@@ -8,25 +8,35 @@ public interface RobotMap {
 
     public interface Drive {
      public final static int 
-        FL_ID = 21,
-        FR_ID = 34,
-        BL_ID = 22,
-        BR_ID = 33;
+        FL_ID = 12,
+        FR_ID = 14,
+        BL_ID = 11,
+        BR_ID = 13;
 
+        public final SerialPort.Port navXPort = SerialPort.Port.kUSB;
+    }
+    public interface Hang {
+        public final static int
+            V1_ID = 41,
+            V2_ID = 42,
+            So2_ID = 2, So3_ID = 3,
+            So4_ID = 4, So5_ID = 5,
+    
+            Co_S_ID = 6;
     }
     public interface Intake { 
      public final static int 
-        InM_ID = 44,
-        FM_ID = 43,
+        InM_ID = 22,
+        FM_ID = 21,
         So1_ID = 14, So2_ID = 15;
         public final I2C.Port colorPort = I2C.Port.kOnboard;
     }
 
     public interface Turret{
      public final static int
-        PL_ID = 31, //power motor
-        R_ID = 32, //rotate ID
-        HA_ID = 24; //Hood Angle
+        PL_ID = 31, //shooter motor
+        R_ID =  33, //rotate ID
+        HA_ID = 32; //Hood Angle
     }   
 
     public interface KOI {
