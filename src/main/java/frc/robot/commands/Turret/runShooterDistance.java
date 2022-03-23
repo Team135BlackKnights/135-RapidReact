@@ -7,7 +7,7 @@ package frc.robot.commands.Turret;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 
-import edu.wpi.first.math.controller.BangBangController;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -31,8 +31,8 @@ public class runShooterDistance extends CommandBase {
     double speedDesired, SkI, SkP, sError, x, shooterOn; // pid Numbers Shooter
     double hoodDesired, HkI, HkP, hError;
 
-    BangBangController bangBangController = new BangBangController();
-    SimpleMotorFeedforward feedForward = new SimpleMotorFeedforward(1, .19, 1); // change the ks value with testing
+    PIDController pidController = new PIDController(.00036, .000125, .00002);
+    SimpleMotorFeedforward feedForward = new SimpleMotorFeedforward(0, .19, 1); // change the ks value with testing
 
     boolean ballPersistant = false;
 
@@ -75,19 +75,11 @@ public class runShooterDistance extends CommandBase {
         SmartDashboard.putNumber("Distance To Target", distance);
         // </Distance>
 
-        // <Limelight Controll>
-        if (-RobotContainer.manipJoystick.getRawAxis(3) >= 0)
-            TurretLimelightTable.getEntry("ledMode").setNumber(3);
-        else if (-RobotContainer.manipJoystick.getRawAxis(3) < 0)
-            TurretLimelightTable.getEntry("ledMode").setNumber(0);
-        // </Limelight Control>
-
         // <Shooter Speed>
         SmartDashboard.putNumber("RPM G", turret.shooter.getVelocity());
         SmartDashboard.putNumber("RPM", turret.shooter.getVelocity());
         // SmartDashboard.putNumber("Shooter sError", sError);
-        SmartDashboard.putNumber("Shooter sError", bangBangController.getError());
-        SmartDashboard.putNumber("Shooter Speed Desired", speedDesired);
+        SmartDashboard.putNumber("Shooter sError", pidController.getVelocityError());
 
         if (RobotContainer.manipButton3.get()) {
             shooterOn = 1;
@@ -100,27 +92,22 @@ public class runShooterDistance extends CommandBase {
         if (Tv.getDouble(0) == 0) { // if fireing blind set power to 3000
             speedDesired = 3000;
         } else if (distance < 75) {
-            speedDesired = calcPercent(0, 75, 4200, 3900, distance);
+            speedDesired = calcPercent(0, 75, 3740, 3550, distance);
         } else if (distance < 100) {
-            speedDesired = calcPercent(75, 100, 4300, 4000, distance);
+            speedDesired = calcPercent(75, 100, 3900, 3790, distance);
         } else if (distance < 145) {
-            speedDesired = calcPercent(100, 145, 4450, 4200, distance);
+            speedDesired = calcPercent(100, 145, 4300, 4000, distance);
         } else if (distance < 200) {
             speedDesired = calcPercent(145, 200, 5400, 4500, distance);
         } else {
-            speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 3127.57)); // decreased c by 350
+            speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 2127.57)); // decreased c by 1350
         }
         // </Ranges>
 
-        speedDesired = speedDesired * shooterOn;
+        if (speedDesired < 800 || Tv.getDouble(0.0) == 0)
+         {speedDesired = 800;}
 
-        // if (speedDesired < 800 || Tv.getDouble(0.0) == 0)
-        // {speedDesired = 800;}
-
-        sError = (speedDesired + (speedDesired * .05) + (turret.shooter.getVelocity() * 60)) / 10000;
-
-        SkP = 2.6; // change when testing
-        SkI = 1.1; // change when testing
+         speedDesired = speedDesired * shooterOn;
 
         ColorMatchResult match = m_colorMatcher.matchClosestColor(turret.colorSensor.getColor());
         if (match.confidence < 70) {
@@ -151,30 +138,25 @@ public class runShooterDistance extends CommandBase {
 
         // if (match.color == RobotColor || (ballPersistant == true && lastSeenColor ==
         // RobotColor)){
+        SmartDashboard.putNumber("Shooter Speed Desired", speedDesired);
 
-        if (shooterOn == 1) {
-            turret.LeftPower.setVoltage(bangBangController.calculate(turret.shooter.getVelocity(), speedDesired)
-            + 0.9 * feedForward.calculate(speedDesired));
-            // turret.LeftPower.set(outputs(sError * SkP, sError * SkI, speedDesired * 1.34,
-            // (speedDesired * 1.34) - speedDesired));
-            // turret.LeftPower.set(limit(((-RobotContainer.manipJoystick.getRawAxis(3) + 1)
-            // / 2), .8, 0));
-            // turret.LeftPower.set(.5);
-        } else {
-            turret.setPower(0);
-        }
+        turret.LeftPower.set(pidController.calculate(turret.shooter.getVelocity(), speedDesired));
+        //+ 0.9 * feedForward.calculate(speedDesired));
+        // turret.LeftPower.set(outputs(sError * SkP, sError * SkI, speedDesired * 1.34,
+        // (speedDesired * 1.34) - speedDesired));
+        // turret.LeftPower.set(limit(((-RobotContainer.manipJoystick.getRawAxis(3) + 1)
+        // / 2), .8, 0));
+        //turret.LeftPower.set(.5);
 
-        if (!(turret.shooter.getVelocity() > speedDesired + 300)
-                && !(turret.shooter.getVelocity() < speedDesired - 300)) {
+
+        if (!(turret.shooter.getVelocity() > speedDesired + 100)
+                && !(turret.shooter.getVelocity() < speedDesired - 100)) {
             SmartDashboard.putString("Fire Status", "READY");
         } else if (turret.shooter.getVelocity() < speedDesired - 800) {
             SmartDashboard.putString("Fire Status", "SPIN UP");
         } else {
             SmartDashboard.putString("Fire Status", "UNSTABLE");
         }
-
-        SmartDashboard.putNumber("Shooter Output",
-                outputs(sError * SkP, sError * SkI, speedDesired * 1.34, (speedDesired * 1.34) - speedDesired));
 
         /*
          * } else if(currentColor == inverseColor || (ballPersistant == true &&
@@ -194,12 +176,11 @@ public class runShooterDistance extends CommandBase {
         // </Shooter Speed>
 
         // <Turret Hight>
-        hoodDesired = Math.floor((-0.0297835 * Math.pow(distance, 2)) + (18.023 * distance) + 810.1803); // a decreased
-                                                                                                         // by .001 c
-                                                                                                         // increaded by
-                                                                                                         // 400
+        hoodDesired = Math.floor((-0.0307835 * Math.pow(distance, 2)) + (18.023 * distance) + 610.1803);
+                                                                                                         // a decreased by 0 
+                                                                                                         // c increased by 200 
         SmartDashboard.putNumber("HoodDesired", hoodDesired);
-        hError = turret.hoodHight.get() - hoodDesired;
+        hError = -turret.hoodHight.getPosition() * 37.5 - hoodDesired;
         SmartDashboard.putNumber("HoodError", hError);
 
         HkP = .001;
@@ -211,17 +192,17 @@ public class runShooterDistance extends CommandBase {
         } else if (Tv.getDouble(0.0) == 0) {
             turret.hoodMotor.set(0);
             SmartDashboard.putString("HoodMotorMode", "LostTarget");
-        } else if (turret.hoodHight.get() > 2900
+        } else if (-turret.hoodHight.getPosition() * 37.5 > 3400
                 && outputs(hError * HkP, hError * HkI, hoodDesired * 1.34, (hoodDesired * 1.34) - hoodDesired) < 0) {
             turret.hoodMotor.set(0);
             SmartDashboard.putString("HoodMotorMode", "AtLimit");
-        } else if (turret.hoodHight.get() < 950
+        } else if (-turret.hoodHight.getPosition() * 37.5 < 400
                 && outputs(hError * HkP, hError * HkI, hoodDesired * 1.34, (hoodDesired * 1.34) - hoodDesired) > 0) {
             turret.hoodMotor.set(0);
             SmartDashboard.putString("HoodMotorMode", "AtLimit");
         } else {
-            // turret.hoodMotor.set(limit(outputs(hError * HkP, hError * HkI, hoodDesired *
-            // 1.34, (hoodDesired * 1.34) - hoodDesired), .5, -.5));
+             turret.hoodMotor.set(limit(outputs(hError * HkP, hError * HkI, hoodDesired *
+             1.34, (hoodDesired * 1.34) - hoodDesired), .5, -.5));
             SmartDashboard.putString("HoodMotorMode", "Ajusting");
         }
 

@@ -27,7 +27,6 @@ public class encoderDrive extends CommandBase {
     kP = 0; //change when testing
     kI = 0; //change when testing
     isFinished = false;
-    drive.resetEncoders();
     
     SmartDashboard.putBoolean("encoder drive", true);
   }

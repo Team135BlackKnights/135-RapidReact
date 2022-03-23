@@ -76,12 +76,6 @@ public class DriveRobot extends SubsystemBase {
         return (float) (.2 * x * timer.get());                  //multiply by .2 and then convert to just degrees                    
     }
 
-    public void resetEncoders() {
-        LeftSide.reset();
-        RightSide.reset();
-        
-    }
-
     @Override
     public void periodic() {
         // This method will be called once per scheduler run

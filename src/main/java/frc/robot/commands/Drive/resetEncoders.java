@@ -13,7 +13,6 @@ public class resetEncoders extends CommandBase {
   @Override
   public void initialize() {
     // Runs method to reset the encoders from drivetrain
-    drive.resetEncoders();
     //drive.navx.reset();
     addRequirements(drive);
   }

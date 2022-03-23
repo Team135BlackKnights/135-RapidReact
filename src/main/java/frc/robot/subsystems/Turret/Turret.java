@@ -9,8 +9,8 @@ import com.revrobotics.ColorSensorV3;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxAlternateEncoder.Type;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
@@ -22,29 +22,31 @@ public class Turret extends SubsystemBase {
 
   public CANSparkMax hoodMotor = new CANSparkMax(RobotMap.Turret.HA_ID, MotorType.kBrushless);
   
-  public Encoder hoodHight; 
-  public RelativeEncoder shooter;
+  public RelativeEncoder shooter, hoodHight;
   public ColorSensorV3 colorSensor = new ColorSensorV3(RobotMap.Intake.colorPort);
 
   public Turret() {
     shooter =     LeftPower.getEncoder();
-    hoodHight =   new Encoder(6, 7, true, Encoder.EncodingType.k4X);
+    hoodHight =   hoodMotor.getEncoder();
 
     LeftPower.setIdleMode(IdleMode.kCoast);
-    //RightPower.setIdleMode(IdleMode.kCoast);
     LeftPower.enableVoltageCompensation(12);
-    //RightPower.enableVoltageCompensation(12);
+    hoodMotor.setSmartCurrentLimit(6);
     hoodMotor.setIdleMode(IdleMode.kBrake);
+    shooter.setVelocityConversionFactor(2);
     //shooter.setDistancePerPulse(.00048828125);
     LeftPower.burnFlash();
-    shooter.setVelocityConversionFactor(2);
+    hoodMotor.burnFlash();
+
+    hoodHight.setPosition(0);
   }
   
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("HoodHightRaw", hoodHight.get());
+    SmartDashboard.putNumber("HoodHightRaw", -hoodHight.getPosition() * 37.5);
     SmartDashboard.putNumber("HoodOutput", hoodMotor.get());
+    SmartDashboard.putNumber("ShooterSpeedRaw", LeftPower.get());
     SmartDashboard.putNumber("Shooter Temp", (LeftPower.getMotorTemperature()));
   }
 
@@ -55,6 +57,6 @@ public class Turret extends SubsystemBase {
   
   public void resetEncoders() {
     shooter.setPosition(0);
-    hoodHight.reset();
+    hoodHight.setPosition(0);
   }
 }

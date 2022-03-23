@@ -46,7 +46,7 @@ public class aimTurret extends CommandBase {
     NetworkTable TurretLimelightTable = NetworkTableInstance.getDefault().getTable("limelight-turret");
 
     float Kp = .04f, Ki = .01f;
-    double EndPos = 12230, intergralTop, intergralBottom, proportional, intergral, error, desired, lastSeen,
+    double EndPos = 80, intergralTop, intergralBottom, proportional, intergral, error, desired, lastSeen,
             defaultThreadCount, distance, angleGoalDegree;
     public boolean isFinished = false, RunningSafety = false, thresholding = true, limit0Check = false,
             limit1Check = true;
@@ -65,7 +65,7 @@ public class aimTurret extends CommandBase {
     public void initialize() {
         TurretLimelightTable.getEntry("ledMode").setNumber(0);
         SmartDashboard.putNumber("VisableTarget", Tv.getDouble(0.0));
-        aiming.turretAngle.reset();
+        aiming.turretAngle.setPosition(0);
         thresholding = true;
         SmartDashboard.putString("AutoAim:", "Initializing");
         defaultThreadCount = Thread.activeCount();
@@ -80,9 +80,9 @@ public class aimTurret extends CommandBase {
         SmartDashboard.putNumber("VisableTarget", Tv.getDouble(0));
         SmartDashboard.putBoolean("SafeCenter", RunningSafety);
         //<Light Controll>
-        if (RobotContainer.manipButton3.get()){
+        if (-RobotContainer.manipJoystick.getRawAxis(3) > 0){
             NetworkTableInstance.getDefault().getTable("limelight-turret").getEntry("ledMode").setNumber(3);
-        } else if (RobotContainer.manipButton4.get()){
+        } else if (-RobotContainer.manipJoystick.getRawAxis(3) < 0){
             NetworkTableInstance.getDefault().getTable("limelight-turret").getEntry("ledMode").setNumber(1);
         }
         //</Light Controll>
@@ -94,7 +94,7 @@ public class aimTurret extends CommandBase {
         if (thresholding) {
             if (!aiming.LimitValue(aiming.LimitSwitch0)) {
                 limit0Check = true;
-                aiming.turretAngle.reset();
+                aiming.turretAngle.setPosition(0);
             }
             if (!aiming.LimitValue(aiming.LimitSwitch1))
                 limit1Check = true;
@@ -111,7 +111,6 @@ public class aimTurret extends CommandBase {
                 // EndPos = aiming.turretAngle.get();
                 SmartDashboard.putNumber("EndPos", EndPos);
                 SafeCenter(false);
-                TurretLimelightTable.getEntry("ledMode").setNumber(3);
                 thresholding = false;
             }
         }
@@ -133,14 +132,14 @@ public class aimTurret extends CommandBase {
                 SmartDashboard.putNumber("Rotate Output", 0);
                 aiming.angleMotor.set(0);
                 SmartDashboard.putBoolean("Error Finished", true); // if there error is negligable dont move
-            } else if (-aiming.turretAngle.get() > EndPos - 1400 && !RunningSafety) {
-                if (error > 0) {
+            } else if (-aiming.turretAngle.getPosition() > EndPos - 6 && !RunningSafety) {
+                if (error < 0) {
                     aiming.angleMotor.set(0);
                 } else {
                     powerUpdate();
                 }
-            } else if (-aiming.turretAngle.get() < 1400 && !RunningSafety) {
-                if (error < 0) {
+            } else if (-aiming.turretAngle.getPosition() < 6 && !RunningSafety) {
+                if (error > 0) {
                     aiming.angleMotor.set(0);
                 } else {
                     powerUpdate();
