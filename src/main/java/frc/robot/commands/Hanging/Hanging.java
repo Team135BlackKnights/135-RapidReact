@@ -53,21 +53,21 @@ public class Hanging extends CommandBase {
             hang.VerticalHang(deadband(RobotContainer.manipJoystick.getRawAxis(1)/2));
         }
 
-        if (RobotContainer.manipButton7.get()) {
+        if (RobotContainer.manipButton5.get()) {
             hang.LiftSolenoid.set(Value.kForward);
-        } else if (RobotContainer.manipButton8.get()) {
+        } else if (RobotContainer.manipButton6.get()) {
             hang.LiftSolenoid.set(Value.kReverse);
-        } else if (RobotContainer.manipButton9.get()){
+        } else if (RobotContainer.manipButton7.get()){
             hang.LiftSolenoid.set(Value.kOff);
         }
 
         SmartDashboard.putString("LiftSolenoid", hang.LiftSolenoid.get().toString());
 
-        if (RobotContainer.manipButton10.get()) {
+        if (RobotContainer.manipButton11.get()) {
             hang.HookSolenoid.set(Value.kForward);
-        } else if (RobotContainer.manipButton11.get()) {
+        } else if (RobotContainer.manipButton12.get()) {
             hang.HookSolenoid.set(Value.kReverse);
-        } else if (RobotContainer.manipButton12.get()){
+        } else if (RobotContainer.leftButton12.get()){
             hang.HookSolenoid.set(Value.kOff);
         }
 
