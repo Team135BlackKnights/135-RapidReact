@@ -97,7 +97,9 @@ public class RobotContainer {
 
     m_chooser.addOption("BlueAuto", Blue);
     m_chooser.addOption("RedAuto", Red);
-    //m_chooser.addOption("TimedAuto", TimedAuto);
+    m_chooser.addOption("TimedAuto", TimedAuto);
+
+    m_chooser.setDefaultOption("TimedAuto", TimedAuto);
 
     SmartDashboard.putData(m_chooser);
 

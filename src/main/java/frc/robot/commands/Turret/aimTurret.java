@@ -45,7 +45,7 @@ public class aimTurret extends CommandBase {
     Aiming aiming;
     NetworkTable TurretLimelightTable = NetworkTableInstance.getDefault().getTable("limelight-turret");
 
-    float Kp = .04f, Ki = .01f;
+    float Kp = .037f, Ki = .01f;
     double EndPos = 80, intergralTop, intergralBottom, proportional, intergral, error, desired, lastSeen,
             defaultThreadCount, distance, angleGoalDegree;
     public boolean isFinished = false, RunningSafety = false, thresholding = true, limit0Check = false,
@@ -128,7 +128,7 @@ public class aimTurret extends CommandBase {
                 powerUpdate();
             } else if (!aiming.LimitValue(aiming.LimitSwitch0)) {
                 aiming.angleMotor.set(0);
-            } else if (Math.abs(error) < 1 && !RunningSafety && Tv.getDouble(0) == 1) {
+            } else if (Math.abs(error) < .4 && !RunningSafety && Tv.getDouble(0) == 1) {
                 SmartDashboard.putNumber("Rotate Output", 0);
                 aiming.angleMotor.set(0);
                 SmartDashboard.putBoolean("Error Finished", true); // if there error is negligable dont move

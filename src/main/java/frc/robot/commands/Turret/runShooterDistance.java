@@ -71,7 +71,9 @@ public class runShooterDistance extends CommandBase {
     public void execute() {
         // <Distance>
         angleGoalDegree = 53 + Ty.getDouble(0.0);
-        distance = 161 / Math.tan(Math.toRadians(angleGoalDegree)); // distance in IN (hight of tape - hight of imelight) / tan(angle of limelight + angle of target)
+        distance = 161 / Math.tan(Math.toRadians(angleGoalDegree)); // distance in IN (hight of tape - hight of
+                                                                    // imelight) / tan(angle of limelight + angle of
+                                                                    // target)
         SmartDashboard.putNumber("Distance To Target", distance);
         // </Distance>
 
@@ -87,7 +89,6 @@ public class runShooterDistance extends CommandBase {
             shooterOn = 0;
         }
 
-
         // <Ranges>
         if (Tv.getDouble(0) == 0) { // if fireing blind set power to 3000
             speedDesired = 3000;
@@ -97,17 +98,25 @@ public class runShooterDistance extends CommandBase {
             speedDesired = calcPercent(75, 100, 3900, 3790, distance);
         } else if (distance < 145) {
             speedDesired = calcPercent(100, 145, 4300, 4000, distance);
+        } else if (distance < 175) {
+            speedDesired = calcPercent(145, 175, 4500, 4300, distance);
         } else if (distance < 200) {
-            speedDesired = calcPercent(145, 200, 5400, 4500, distance);
+            speedDesired = calcPercent(175, 200, 4750, 4500, distance);
         } else {
-            speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 2127.57)); // decreased c by 1350
+            speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 2127.57)); // decreased c by
+                                                                                                   // 1350
         }
         // </Ranges>
 
-        if (speedDesired < 800 || Tv.getDouble(0.0) == 0)
-         {speedDesired = 800;}
+        speedDesired = speedDesired * shooterOn;
 
-         speedDesired = speedDesired * shooterOn;
+        if (speedDesired < 800) {
+            speedDesired = 800;
+        }
+
+        if (Tv.getDouble(0.0) == 0 && shooterOn == 0){
+            speedDesired = 0;
+        }
 
         ColorMatchResult match = m_colorMatcher.matchClosestColor(turret.colorSensor.getColor());
         if (match.confidence < 70) {
@@ -139,15 +148,17 @@ public class runShooterDistance extends CommandBase {
         // if (match.color == RobotColor || (ballPersistant == true && lastSeenColor ==
         // RobotColor)){
         SmartDashboard.putNumber("Shooter Speed Desired", speedDesired);
-
-        turret.LeftPower.set(pidController.calculate(turret.shooter.getVelocity(), speedDesired));
-        //+ 0.9 * feedForward.calculate(speedDesired));
+        if (speedDesired == 0) {
+            turret.LeftPower.set(0);
+        } else {
+            turret.LeftPower.set(pidController.calculate(turret.shooter.getVelocity(), speedDesired));
+        }
+        // + 0.9 * feedForward.calculate(speedDesired));
         // turret.LeftPower.set(outputs(sError * SkP, sError * SkI, speedDesired * 1.34,
         // (speedDesired * 1.34) - speedDesired));
         // turret.LeftPower.set(limit(((-RobotContainer.manipJoystick.getRawAxis(3) + 1)
         // / 2), .8, 0));
-        //turret.LeftPower.set(.5);
-
+        // turret.LeftPower.set(.5);
 
         if (!(turret.shooter.getVelocity() > speedDesired + 100)
                 && !(turret.shooter.getVelocity() < speedDesired - 100)) {
@@ -177,8 +188,8 @@ public class runShooterDistance extends CommandBase {
 
         // <Turret Hight>
         hoodDesired = Math.floor((-0.0307835 * Math.pow(distance, 2)) + (18.023 * distance) + 610.1803);
-                                                                                                         // a decreased by 0 
-                                                                                                         // c increased by 200 
+        // a decreased by 0
+        // c increased by 200
         SmartDashboard.putNumber("HoodDesired", hoodDesired);
         hError = -turret.hoodHight.getPosition() * 37.5 - hoodDesired;
         SmartDashboard.putNumber("HoodError", hError);
@@ -201,8 +212,8 @@ public class runShooterDistance extends CommandBase {
             turret.hoodMotor.set(0);
             SmartDashboard.putString("HoodMotorMode", "AtLimit");
         } else {
-             turret.hoodMotor.set(limit(outputs(hError * HkP, hError * HkI, hoodDesired *
-             1.34, (hoodDesired * 1.34) - hoodDesired), .5, -.5));
+            turret.hoodMotor.set(limit(outputs(hError * HkP, hError * HkI, hoodDesired *
+                    1.34, (hoodDesired * 1.34) - hoodDesired), .5, -.5));
             SmartDashboard.putString("HoodMotorMode", "Ajusting");
         }
 

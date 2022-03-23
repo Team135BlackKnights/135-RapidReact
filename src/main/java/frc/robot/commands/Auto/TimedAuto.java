@@ -34,7 +34,7 @@ public class TimedAuto extends CommandBase {
   public void initialize() {
     timer.start();
     timer.reset();
-   //drive.tankDrive(-.4, .4);
+    drive.tankDrive(.4, -.4);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -53,7 +53,7 @@ public class TimedAuto extends CommandBase {
       }
     }
     else {
-    //drive.tankDrive(-.4, .4);
+     drive.tankDrive(.4, -.4);
     }
     if (timer.get() > 8){
       timer.stop();

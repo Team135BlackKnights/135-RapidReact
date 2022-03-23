@@ -28,7 +28,7 @@ public class Turret extends SubsystemBase {
   public Turret() {
     shooter =     LeftPower.getEncoder();
     hoodHight =   hoodMotor.getEncoder();
-
+    LeftPower.setInverted(true);
     LeftPower.setIdleMode(IdleMode.kCoast);
     LeftPower.enableVoltageCompensation(12);
     hoodMotor.setSmartCurrentLimit(6);
