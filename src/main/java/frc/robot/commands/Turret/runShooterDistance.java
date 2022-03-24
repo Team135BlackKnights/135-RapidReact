@@ -8,7 +8,6 @@ import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -32,7 +31,6 @@ public class runShooterDistance extends CommandBase {
     double hoodDesired, HkI, HkP, hError;
 
     PIDController pidController = new PIDController(.00036, .000125, .00002);
-    SimpleMotorFeedforward feedForward = new SimpleMotorFeedforward(0, .19, 1); // change the ks value with testing
 
     boolean ballPersistant = false;
 
@@ -153,7 +151,6 @@ public class runShooterDistance extends CommandBase {
         } else {
             turret.LeftPower.set(pidController.calculate(turret.shooter.getVelocity(), speedDesired));
         }
-        // + 0.9 * feedForward.calculate(speedDesired));
         // turret.LeftPower.set(outputs(sError * SkP, sError * SkI, speedDesired * 1.34,
         // (speedDesired * 1.34) - speedDesired));
         // turret.LeftPower.set(limit(((-RobotContainer.manipJoystick.getRawAxis(3) + 1)

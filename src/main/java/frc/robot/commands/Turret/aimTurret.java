@@ -67,9 +67,9 @@ public class aimTurret extends CommandBase {
         SmartDashboard.putNumber("VisableTarget", Tv.getDouble(0.0));
         aiming.turretAngle.setPosition(0);
         thresholding = true;
+        limit0Check = false;
         SmartDashboard.putString("AutoAim:", "Initializing");
         defaultThreadCount = Thread.activeCount();
-        SmartDashboard.putNumber("ThreadCountStart", defaultThreadCount);
     }
 
     // Called every time the scheduler runs while the command is scheduled.

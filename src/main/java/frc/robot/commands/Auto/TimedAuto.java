@@ -45,8 +45,8 @@ public class TimedAuto extends CommandBase {
       drive.tankDrive(0, 0);
       if (timer.get() > 3){
         turret.LeftPower.set(.4);
-        turret.hoodMotor.set(.2);
-        if (timer.get() > 5){
+        turret.hoodMotor.set(-.2);
+        if (timer.get() > 4){
         turret.hoodMotor.set(0);
         intake.Feeder.set(.8);
         }

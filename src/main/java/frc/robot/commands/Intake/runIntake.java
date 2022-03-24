@@ -88,11 +88,11 @@ public class runIntake extends CommandBase {
     //</Spit Out>
 
     //<Shut Off>
-      if (!RobotContainer.manipButton5.get() && !RobotContainer.rightTrigger.get()){
+      if (!RobotContainer.manipButton9.get() && !RobotContainer.rightTrigger.get()){
         intake.IntakeMotor.set(0);
       }
 
-      if (!RobotContainer.manipButton6.get() && !RobotContainer.manipTrigger.get()){
+      if (!RobotContainer.manipButton8.get() && !RobotContainer.manipTrigger.get()){
         intake.Feeder.set(0);
       }
     //</Shut Off>
