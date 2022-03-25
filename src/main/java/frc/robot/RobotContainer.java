@@ -86,7 +86,7 @@ public class RobotContainer {
 
   private final Command Blue = new BlueThreeBallAuto(drive, intake, turret);
   private final Command Red = new RedThreeBallAuto(drive, intake, turret);
-  private final Command TimedAuto = new frc.robot.commands.Auto.TimedAuto(drive, turret, intake, aiming);
+  private final Command TimedAuto = new frc.robot.commands.Auto.TimedAuto(drive, turret, intake);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -97,8 +97,6 @@ public class RobotContainer {
 
     m_chooser.addOption("BlueAuto", Blue);
     m_chooser.addOption("RedAuto", Red);
-    m_chooser.addOption("TimedAuto", TimedAuto);
-
     m_chooser.setDefaultOption("TimedAuto", TimedAuto);
 
     SmartDashboard.putData(m_chooser);
@@ -124,7 +122,6 @@ public class RobotContainer {
   private void configureButtonBindings() {
     manipThumb.whenPressed(new deployIntake(intake));
     leftTrigger.whenPressed(new angleHood(turret));
-    leftButton7.whenPressed(new encoderDrive(drive, 10));
   }
 
   /**

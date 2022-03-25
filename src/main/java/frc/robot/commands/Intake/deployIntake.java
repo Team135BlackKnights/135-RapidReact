@@ -33,9 +33,9 @@ public class deployIntake extends CommandBase {
     if (intake.Solenoid.get() == Value.kForward ){
       intake.Solenoid.set(Value.kReverse);
     } else if (intake.Solenoid.get() == Value.kReverse) {
-      intake.Solenoid.set(Value.kOff);
-    } else {
       intake.Solenoid.set(Value.kForward);
+    } else {
+      intake.Solenoid.set(Value.kReverse);
     }
     SmartDashboard.putString("Intake", intake.Solenoid.get().toString());
     isFinished = true;

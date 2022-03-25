@@ -26,6 +26,10 @@ public class Intake extends SubsystemBase {
     
     Feeder = new CANSparkMax(RobotMap.Intake.FM_ID, MotorType.kBrushless);
     IntakeMotor = new CANSparkMax(RobotMap.Intake.InM_ID, MotorType.kBrushless);
+
+    IntakeMotor.setSmartCurrentLimit(80);
+    IntakeMotor.burnFlash();
+    
     Solenoid = new DoubleSolenoid(2, PneumaticsModuleType.REVPH, 14, 15);
      }
 

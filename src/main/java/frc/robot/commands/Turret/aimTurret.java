@@ -46,7 +46,7 @@ public class aimTurret extends CommandBase {
     NetworkTable TurretLimelightTable = NetworkTableInstance.getDefault().getTable("limelight-turret");
 
     float Kp = .037f, Ki = .01f;
-    double EndPos = 80, intergralTop, intergralBottom, proportional, intergral, error, desired, lastSeen,
+    double EndPos = 75, intergralTop, intergralBottom, proportional, intergral, error, desired, lastSeen,
             defaultThreadCount, distance, angleGoalDegree;
     public boolean isFinished = false, RunningSafety = false, thresholding = true, limit0Check = false,
             limit1Check = true;
@@ -67,7 +67,6 @@ public class aimTurret extends CommandBase {
         SmartDashboard.putNumber("VisableTarget", Tv.getDouble(0.0));
         aiming.turretAngle.setPosition(0);
         thresholding = true;
-        limit0Check = false;
         SmartDashboard.putString("AutoAim:", "Initializing");
         defaultThreadCount = Thread.activeCount();
     }

@@ -69,7 +69,7 @@ public class runShooterDistance extends CommandBase {
     public void execute() {
         // <Distance>
         angleGoalDegree = 53 + Ty.getDouble(0.0);
-        distance = 161 / Math.tan(Math.toRadians(angleGoalDegree)); // distance in IN (hight of tape - hight of
+        distance = 160.5 / Math.tan(Math.toRadians(angleGoalDegree)); // distance in IN (hight of tape - hight of
                                                                     // imelight) / tan(angle of limelight + angle of
                                                                     // target)
         SmartDashboard.putNumber("Distance To Target", distance);
@@ -91,17 +91,17 @@ public class runShooterDistance extends CommandBase {
         if (Tv.getDouble(0) == 0) { // if fireing blind set power to 3000
             speedDesired = 3000;
         } else if (distance < 75) {
-            speedDesired = calcPercent(0, 75, 3740, 3550, distance);
+            speedDesired = calcPercent(0, 75, 3720, 3580, distance);
         } else if (distance < 100) {
-            speedDesired = calcPercent(75, 100, 3900, 3790, distance);
+            speedDesired = calcPercent(75, 100, 3860, 3800, distance);
         } else if (distance < 145) {
-            speedDesired = calcPercent(100, 145, 4300, 4000, distance);
+            speedDesired = calcPercent(100, 145, 4280, 4050, distance);
         } else if (distance < 175) {
-            speedDesired = calcPercent(145, 175, 4500, 4300, distance);
+            speedDesired = calcPercent(145, 175, 4500, 4260, distance);
         } else if (distance < 200) {
-            speedDesired = calcPercent(175, 200, 4750, 4500, distance);
+            speedDesired = calcPercent(175, 200, 4775, 4515, distance);
         } else {
-            speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 2127.57)); // decreased c by
+            speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 2427.57)); // decreased c by
                                                                                                    // 1350
         }
         // </Ranges>
@@ -184,7 +184,7 @@ public class runShooterDistance extends CommandBase {
         // </Shooter Speed>
 
         // <Turret Hight>
-        hoodDesired = Math.floor((-0.0307835 * Math.pow(distance, 2)) + (18.023 * distance) + 610.1803);
+        hoodDesired = Math.floor((-0.0307835 * Math.pow(distance, 2)) + (18.023 * distance) + 660.1803); //increased C by 50
         // a decreased by 0
         // c increased by 200
         SmartDashboard.putNumber("HoodDesired", hoodDesired);
