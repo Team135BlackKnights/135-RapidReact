@@ -42,28 +42,27 @@ public class TimedAuto extends CommandBase {
   @Override
   public void execute() {
     SmartDashboard.putNumber("Auto Timer", timer.get());
-    if (timer.get() >= 2){
-      drive.tankDrive(0, 0);
-      if (timer.get() > 5){
-        turret.LeftPower.set(.49);
-        turret.hoodMotor.set(-.2);
-        if (timer.get() > 6.5){
-        turret.hoodMotor.set(0);
-        if (timer.get() > 11.5){
-          intake.Feeder.set(.8);
-        }
-        }
-      }
-    }
-    else {
-     drive.tankDrive(.5, -.5);
-     intake.IntakeMotor.set(-.5);
-    }
-    if (timer.get() > 10){
+
+    if (timer.get() > 14.5){
       timer.stop();
       turret.LeftPower.set(0);
       intake.Feeder.set(0);
+    } else if (timer.get() > 10) {
+      intake.Feeder.set(.8);
+      intake.IntakeMotor.set(-.5);
+    } else if (timer.get() > 6.5) {
+      turret.hoodMotor.set(0);
+      intake.IntakeMotor.set(0);
+    } else if (timer.get() > 5) {
+      turret.LeftPower.set(.458);
+      turret.hoodMotor.set(-.2);
+    } else if (timer.get() >= 2) {
+      drive.tankDrive(0, 0);
+    } else {
+     drive.tankDrive(.5, -.5);
+     intake.IntakeMotor.set(-.4);
     }
+
   }
 
   // Called once the command ends or is interrupted.

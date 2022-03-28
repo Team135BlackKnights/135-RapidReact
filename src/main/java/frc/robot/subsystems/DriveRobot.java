@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -22,10 +23,10 @@ public class DriveRobot extends SubsystemBase {
     public DifferentialDrive tank;
     Float x;
     public AHRS navx;
-    CANSparkMax FrontLeft = new CANSparkMax(RobotMap.Drive.FL_ID, MotorType.kBrushless);
-    CANSparkMax FrontRight = new CANSparkMax(RobotMap.Drive.FR_ID, MotorType.kBrushless);
-    CANSparkMax BackLeft = new CANSparkMax(RobotMap.Drive.BL_ID, MotorType.kBrushless);
-    CANSparkMax BackRight = new CANSparkMax(RobotMap.Drive.BR_ID, MotorType.kBrushless);
+    public CANSparkMax FrontLeft = new CANSparkMax(RobotMap.Drive.FL_ID, MotorType.kBrushless);
+    public CANSparkMax FrontRight = new CANSparkMax(RobotMap.Drive.FR_ID, MotorType.kBrushless);
+    public CANSparkMax BackLeft = new CANSparkMax(RobotMap.Drive.BL_ID, MotorType.kBrushless);
+    public CANSparkMax BackRight = new CANSparkMax(RobotMap.Drive.BR_ID, MotorType.kBrushless);
     public Encoder LeftSide, RightSide;
     public RelativeEncoder lFront, lBack, rFront, rBack;
     Timer timer = new Timer();
@@ -41,6 +42,11 @@ public class DriveRobot extends SubsystemBase {
         FrontRight.setSmartCurrentLimit(80);
         BackLeft.setSmartCurrentLimit(80);
         BackRight.setSmartCurrentLimit(80); 
+
+        FrontLeft.setIdleMode(IdleMode.kCoast);
+        FrontRight.setIdleMode(IdleMode.kCoast);
+        BackLeft.setIdleMode(IdleMode.kCoast);
+        BackRight.setIdleMode(IdleMode.kCoast); 
 
         FrontLeft.burnFlash();
         FrontRight.burnFlash();

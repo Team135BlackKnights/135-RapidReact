@@ -30,7 +30,7 @@ public class runShooterDistance extends CommandBase {
     double speedDesired, SkI, SkP, sError, x, shooterOn; // pid Numbers Shooter
     double hoodDesired, HkI, HkP, hError;
 
-    PIDController pidController = new PIDController(.00036, .000125, .00002);
+    PIDController pidController = new PIDController(.00036, .000135, .00002);
 
     boolean ballPersistant = false;
 
@@ -89,20 +89,20 @@ public class runShooterDistance extends CommandBase {
 
         // <Ranges>
         if (Tv.getDouble(0) == 0) { // if fireing blind set power to 3000
-            speedDesired = 3000;
+            speedDesired = 3800;
         } else if (distance < 75) {
             speedDesired = calcPercent(0, 75, 3720, 3580, distance);
         } else if (distance < 100) {
-            speedDesired = calcPercent(75, 100, 3860, 3800, distance);
+            speedDesired = calcPercent(75, 100, 3930, 3800, distance);
         } else if (distance < 145) {
-            speedDesired = calcPercent(100, 145, 4280, 4050, distance);
+            speedDesired = calcPercent(100, 145, 4220, 3960, distance);
         } else if (distance < 175) {
-            speedDesired = calcPercent(145, 175, 4500, 4260, distance);
+            speedDesired = calcPercent(145, 175, 4480, 4260, distance);
         } else if (distance < 200) {
             speedDesired = calcPercent(175, 200, 4775, 4515, distance);
         } else {
-            speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 2427.57)); // decreased c by
-                                                                                                   // 1350
+            speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 2627.57)); // decreased c by
+                                                                                                   // 1550
         }
         // </Ranges>
 

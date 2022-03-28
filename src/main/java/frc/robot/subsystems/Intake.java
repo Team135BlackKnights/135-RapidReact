@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -27,6 +28,7 @@ public class Intake extends SubsystemBase {
     Feeder = new CANSparkMax(RobotMap.Intake.FM_ID, MotorType.kBrushless);
     IntakeMotor = new CANSparkMax(RobotMap.Intake.InM_ID, MotorType.kBrushless);
 
+    Feeder.setIdleMode(IdleMode.kCoast);
     IntakeMotor.setSmartCurrentLimit(80);
     IntakeMotor.burnFlash();
     

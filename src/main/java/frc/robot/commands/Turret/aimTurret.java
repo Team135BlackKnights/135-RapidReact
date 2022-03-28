@@ -48,7 +48,7 @@ public class aimTurret extends CommandBase {
     float Kp = .037f, Ki = .01f;
     double EndPos = 75, intergralTop, intergralBottom, proportional, intergral, error, desired, lastSeen,
             defaultThreadCount, distance, angleGoalDegree;
-    public boolean isFinished = false, RunningSafety = false, thresholding = true, limit0Check = false,
+    public boolean isFinished = false, RunningSafety = false, thresholding, limit0Check = false,
             limit1Check = true;
 
     NetworkTableEntry Ttx = TurretLimelightTable.getEntry("tx");

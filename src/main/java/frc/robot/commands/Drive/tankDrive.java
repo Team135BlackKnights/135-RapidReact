@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.DriveRobot;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 public class tankDrive extends CommandBase {
   private final DriveRobot drive;
@@ -23,6 +24,10 @@ public class tankDrive extends CommandBase {
 @Override
 public void initialize() {
  // drive.navx.calibrate();
+ drive.FrontLeft.setIdleMode(IdleMode.kCoast);
+ drive.FrontRight.setIdleMode(IdleMode.kCoast);
+ drive.BackLeft.setIdleMode(IdleMode.kCoast);
+ drive.BackRight.setIdleMode(IdleMode.kCoast); 
 }
 
 
