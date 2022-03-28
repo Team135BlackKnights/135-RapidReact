@@ -30,7 +30,7 @@ public class ImprovedAiming extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (aiming.Thresholding){
+    if (aiming.Thresholding) {
       isFinished = true;
     }
   }
@@ -38,19 +38,19 @@ public class ImprovedAiming extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Math.abs(pidController.getPositionError()) < .5){ //if the error is negliable, stop the command
+    if (Math.abs(pidController.getPositionError()) < .5) { // if the error is negliable, stop the command
       isFinished = true;
     }
 
-    setPoint = aiming.turretAngle.getPosition() - Tx.getDouble(0.0); //set the desired pos to the current pos - the distance to the target's center4
-    
-    if (setPoint < 5 || setPoint > 75){ //if the setPoint is past the limts, don't move
+    setPoint = aiming.turretAngle.getPosition() - Tx.getDouble(0.0); // set the desired pos to the current pos - the
+                                                                     // distance to the target's center
+
+    if (setPoint < 5 || setPoint > 75) { // if the setPoint is past the limts, don't move
       aiming.angleMotor.set(0);
-    } else if (Tv.getDouble(0.0) == 1){ //else if there is a target, move
+    } else if (Tv.getDouble(0.0) == 1) { // else if there is a target, move
       aiming.angleMotor.set(pidController.calculate(aiming.turretAngle.getPosition(), setPoint));
-    }
-    else {
-      aiming.angleMotor.set(0);
+    } else {
+      isFinished = true;
     }
   }
 
