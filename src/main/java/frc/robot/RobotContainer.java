@@ -13,10 +13,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotMap.KOI;
 import frc.robot.commands.Auto.BlueThreeBallAuto;
 import frc.robot.commands.Auto.RedThreeBallAuto;
-import frc.robot.commands.Auto.AutoCommands.encoderDrive;
 import frc.robot.commands.Drive.tankDrive;
 import frc.robot.commands.Hanging.Hanging;
-import frc.robot.commands.Turret.aimTurret;
+import frc.robot.commands.Turret.ImprovedAiming;
 import frc.robot.commands.Turret.angleHood;
 import frc.robot.commands.Turret.runShooterDistance;
 import frc.robot.subsystems.DriveRobot;
@@ -101,8 +100,9 @@ public class RobotContainer {
 
     SmartDashboard.putData(m_chooser);
 
-    aiming.setDefaultCommand(new aimTurret(aiming));
+    aiming.setDefaultCommand(new ImprovedAiming(aiming));
     turret.setDefaultCommand(new runShooterDistance(turret));
+    
     drive.setDefaultCommand(new tankDrive(drive));
     intake.setDefaultCommand(new runIntake(intake));
     hang.setDefaultCommand(new Hanging(hang));
@@ -124,13 +124,7 @@ public class RobotContainer {
     leftTrigger.whenPressed(new angleHood(turret));
   }
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
     return m_chooser.getSelected();
   }
 }

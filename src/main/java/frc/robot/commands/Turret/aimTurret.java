@@ -91,12 +91,10 @@ public class aimTurret extends CommandBase {
 
         // <Thresholding>
         if (thresholding) {
-            if (!aiming.LimitValue(aiming.LimitSwitch0)) {
+            if (!aiming.LimitValue(aiming.LimitSwitch)) {
                 limit0Check = true;
                 aiming.turretAngle.setPosition(0);
             }
-            if (!aiming.LimitValue(aiming.LimitSwitch1))
-                limit1Check = true;
 
             if (!limit0Check) {
                 aiming.angleMotor.set(.4);
@@ -125,7 +123,7 @@ public class aimTurret extends CommandBase {
 
             if (RobotContainer.manipJoystick.getPOV() != -1) {
                 powerUpdate();
-            } else if (!aiming.LimitValue(aiming.LimitSwitch0)) {
+            } else if (!aiming.LimitValue(aiming.LimitSwitch)) {
                 aiming.angleMotor.set(0);
             } else if (Math.abs(error) < .4 && !RunningSafety && Tv.getDouble(0) == 1) {
                 SmartDashboard.putNumber("Rotate Output", 0);
