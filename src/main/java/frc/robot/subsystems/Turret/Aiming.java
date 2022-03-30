@@ -18,7 +18,6 @@ public class Aiming extends SubsystemBase {
   public AnalogInput LimitSwitch;
 
   public double EndPos;
-  public Boolean Thresholding;
 
   public Aiming() {
     angleMotor.enableVoltageCompensation(12);
@@ -28,7 +27,6 @@ public class Aiming extends SubsystemBase {
 
     turretAngle = angleMotor.getEncoder();
     LimitSwitch = new AnalogInput(0);
-
   }
 
   public boolean LimitValue(AnalogInput LimitSwitch) {
@@ -37,23 +35,16 @@ public class Aiming extends SubsystemBase {
 
   @Override
   public void periodic() {
-
-    if (LimitValue(LimitSwitch) && Thresholding) {
-      angleMotor.set(-.4);
-    } else {
-      Thresholding = false;
-    }
-
-    // <Light Controll>
+    // <Light Controll> 
     if (-RobotContainer.manipJoystick.getRawAxis(3) > 0) {
       NetworkTableInstance.getDefault().getTable("limelight-turret").getEntry("ledMode").setNumber(3);
     } else if (-RobotContainer.manipJoystick.getRawAxis(3) < 0) {
       NetworkTableInstance.getDefault().getTable("limelight-turret").getEntry("ledMode").setNumber(1);
-    }
+    } 
     // </Light Controll>
 
     SmartDashboard.putNumber("TurretAngleRaw", turretAngle.getPosition());
-    SmartDashboard.putBoolean("Limit0", LimitValue(LimitSwitch));
+    SmartDashboard.putBoolean("Limit", LimitValue(LimitSwitch));
   }
 
   public void resetEncoders() {

@@ -13,7 +13,7 @@ public interface RobotMap {
         BL_ID = 11,
         BR_ID = 13;
 
-        public final SerialPort.Port navXPort = SerialPort.Port.kUSB;
+        public final I2C.Port navXPort = I2C.Port.kOnboard;
     }
     public interface Hang {
         public final static int

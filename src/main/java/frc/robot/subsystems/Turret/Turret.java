@@ -10,6 +10,8 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
@@ -22,7 +24,8 @@ public class Turret extends SubsystemBase {
   public CANSparkMax hoodMotor = new CANSparkMax(RobotMap.Turret.HA_ID, MotorType.kBrushless);
   
   public RelativeEncoder shooter, hoodHight;
-  public ColorSensorV3 colorSensor = new ColorSensorV3(RobotMap.Intake.colorPort);
+
+  public ColorSensorV3 colorSensor = new ColorSensorV3(RobotMap.Intake.colorPort); 
 
   public Turret() {
     shooter =     LeftPower.getEncoder();
