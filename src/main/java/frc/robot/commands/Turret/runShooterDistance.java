@@ -74,7 +74,7 @@ public class runShooterDistance extends CommandBase {
         // <Distance>
         angleGoalDegree = 53 + Ty.getDouble(0.0);
         distance = 160.5 / Math.tan(Math.toRadians(angleGoalDegree)); // distance in IN (hight of tape - hight of
-                                                                    // imelight) / tan(angle of limelight + angle of
+                                                                    // limelight) / tan(angle of limelight + angle of
                                                                     // target)
         SmartDashboard.putNumber("Distance To Target", distance);
         // </Distance>
@@ -91,10 +91,10 @@ public class runShooterDistance extends CommandBase {
         }
 
         // <Ranges>
-        if (Tv.getDouble(0) == 0) { // if fireing blind set power flat
+        if (Tv.getDouble(0) == 0) { // if firing blind set power flat
             speedDesired = 3800;
         } else if (distance < 75) {
-            speedDesired = calcPercent(0, 75, 4120, 3700, distance);
+            speedDesired = calcPercent(0, 75, 4120, 3700, distance);    //(minimum distance, max distance, max power, minumum power)
         } else if (distance < 100) {
             speedDesired = calcPercent(75, 100, 4250, 4120, distance);
         } else if (distance < 145) {
@@ -104,7 +104,7 @@ public class runShooterDistance extends CommandBase {
         } else if (distance < 200) {
             speedDesired = calcPercent(175, 200, 4775, 4515, distance);
         } else {
-            speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 2627.57)); // decreased c by
+            speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 2627.57)); // decreased c by     //follow formula as backup
                                                                                                    // 1550
         }
         // </Ranges>
@@ -215,11 +215,11 @@ public class runShooterDistance extends CommandBase {
             SmartDashboard.putString("HoodMotorMode", "AtLimit");
         } else {
             turret.hoodMotor.set(limit(outputs(hError * HkP, hError * HkI, hoodDesired *
-                     1.34, (hoodDesired * 1.34) - hoodDesired), .5, -.5));
+                     1.34, (hoodDesired * 1.34) - hoodDesired), .5, -.5)); //power cannot exceed .5 
             SmartDashboard.putString("HoodMotorMode", "Ajusting");
         }
 
-        // </Turret Hight>
+        // </Turret Height>
     }
 
     public static double limit(double x, double upperLimit, double lowerLimit) {
