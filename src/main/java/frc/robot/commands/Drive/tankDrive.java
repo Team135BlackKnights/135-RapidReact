@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 
 public class tankDrive extends CommandBase {
   private final DriveRobot drive;
+
   /** Creates a new tankDrive. */
   public tankDrive(DriveRobot subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -20,24 +21,29 @@ public class tankDrive extends CommandBase {
   }
 
   // Called when the command is initially scheduled.
-  
-@Override
-public void initialize() {
- // drive.navx.calibrate();
- drive.FrontLeft.setIdleMode(IdleMode.kCoast);
- drive.FrontRight.setIdleMode(IdleMode.kCoast);
- drive.BackLeft.setIdleMode(IdleMode.kCoast);
- drive.BackRight.setIdleMode(IdleMode.kCoast); 
-}
 
+  @Override
+  public void initialize() {
+    // drive.navx.calibrate();
+    drive.FrontLeft.setIdleMode(IdleMode.kCoast);
+    drive.FrontRight.setIdleMode(IdleMode.kCoast);
+    drive.BackLeft.setIdleMode(IdleMode.kCoast);
+    drive.BackRight.setIdleMode(IdleMode.kCoast);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double leftSpeed =   RobotContainer.leftJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS) * (-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2;
-    double rightSpeed = -RobotContainer.rightJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS) * (-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2;  
+    double leftSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS)
+        * (-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2;
+    double rightSpeed = -RobotContainer.rightJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS)
+        * (-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2;
 
-    drive.tankDrive(-leftSpeed, -rightSpeed);
+    if (RobotContainer.leftJoystick.getRawButton(1)) {
+      drive.tankDrive(-leftSpeed / 2, -rightSpeed / 2);
+    } else {
+      drive.tankDrive(-leftSpeed, -rightSpeed);
+    }
   }
 
   // Called once the command ends or is interrupted.

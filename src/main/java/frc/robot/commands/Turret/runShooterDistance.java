@@ -94,15 +94,15 @@ public class runShooterDistance extends CommandBase {
         if (Tv.getDouble(0) == 0) { // if fireing blind set power flat
             speedDesired = 3800;
         } else if (distance < 75) {
-            speedDesired = calcPercent(0, 75, 4120, 3700, distance);
+            speedDesired = calcPercent(0, 75, 4000, 3550, distance);
         } else if (distance < 100) {
-            speedDesired = calcPercent(75, 100, 4250, 4120, distance);
+            speedDesired = calcPercent(75, 100, 4150, 4000, distance);
         } else if (distance < 145) {
-            speedDesired = calcPercent(100, 145, 4600, 4250, distance);
+            speedDesired = calcPercent(100, 145, 4570, 4200, distance);
         } else if (distance < 175) {
-            speedDesired = calcPercent(145, 175, 4900, 4600, distance);
+            speedDesired = calcPercent(145, 175, 4900, 4520, distance);
         } else if (distance < 200) {
-            speedDesired = calcPercent(175, 200, 4775, 4515, distance);
+            speedDesired = calcPercent(175, 200, 5075, 4900, distance);
         } else {
             speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 2627.57)); // decreased c by
                                                                                                    // 1550
@@ -156,14 +156,11 @@ public class runShooterDistance extends CommandBase {
         } else {
             turret.LeftPower.set(pidController.calculate(turret.shooter.getVelocity(), speedDesired) + FeedForward.calculate(speedDesired));
         }
-        // turret.LeftPower.set(outputs(sError * SkP, sError * SkI, speedDesired * 1.34,
-        // (speedDesired * 1.34) - speedDesired));
-        // turret.LeftPower.set(limit(((-RobotContainer.manipJoystick.getRawAxis(3) + 1)
-        // / 2), .8, 0));
-        // turret.LeftPower.set(.5);
 
-        if (!(turret.shooter.getVelocity() > speedDesired + 100)
-                && !(turret.shooter.getVelocity() < speedDesired - 100)) {
+        if (turret.shooter.getVelocity() < 850){
+            SmartDashboard.putString("Fire Status", "IDLE");
+        } else if (!(turret.shooter.getVelocity() > speedDesired + 150)
+                && !(turret.shooter.getVelocity() < speedDesired - 150)) {
             SmartDashboard.putString("Fire Status", "READY");
         } else if (turret.shooter.getVelocity() < speedDesired - 800) {
             SmartDashboard.putString("Fire Status", "SPIN UP");
@@ -189,9 +186,9 @@ public class runShooterDistance extends CommandBase {
         // </Shooter Speed>
 
         // <Turret Hight>
-        hoodDesired = Math.floor((.00835611 * Math.pow(distance, 2)) + (1.98118 * distance) + 1908.53); 
-        // a decreased by 0
-        // c increased by 200
+        hoodDesired = Math.floor((-.0371293 * Math.pow(distance, 2)) + (16.8441 * distance) + 1296.05); 
+        //hoodDesired = Math.floor((.470836 * Math.pow(distance, 1.39049)) + 1915.27); 
+
         SmartDashboard.putNumber("HoodDesired", hoodDesired);
         hError = -turret.hoodHight.getPosition() * 37.5 - hoodDesired;
         SmartDashboard.putNumber("HoodError", hError);

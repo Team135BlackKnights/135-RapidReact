@@ -69,11 +69,11 @@ public class runIntake extends CommandBase {
 
         if (RobotContainer.rightTrigger.get())
         {
-          intake.IntakeMotor.set(-.5);
+          intake.IntakeMotor.set(-.75);
         }
 
         if (RobotContainer.manipTrigger.get()) {
-          intake.Feeder.set(.6);
+          intake.Feeder.set(.8);
         }
     //</Intake>
 
