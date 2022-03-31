@@ -44,6 +44,20 @@ public class tankDrive extends CommandBase {
     } else {
       drive.tankDrive(-leftSpeed, -rightSpeed);
     }
+    
+    if (-RobotContainer.leftJoystick.getRawAxis(3) == 0) {
+      drive.FrontLeft.setIdleMode(IdleMode.kBrake);
+      drive.FrontRight.setIdleMode(IdleMode.kBrake);
+      drive.BackLeft.setIdleMode(IdleMode.kBrake);
+      drive.BackRight.setIdleMode(IdleMode.kBrake);
+    } else {
+      drive.FrontLeft.setIdleMode(IdleMode.kCoast);
+      drive.FrontRight.setIdleMode(IdleMode.kCoast);
+      drive.BackLeft.setIdleMode(IdleMode.kCoast);
+      drive.BackRight.setIdleMode(IdleMode.kCoast);
+    }
+
+    drive.tankDrive(-leftSpeed, -rightSpeed);
   }
 
   // Called once the command ends or is interrupted.
