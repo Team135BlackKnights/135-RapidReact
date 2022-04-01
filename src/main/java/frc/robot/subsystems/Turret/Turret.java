@@ -19,7 +19,7 @@ import frc.robot.RobotMap;
 public class Turret extends SubsystemBase {
   /** Creates a new Turret. */
   public CANSparkMax LeftPower = new CANSparkMax(RobotMap.Turret.PL_ID, MotorType.kBrushless);
-  //public CANSparkMax RightPower = new CANSparkMax(RobotMap.Turret.PR_ID, MotorType.kBrushless);
+  public CANSparkMax RightPower = new CANSparkMax(RobotMap.Turret.PR_ID, MotorType.kBrushless);
 
   public CANSparkMax hoodMotor = new CANSparkMax(RobotMap.Turret.HA_ID, MotorType.kBrushless);
   
@@ -30,14 +30,23 @@ public class Turret extends SubsystemBase {
   public Turret() {
     shooter =     LeftPower.getEncoder();
     hoodHight =   hoodMotor.getEncoder();
+
     LeftPower.setInverted(true);
     LeftPower.setIdleMode(IdleMode.kCoast);
     LeftPower.enableVoltageCompensation(12);
+
+    RightPower.follow(LeftPower, true); // follow the left motor, reverse direction
+    RightPower.setIdleMode(IdleMode.kCoast);
+    RightPower.enableVoltageCompensation(12);
+
     hoodMotor.setSmartCurrentLimit(6);
     hoodMotor.setIdleMode(IdleMode.kBrake);
-    shooter.setVelocityConversionFactor(2);
+
+    shooter.setVelocityConversionFactor(1.333333333);
     //shooter.setDistancePerPulse(.00048828125);
+
     LeftPower.burnFlash();
+    RightPower.burnFlash();
     hoodMotor.burnFlash();
 
     hoodHight.setPosition(0);
@@ -54,7 +63,7 @@ public class Turret extends SubsystemBase {
 
   public void setPower(double speed){
     LeftPower.set(speed);
-    //RightPower.set(-speed);
+    RightPower.set(speed);
   }
   
   public void resetEncoders() {

@@ -31,8 +31,11 @@ public class runShooterDistance extends CommandBase {
     double speedDesired, SkI, SkP, sError, x, shooterOn; // pid Numbers Shooter
     double hoodDesired, HkI, HkP, hError;
 
-    PIDController pidController = new PIDController(0.00005, 0, .000025);
-    SimpleMotorFeedforward FeedForward = new SimpleMotorFeedforward(0, .0001);
+    // original PID values with only one motor and old belt ratio (0.00005, 0, .000025)
+    // original feedforward value
+
+    PIDController pidController = new PIDController(.000075, 0, 0);
+    SimpleMotorFeedforward FeedForward = new SimpleMotorFeedforward(0, .0001375);
 
     boolean ballPersistant = false;
 
