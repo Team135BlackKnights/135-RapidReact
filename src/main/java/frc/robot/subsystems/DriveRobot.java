@@ -73,6 +73,13 @@ public class DriveRobot extends SubsystemBase {
         tank.tankDrive(left, right);
     }
 
+    public void resetEncoders(){
+        lFront.setPosition(0);
+        lBack.setPosition(0);
+        rFront.setPosition(0);
+        rBack.setPosition(0);
+    }
+
     public float navXCorrectOffset(){
         //math from here: https://www.chiefdelphi.com/t/off-centering-a-gyro/380703/7
         if (timer.get() != 0)
@@ -90,11 +97,12 @@ public class DriveRobot extends SubsystemBase {
             //timer.start();
         //else {
            // timer.stop();
-            timer.reset();
+            //timer.reset();
         //}
 
-        SmartDashboard.putNumber("Left Power", (FrontLeft.get() + BackLeft.get()) / 2);
-        SmartDashboard.putNumber("Right Power", (FrontRight.get() + BackRight.get()) / 2);
+        SmartDashboard.putNumber("Raw LeftEncoders", (lFront.getPosition() + lBack.getPosition()) / 2);
+        SmartDashboard.putNumber("Raw RightEncoder", (rBack.getPosition() + rFront.getPosition()) / 2);
+
         //output side power
     }
 }

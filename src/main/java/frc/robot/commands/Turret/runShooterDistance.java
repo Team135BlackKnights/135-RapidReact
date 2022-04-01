@@ -72,8 +72,8 @@ public class runShooterDistance extends CommandBase {
     @Override
     public void execute() {
         // <Distance>
-        angleGoalDegree = 53 + Ty.getDouble(0.0);
-        distance = 160.5 / Math.tan(Math.toRadians(angleGoalDegree)); // distance in IN (hight of tape - hight of
+        angleGoalDegree = 40 + Ty.getDouble(0.0);
+        distance = 79 / Math.tan(Math.toRadians(angleGoalDegree)); // distance in IN (hight of tape - hight of
                                                                     // limelight) / tan(angle of limelight + angle of
                                                                     // target)
         SmartDashboard.putNumber("Distance To Target", distance);
@@ -97,10 +97,10 @@ public class runShooterDistance extends CommandBase {
             speedDesired = calcPercent(0, 75, 4000, 3550, distance);
         } else if (distance < 100) {
             speedDesired = calcPercent(75, 100, 4150, 4000, distance);
-        } else if (distance < 145) {
-            speedDesired = calcPercent(100, 145, 4570, 4200, distance);
+        } else if (distance < 150) {
+            speedDesired = calcPercent(100, 150, 4570, 4200, distance);
         } else if (distance < 175) {
-            speedDesired = calcPercent(145, 175, 4900, 4520, distance);
+            speedDesired = calcPercent(150, 175, 4900, 4520, distance);
         } else if (distance < 200) {
             speedDesired = calcPercent(175, 200, 5075, 4900, distance);
         } else {

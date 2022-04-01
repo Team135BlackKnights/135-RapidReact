@@ -44,8 +44,8 @@ public class tankDrive extends CommandBase {
     } else {
       drive.tankDrive(-leftSpeed, -rightSpeed);
     }
-    
-    if (-RobotContainer.leftJoystick.getRawAxis(3) == 0) {
+
+    if ((-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2 == 0) {
       drive.FrontLeft.setIdleMode(IdleMode.kBrake);
       drive.FrontRight.setIdleMode(IdleMode.kBrake);
       drive.BackLeft.setIdleMode(IdleMode.kBrake);

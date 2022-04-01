@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotMap.KOI;
 import frc.robot.commands.Auto.BlueThreeBallAuto;
 import frc.robot.commands.Auto.RedThreeBallAuto;
+import frc.robot.commands.Auto.AutoCommands.encoderDrive;
 import frc.robot.commands.Drive.tankDrive;
 import frc.robot.commands.Hanging.Hanging;
 import frc.robot.commands.Turret.ImprovedAiming;
@@ -123,6 +124,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     manipThumb.whenPressed(new deployIntake(intake));
     leftTrigger.whenPressed(new angleHood(turret));
+
+    leftButton5.whenPressed(new encoderDrive(drive, 70));
   }
 
   public Command getAutonomousCommand() {
