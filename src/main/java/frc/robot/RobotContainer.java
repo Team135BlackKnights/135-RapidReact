@@ -123,7 +123,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     manipThumb.whenPressed(new deployIntake(intake));
-    leftTrigger.whenPressed(new angleHood(turret));
+    leftThumb.whenPressed(new angleHood(turret));
 
     leftButton5.whenPressed(new encoderDrive(drive, 70));
   }

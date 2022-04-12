@@ -10,8 +10,6 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
@@ -42,23 +40,21 @@ public class Turret extends SubsystemBase {
     hoodMotor.setSmartCurrentLimit(6);
     hoodMotor.setIdleMode(IdleMode.kBrake);
 
-    shooter.setVelocityConversionFactor(1.333333333);
-    //shooter.setDistancePerPulse(.00048828125);
+    shooter.setVelocityConversionFactor(1.3333333333);
 
     LeftPower.burnFlash();
     RightPower.burnFlash();
     hoodMotor.burnFlash();
-
-    hoodHight.setPosition(0);
-  }
+    }
   
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("HoodHightRaw", -hoodHight.getPosition() * 37.5);
     SmartDashboard.putNumber("HoodOutput", hoodMotor.get());
+    SmartDashboard.putNumber("Shooter Voltage ", LeftPower.getAppliedOutput());
     SmartDashboard.putNumber("ShooterSpeedRaw", LeftPower.get());
-    SmartDashboard.putNumber("Shooter Temp", (LeftPower.getMotorTemperature()));
+    SmartDashboard.putNumber("Shooter Temp", ((LeftPower.getMotorTemperature() + RightPower.getMotorTemperature()) / 2));
   }
 
   public void setPower(double speed){
@@ -68,6 +64,5 @@ public class Turret extends SubsystemBase {
   
   public void resetEncoders() {
     shooter.setPosition(0);
-    hoodHight.setPosition(0);
   }
 }

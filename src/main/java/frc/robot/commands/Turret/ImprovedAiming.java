@@ -15,7 +15,7 @@ import frc.robot.subsystems.Turret.Aiming;
 public class ImprovedAiming extends CommandBase {
   Aiming aiming;
 
-  PIDController pidController = new PIDController(.08, 0, 0);
+  PIDController pidController = new PIDController(.05, 0, 0);
   NetworkTable TurretLimelightTable = NetworkTableInstance.getDefault().getTable("limelight-turret");
   NetworkTableEntry Tx = TurretLimelightTable.getEntry("tx");
   NetworkTableEntry Tv = TurretLimelightTable.getEntry("tv");
@@ -53,16 +53,17 @@ public class ImprovedAiming extends CommandBase {
         setPoint = aiming.turretAngle.getPosition() - Tx.getDouble(0.0); // set the desired pos to the current pos -
                                                                          // error
       } else {
-        setPoint = 75 / 2; //else if cannot see change set point to default
+        setPoint = 75 / 2; // else if cannot see change set point to default
       }
-      
-      pidController.calculate(aiming.turretAngle.getPosition(), setPoint); //store calculation of error
+
+      pidController.calculate(aiming.turretAngle.getPosition(), setPoint); // store calculation of error
       if (Math.abs(pidController.getPositionError()) < .38) { // if the error is negliable, stop the command
         aiming.angleMotor.set(0);
       } else if (setPoint < 2 || setPoint > 78) { // if the setPoint is past the limts, don't move
         aiming.angleMotor.set(0);
       } else {
-        aiming.angleMotor.set(pidController.calculate(aiming.turretAngle.getPosition(), setPoint)); //free to move where you want to 
+        aiming.angleMotor.set(pidController.calculate(aiming.turretAngle.getPosition(), setPoint)); // free to move
+                                                                                                    // where you want to
       }
     }
   }
