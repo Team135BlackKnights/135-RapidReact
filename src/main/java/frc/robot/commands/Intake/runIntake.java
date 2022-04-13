@@ -22,8 +22,8 @@ public class runIntake extends CommandBase {
 
   Color RobotColor, inverseColor;
 
-
   ColorMatch m_colorMatcher = new ColorMatch();
+
   public runIntake(Intake subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     intake = subsystem;
@@ -33,15 +33,15 @@ public class runIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (DriverStation.getAlliance() == DriverStation.Alliance.Red){
+    if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
       RobotColor = kRedTarget;
       inverseColor = kBlueTarget;
     }
-    if (DriverStation.getAlliance() == DriverStation.Alliance.Blue){
+    if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
       RobotColor = kBlueTarget;
       inverseColor = kRedTarget;
-    }    
-    
+    }
+
     m_colorMatcher.addColorMatch(kBlueTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kGreenTarget);
@@ -50,69 +50,69 @@ public class runIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //<Color Selector>
-      if (RobotContainer.leftButton11.get()){
-        RobotColor = kRedTarget;
-        inverseColor = kBlueTarget;
-      }
-      if (RobotContainer.leftButton8.get()){
-        RobotColor = kBlueTarget;
-        inverseColor = kRedTarget;
-      }
+    // <Color Selector>
+    if (RobotContainer.leftButton11.get()) {
+      RobotColor = kRedTarget;
+      inverseColor = kBlueTarget;
+    }
+    if (RobotContainer.leftButton8.get()) {
+      RobotColor = kBlueTarget;
+      inverseColor = kRedTarget;
+    }
 
-     // ColorMatchResult match = m_colorMatcher.matchClosestColor(intake.colorSensorV3.getColor());
-    //</Color Selector>
-    
-    //<Intake>
+    // ColorMatchResult match =
+    // m_colorMatcher.matchClosestColor(intake.colorSensorV3.getColor());
+    // </Color Selector>
 
-        if (RobotContainer.rightTrigger.get())
-        {
-          intake.IntakeMotor.set(-.75);
-        }
+    // <Intake>
 
-        if (RobotContainer.manipTrigger.get()) {
-          intake.Feeder.set(.8);
-        }
-    //</Intake>
+    if (RobotContainer.rightTrigger.get()) {
+      intake.IntakeMotor.set(-.75);
+    }
 
-    //<Spit Out>
-      if(RobotContainer.manipButton9.get()) {
-        intake.IntakeMotor.set(.4);
-      }
-    
-      if (RobotContainer.manipButton8.get()) {
-        intake.Feeder.set(-.8);
-      }
-    //</Spit Out>
+    if (RobotContainer.manipTrigger.get()) {
+      intake.Feeder.set(.8);
+    }
+    // </Intake>
 
-    //<Shut Off>
-      if (!RobotContainer.manipButton5.get() && !RobotContainer.rightTrigger.get()){
-        intake.IntakeMotor.set(0);
-      }
+    // <Spit Out>
+    if (RobotContainer.manipButton9.get()) {
+      intake.IntakeMotor.set(.4);
+    }
 
-      if (!RobotContainer.manipButton6.get() && !RobotContainer.manipTrigger.get()){
-        intake.Feeder.set(0);
-      }
-    //</Shut Off>
+    if (RobotContainer.manipButton8.get()) {
+      intake.Feeder.set(-.8);
+    }
+    // </Spit Out>
+
+    // <Shut Off>
+    if (!RobotContainer.manipButton9.get() && !RobotContainer.rightTrigger.get()) {
+      intake.IntakeMotor.set(0);
+    }
+
+    if (!RobotContainer.manipButton8.get() && !RobotContainer.manipTrigger.get()) {
+      intake.Feeder.set(0);
+    }
+    // </Shut Off>
   }
 
-    public void runCommand(boolean power) {
-      if (power) {
+  public void runCommand(boolean power) {
+    if (power) {
       intake.IntakeMotor.set(.9);
-      }
-      else {
-        intake.IntakeMotor.set(0);
-      }
-
+    } else {
+      intake.IntakeMotor.set(0);
     }
+
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
-  } 
+  }
 }

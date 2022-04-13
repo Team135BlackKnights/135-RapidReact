@@ -38,7 +38,7 @@ public class runShooterDistance extends CommandBase {
     // .000025
     // original feedforward value
 
-    PIDController pidController = new PIDController(.000005, 0, .0000025);
+    PIDController pidController = new PIDController(.000005, .000002, .000005);
     SimpleMotorFeedforward FeedForward = new SimpleMotorFeedforward(0, .000134); // 0001375
 
     boolean ballPersistant = false;
@@ -71,7 +71,7 @@ public class runShooterDistance extends CommandBase {
         m_colorMatcher.addColorMatch(kBlueTarget);
         m_colorMatcher.addColorMatch(kRedTarget);
         m_colorMatcher.addColorMatch(kGreenTarget);
-
+        
         pidController.setIntegratorRange(-.02, .02);
         pidController.enableContinuousInput(800, 6000);
     }
@@ -101,18 +101,20 @@ public class runShooterDistance extends CommandBase {
 
         // <Ranges>
         if (Tv.getDouble(0) == 0 || distance < 50) { // if firing blind set power flat
-            speedDesired = 3800;
+            speedDesired = 3500;
         } else if (distance < 100) {
-            speedDesired = calcPercent(50, 100, 3950, 3500, distance);
+            speedDesired = calcPercent(50, 100, 3750, 3450, distance);
         } else if (distance < 150) {
-            speedDesired = calcPercent(100, 150, 4350, 4000, distance);
+            speedDesired = calcPercent(100, 150, 4350, 3800, distance);
         } else if (distance < 175) {
-            speedDesired = calcPercent(150, 175, 4750, 4300, distance);
+            speedDesired = calcPercent(150, 175, 4650, 4300, distance);
         } else if (distance < 200) {
-            speedDesired = calcPercent(175, 200, 5075, 4900, distance);
+            speedDesired = calcPercent(175, 200, 4700, 4500, distance);
         } else if (distance < 225) {
-            speedDesired = calcPercent(200, 225, 5200, 4900, distance);
-        } else {
+            speedDesired = calcPercent(200, 225, 5100, 4800, distance);
+        }else if (distance < 260) {
+            speedDesired = calcPercent(226, 260, 5300, 5050, distance);
+        }  else {
             speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 3027.57)); // decreased c by
                                                                                                    // //follow formula
                                                                                                    // as backup
