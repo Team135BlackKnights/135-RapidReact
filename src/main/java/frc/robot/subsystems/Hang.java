@@ -15,19 +15,19 @@ public class Hang extends SubsystemBase {
 
     public CANSparkMax Vert1 = new CANSparkMax(RobotMap.Hang.V1_ID, MotorType.kBrushless);
     public CANSparkMax Vert2 = new CANSparkMax(RobotMap.Hang.V2_ID, MotorType.kBrushless);
-    public DoubleSolenoid LiftSolenoid = new DoubleSolenoid(2, PneumaticsModuleType.REVPH, RobotMap.Hang.So2_ID,
-            RobotMap.Hang.So3_ID);
-    public DoubleSolenoid HookSolenoid = new DoubleSolenoid(2, PneumaticsModuleType.REVPH, RobotMap.Hang.So4_ID,
-            RobotMap.Hang.So5_ID);
+    public DoubleSolenoid Solenoid = new DoubleSolenoid(2, PneumaticsModuleType.REVPH, RobotMap.Hang.So12_ID,
+            RobotMap.Hang.So13_ID);
 
     public Hang() {
         Vert1.setIdleMode(IdleMode.kBrake);
         Vert2.setIdleMode(IdleMode.kBrake);
-        Vert1.setSmartCurrentLimit(15);
-        Vert2.setSmartCurrentLimit(15);
+        Vert1.setSmartCurrentLimit(25);
+        Vert2.setSmartCurrentLimit(25);
 
         Vert2.burnFlash();
         Vert1.burnFlash();
+
+        Solenoid.set(Value.kForward);
     }
 
     public void VerticalHang(double power) {

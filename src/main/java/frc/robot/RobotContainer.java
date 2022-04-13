@@ -27,6 +27,7 @@ import frc.robot.subsystems.Turret.Aiming;
 import frc.robot.subsystems.Turret.Turret;
 import frc.robot.commands.Intake.deployIntake;
 import frc.robot.commands.Intake.runIntake;
+import frc.robot.commands.Hanging.deployHang;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -124,8 +125,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     manipThumb.whenPressed(new deployIntake(intake));
     leftThumb.whenPressed(new angleHood(turret));
+    manipButton7.whenPressed(new deployHang(hang));
 
-    leftButton5.whenPressed(new encoderDrive(drive, 70));
   }
 
   public Command getAutonomousCommand() {

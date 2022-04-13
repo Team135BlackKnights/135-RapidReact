@@ -19,7 +19,7 @@ public interface RobotMap {
         public final static int
             V1_ID = 41,
             V2_ID = 42,
-            So2_ID = 2, So3_ID = 3,
+            So12_ID = 12, So13_ID = 13,
             So4_ID = 4, So5_ID = 5,
     
             Co_S_ID = 6;
