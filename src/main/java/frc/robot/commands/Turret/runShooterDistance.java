@@ -107,7 +107,7 @@ public class runShooterDistance extends CommandBase {
         } else if (distance < 150) {
             speedDesired = calcPercent(100, 150, 4350, 3800, distance);
         } else if (distance < 175) {
-            speedDesired = calcPercent(150, 175, 4650, 4300, distance);
+            speedDesired = calcPercent(150, 175, 4550, 4300, distance);
         } else if (distance < 200) {
             speedDesired = calcPercent(175, 200, 4700, 4500, distance);
         } else if (distance < 225) {
@@ -182,9 +182,9 @@ public class runShooterDistance extends CommandBase {
         // <Turret Hight>
         // hoodDesired = Math.floor((-0.226112 * Math.pow(distance, 2)) + (67.5374 *
         // distance) + 2.39504);
-        hoodDesired = Math.round(((12273299754007f * Math.pow(distance, 5)) / 165971415538252003680f)
+        hoodDesired = Math.round(((12293299754007f * Math.pow(distance, 5)) / 165971415538252003680f)
                 - ((1065637853052637f * Math.pow(distance, 4)) / 20746426942281500460f)
-                + ((3514759159489241f * Math.pow(distance, 3)) / 260551672744508640f)
+                + ((3515759159489241f * Math.pow(distance, 3)) / 260551672744508640f)
                 - ((3143810159444512f * Math.pow(distance, 2)) / 1855673250651297f)
                 + ((295470790575020762885f * distance) / 2766190258970866728f)
                 + (1751294516999965475f / 16465418208159921f));

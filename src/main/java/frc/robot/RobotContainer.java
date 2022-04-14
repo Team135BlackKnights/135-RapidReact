@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotMap.KOI;
 import frc.robot.commands.Auto.BlueThreeBallAuto;
+import frc.robot.commands.Auto.ImprovedTimedAuto;
 import frc.robot.commands.Auto.RedThreeBallAuto;
 import frc.robot.commands.Auto.AutoCommands.encoderDrive;
 import frc.robot.commands.Drive.tankDrive;
@@ -89,6 +90,8 @@ public class RobotContainer {
   private final Command Blue = new BlueThreeBallAuto(drive, intake, turret);
   private final Command Red = new RedThreeBallAuto(drive, intake, turret);
   private final Command TimedAuto = new frc.robot.commands.Auto.TimedAuto(drive, turret, intake);
+  private final Command ImprovedTimedAuto = new ImprovedTimedAuto(intake, drive, turret, hang);
+  
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -99,7 +102,8 @@ public class RobotContainer {
 
     m_chooser.addOption("BlueAuto", Blue);
     m_chooser.addOption("RedAuto", Red);
-    m_chooser.setDefaultOption("TimedAuto", TimedAuto);
+    m_chooser.setDefaultOption("ImprovedTimedAuto", ImprovedTimedAuto);
+    m_chooser.addOption("TimedAuto", TimedAuto);
 
     SmartDashboard.putData(m_chooser);
 

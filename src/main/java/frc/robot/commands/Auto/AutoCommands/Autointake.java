@@ -11,7 +11,7 @@ import frc.robot.subsystems.Intake;
 public class Autointake extends CommandBase {
     /** Creates a new Autointake. */
     double time;
-    Timer timer;
+    Timer timer = new Timer();
     Intake intake;
     boolean isFinished = false;
 
@@ -31,7 +31,7 @@ public class Autointake extends CommandBase {
     public void initialize()
      {
         timer.start();
-        intake.IntakeMotor.set(.5);
+        intake.IntakeMotor.set(-.5);
     }
 
     // Called every time the scheduler runs while the command is scheduled.

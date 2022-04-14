@@ -4,139 +4,210 @@
 
 package frc.robot.commands.Auto.AutoCommands;
 
+import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Turret.Turret;
 
 public class RunShooterAuto extends CommandBase {
-
-  private final Turret turret;
+    /** Creates a new runShooter. */
+    private final Turret turret;
     boolean isFinished = false;
     NetworkTable TurretLimelightTable = NetworkTableInstance.getDefault().getTable("limelight-turret");
     NetworkTableEntry Ty = TurretLimelightTable.getEntry("ty");
     NetworkTableEntry Tv = TurretLimelightTable.getEntry("tv");
 
     double angleGoalDegree, distance;
-    double speedDesired, SkI, SkP, sError, x, shooterOn; // pid Numbers Shooter
-    double hoodDesired, HkI, HkP, hError;
+    double speedDesired, SkI, SkP, sError, shooterOn; // pid Numbers Shooter
+    double HkI, HkP, hError;
+    float hoodDesired;
+    Timer timer = new Timer();
 
-    PIDController pidController = new PIDController(0.00005, 0, .000025);
-    SimpleMotorFeedforward FeedForward = new SimpleMotorFeedforward(0, .0001);
+    // original PID values with only one motor and old belt ratio (0.00005, 0,
+    // .000025
+    // original feedforward value
 
+    PIDController pidController = new PIDController(.000005, .000002, .000005);
+    SimpleMotorFeedforward FeedForward = new SimpleMotorFeedforward(0, .000134); // 0001375
 
-  public RunShooterAuto(Turret subystem) {
-    addRequirements(subystem);
-    turret = subystem;
-   
-  }
+    boolean ballPersistant = false;
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    pidController.setIntegratorRange(-.02, .02);
-  }
+    Color RobotColor, inverseColor, lastSeenColor, currentColor;
+    private final Color kBlueTarget = new Color(0.143, 0.427, 0.429);
+    private final Color kRedTarget = new Color(0.561, 0.232, 0.114);
+    private final Color kGreenTarget = new Color(0.197, 0.561, 0.240);
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-     // <Distance>
-     angleGoalDegree = 53 + Ty.getDouble(0.0);
-     distance = 160.5 / Math.tan(Math.toRadians(angleGoalDegree)); // distance in IN (hight of tape - hight of
-                                                                 // limelight) / tan(angle of limelight + angle of
-                                                                 // target)
-     SmartDashboard.putNumber("Distance To Target", distance);
-     // </Distance>
-     SmartDashboard.putNumber("RPM G", turret.shooter.getVelocity());
-     SmartDashboard.putNumber("RPM", turret.shooter.getVelocity());
-     SmartDashboard.putNumber("Shooter sError", pidController.getVelocityError());
+    ColorMatch m_colorMatcher = new ColorMatch();
 
-
-     if (Tv.getDouble(0) == 0) { // if firing blind set power flat
-      speedDesired = 3800;
-  } else if (distance < 75) {
-      speedDesired = calcPercent(0, 75, 4120, 3700, distance);    //(minimum distance, max distance, max power, minumum power)
-  } else if (distance < 100) {
-      speedDesired = calcPercent(75, 100, 4250, 4120, distance);
-  } else if (distance < 145) {
-      speedDesired = calcPercent(100, 145, 4600, 4250, distance);
-  } else if (distance < 175) {
-      speedDesired = calcPercent(145, 175, 4900, 4600, distance);
-  } else if (distance < 200) {
-      speedDesired = calcPercent(175, 200, 4775, 4515, distance);
-  } else {
-      speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 2627.57)); // decreased c by     //follow formula as backup
-                                                                                             // 1550
-  }
-  // </Ranges> 
-  turret.LeftPower.set(pidController.calculate(turret.shooter.getVelocity(), speedDesired) + FeedForward.calculate(speedDesired));
-
-   // <Turret Hight>
-   hoodDesired = Math.floor((.00835611 * Math.pow(distance, 2)) + (1.98118 * distance) + 1908.53); 
-   // a decreased by 0
-   // c increased by 200
-   SmartDashboard.putNumber("HoodDesired", hoodDesired);
-   hError = -turret.hoodHight.getPosition() * 37.5 - hoodDesired;
-   SmartDashboard.putNumber("HoodError", hError);
-
-   HkP = .001;
-   HkI = .005;
-
-   if (Math.abs(hError) < 30) {
-       turret.hoodMotor.set(0);
-       SmartDashboard.putString("HoodMotorMode", "OnTarget");
-   } else if (Tv.getDouble(0.0) == 0) {
-       turret.hoodMotor.set(0);
-       SmartDashboard.putString("HoodMotorMode", "LostTarget");
-   } else if (-turret.hoodHight.getPosition() * 37.5 > 3400
-           && outputs(hError * HkP, hError * HkI, hoodDesired * 1.34, (hoodDesired * 1.34) - hoodDesired) < 0) {
-       turret.hoodMotor.set(0);
-       SmartDashboard.putString("HoodMotorMode", "AtLimit");
-   } else if (-turret.hoodHight.getPosition() * 37.5 < 400
-           && outputs(hError * HkP, hError * HkI, hoodDesired * 1.34, (hoodDesired * 1.34) - hoodDesired) > 0) {
-       turret.hoodMotor.set(0);
-       SmartDashboard.putString("HoodMotorMode", "AtLimit");
-   } else {
-       turret.hoodMotor.set(limit(outputs(hError * HkP, hError * HkI, hoodDesired *
-                1.34, (hoodDesired * 1.34) - hoodDesired), .5, -.5)); //power cannot exceed .5 
-       SmartDashboard.putString("HoodMotorMode", "Ajusting");
-   }
-
-   // </Turret Height>
-  }
-
-  public static double limit(double x, double upperLimit, double lowerLimit) {
-    return x > upperLimit ? upperLimit : x < lowerLimit ? lowerLimit : x;
-}
-
-double outputs(double porOut, double iOut, double iBottom, double iTop) {
-    if (porOut > iBottom && porOut < iTop) {
-        SmartDashboard.putBoolean("I?", true);
-        return limit(porOut + iOut, .85, -.8);
-    } else {
-        SmartDashboard.putBoolean("I?", false);
-        return limit(porOut, .85, -.8);
+    public RunShooterAuto(Turret subystem) {
+        addRequirements(subystem);
+        turret = subystem;
     }
-}
 
-public static double calcPercent(double minDistance, double maxDistance, double maxOutput, double minOutput,
-        double distance) {
-    double distanceRange = maxDistance - minDistance;
-    double percent = (-minDistance + distance) / distanceRange;
-    return (((maxOutput - minOutput) * percent) + minOutput);
-}
+    // Called when the command is initially scheduled
+    @Override
+    public void initialize() {
+        if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
+            RobotColor = kRedTarget;
+            inverseColor = kBlueTarget;
+        }
+        if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
+            RobotColor = kBlueTarget;
+            inverseColor = kRedTarget;
+        }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
+        shooterOn = 1;
+        m_colorMatcher.addColorMatch(kBlueTarget);
+        m_colorMatcher.addColorMatch(kRedTarget);
+        m_colorMatcher.addColorMatch(kGreenTarget);
+        
+        pidController.setIntegratorRange(-.02, .02);
+        pidController.enableContinuousInput(800, 6000);
+        timer.start();
+    }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        // <Distance>
+        angleGoalDegree = 40 + Ty.getDouble(0.0);
+        distance = (79 /* * 1.4 */) / Math.tan(Math.toRadians(angleGoalDegree)); // distance in IN (hight of tape -
+                                                                                 // hight of
+        // limelight) / tan(angle of limelight + angle of
+        // target)
+        SmartDashboard.putNumber("Distance To Target", distance);
+        // </Distance>
+
+        // <Shooter Speed>
+        SmartDashboard.putNumber("RPM G", turret.shooter.getVelocity());
+        SmartDashboard.putNumber("RPM", turret.shooter.getVelocity());
+        SmartDashboard.putNumber("Shooter Error", pidController.getVelocityError());
+
+        // <Ranges>
+        if (Tv.getDouble(0) == 0 || distance < 50) { // if firing blind set power flat
+            speedDesired = 3500;
+        } else if (distance < 100) {
+            speedDesired = calcPercent(50, 100, 3750, 3450, distance);
+        } else if (distance < 150) {
+            speedDesired = calcPercent(100, 150, 4350, 3770, distance);
+        } else if (distance < 175) {
+            speedDesired = calcPercent(150, 175, 4550, 4300, distance);
+        } else if (distance < 200) {
+            speedDesired = calcPercent(175, 200, 4700, 4500, distance);
+        } else if (distance < 225) {
+            speedDesired = calcPercent(200, 225, 5100, 4800, distance);
+        }else if (distance < 260) {
+            speedDesired = calcPercent(226, 260, 5300, 5050, distance);
+        }  else {
+            speedDesired = ((-0.0129955 * Math.pow(distance, 2) + (13.834 * distance) + 3027.57)); // decreased c by
+                                                                                                   // //follow formula
+                                                                                                   // as backup
+                                                                                                   // 1550
+        }
+        // </Ranges>
+
+        SmartDashboard.putNumber("Shooter Speed Desired", speedDesired);
+
+        if (speedDesired == 0) {
+            turret.LeftPower.set(0);
+            // } else if (currentColor == inverseColor){
+            // turret.LeftPower.set(.2);
+        } else {
+
+            turret.LeftPower.set(FeedForward.calculate(speedDesired)
+                    + pidController.calculate(turret.shooter.getVelocity(), speedDesired));
+        }
+
+        // </Shooter Speed>
+
+        // <Turret Hight>
+        // hoodDesired = Math.floor((-0.226112 * Math.pow(distance, 2)) + (67.5374 *
+        // distance) + 2.39504);
+        hoodDesired = Math.round(((12293299754007f * Math.pow(distance, 5)) / 165971415538252003680f)
+                - ((1065637853052637f * Math.pow(distance, 4)) / 20746426942281500460f)
+                + ((3515759159489241f * Math.pow(distance, 3)) / 260551672744508640f)
+                - ((3143810159444512f * Math.pow(distance, 2)) / 1855673250651297f)
+                + ((295470790575020762885f * distance) / 2766190258970866728f)
+                + (1751294516999965475f / 16465418208159921f));
+
+
+      //  hoodDesired -= 600;
+        SmartDashboard.putNumber("HoodDesired", hoodDesired);
+        hError = -turret.hoodHight.getPosition() * 37.5 - hoodDesired;
+        SmartDashboard.putNumber("HoodError", hError);
+
+        HkP = .001;
+        HkI = .005;
+
+        if (Math.abs(hError) < 30) {
+            turret.hoodMotor.set(0);
+            SmartDashboard.putString("HoodMotorMode", "OnTarget");
+        } else if (Tv.getDouble(0.0) == 0) {
+            turret.hoodMotor.set(0);
+            SmartDashboard.putString("HoodMotorMode", "LostTarget");
+        } else if (-turret.hoodHight.getPosition() * 37.5 > 3400
+                && outputs(hError * HkP, hError * HkI, hoodDesired * 1.34, (hoodDesired * 1.34) - hoodDesired) < 0) {
+            turret.hoodMotor.set(0);
+            SmartDashboard.putString("HoodMotorMode", "AtLimit");
+        } else if (-turret.hoodHight.getPosition() * 37.5 < 400
+                && outputs(hError * HkP, hError * HkI, hoodDesired * 1.34, (hoodDesired * 1.34) - hoodDesired) > 0) {
+            turret.hoodMotor.set(0);
+            SmartDashboard.putString("HoodMotorMode", "AtLimit");
+        } else {
+            turret.hoodMotor.set(limit(outputs(hError * HkP, hError * HkI, hoodDesired *
+                    1.34, (hoodDesired * 1.34) - hoodDesired), .5, -.5)); // power cannot exceed
+            // .5
+            SmartDashboard.putString("HoodMotorMode", "Ajusting");
+        }
+
+        // </Turret Height>
+
+        if (timer.get() > 10){
+            isFinished = true;
+        }
+    }
+
+    public static double limit(double x, double upperLimit, double lowerLimit) {
+        return x > upperLimit ? upperLimit : x < lowerLimit ? lowerLimit : x;
+    }
+
+    double outputs(double porOut, double iOut, double iBottom, double iTop) {
+        if (porOut > iBottom && porOut < iTop) {
+            SmartDashboard.putBoolean("I?", true);
+            return limit(porOut + iOut, .85, -.8);
+        } else {
+            SmartDashboard.putBoolean("I?", false);
+            return limit(porOut, .85, -.8);
+        }
+    }
+
+    public static double calcPercent(double minDistance, double maxDistance, double maxOutput, double minOutput,
+            double distance) {
+        double distanceRange = maxDistance - minDistance;
+        double percent = (-minDistance + distance) / distanceRange;
+        return (((maxOutput - minOutput) * percent) + minOutput);
+    }
+
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        timer.stop();
+        timer.reset();
+    }
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return isFinished;
+    }
 }
