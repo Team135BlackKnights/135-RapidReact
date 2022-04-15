@@ -10,6 +10,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Turret.Aiming;
 
 public class ImprovedAiming extends CommandBase {
@@ -57,7 +58,17 @@ public class ImprovedAiming extends CommandBase {
       }
 
       pidController.calculate(aiming.turretAngle.getPosition(), setPoint); // store calculation of error
-      if (Math.abs(pidController.getPositionError()) < .38) { // if the error is negliable, stop the command
+      if (RobotContainer.manipJoystick.getPOV() != -1) {
+        // <Override>
+        if (RobotContainer.manipJoystick.getPOV() == 90) {
+          aiming.angleMotor.set(.1);
+        } else if (RobotContainer.manipJoystick.getPOV() == 270) {
+          aiming.angleMotor.set(-.1);
+        } else if (RobotContainer.manipJoystick.getPOV() == 180) {
+          aiming.angleMotor.set(0);
+          // </Override>
+        }
+      } else if (Math.abs(pidController.getPositionError()) < .38) { // if the error is negliable, stop the command
         aiming.angleMotor.set(0);
       } else if (setPoint < 2 || setPoint > 78) { // if the setPoint is past the limts, don't move
         aiming.angleMotor.set(0);
