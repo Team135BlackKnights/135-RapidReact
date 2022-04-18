@@ -14,6 +14,7 @@ import frc.robot.RobotMap.KOI;
 import frc.robot.commands.Auto.BlueThreeBallAuto;
 import frc.robot.commands.Auto.ImprovedTimedAuto;
 import frc.robot.commands.Auto.RedThreeBallAuto;
+import frc.robot.commands.Auto.AutoCommands.TimeDrive;
 import frc.robot.commands.Auto.AutoCommands.encoderDrive;
 import frc.robot.commands.Drive.tankDrive;
 import frc.robot.commands.Hanging.Hanging;
@@ -91,6 +92,7 @@ public class RobotContainer {
   private final Command Red = new RedThreeBallAuto(drive, intake, turret);
   private final Command TimedAuto = new frc.robot.commands.Auto.TimedAuto(drive, turret, intake);
   private final Command ImprovedTimedAuto = new ImprovedTimedAuto(intake, drive, turret, hang);
+  private final Command Taxi = new TimeDrive(drive, 1.2);
   
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -102,6 +104,7 @@ public class RobotContainer {
 
     m_chooser.addOption("BlueAuto", Blue);
     m_chooser.addOption("RedAuto", Red);
+    m_chooser.addOption("Taxi", Taxi);
     m_chooser.setDefaultOption("ImprovedTimedAuto", ImprovedTimedAuto);
     m_chooser.addOption("TimedAuto", TimedAuto);
 
@@ -130,7 +133,6 @@ public class RobotContainer {
     manipThumb.whenPressed(new deployIntake(intake));
     leftThumb.whenPressed(new angleHood(turret));
     manipButton7.whenPressed(new deployHang(hang));
-
   }
 
   public Command getAutonomousCommand() {

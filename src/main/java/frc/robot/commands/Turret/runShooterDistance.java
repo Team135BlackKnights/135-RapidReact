@@ -105,11 +105,11 @@ public class runShooterDistance extends CommandBase {
         } else if (distance < 100) {
             speedDesired = calcPercent(50, 100, 3750, 3450, distance);
         } else if (distance < 150) {
-            speedDesired = calcPercent(100, 150, 4350, 3800, distance);
+            speedDesired = calcPercent(100, 150, 4400, 3875, distance);
         } else if (distance < 175) {
-            speedDesired = calcPercent(150, 175, 4550, 4300, distance);
+            speedDesired = calcPercent(150, 175, 4535, 4320, distance);
         } else if (distance < 200) {
-            speedDesired = calcPercent(175, 200, 4700, 4500, distance);
+            speedDesired = calcPercent(175, 200, 4770, 5090, distance);
         } else if (distance < 225) {
             speedDesired = calcPercent(200, 225, 5100, 4800, distance);
         }else if (distance < 260) {
@@ -130,20 +130,6 @@ public class runShooterDistance extends CommandBase {
 
         if (Tv.getDouble(0.0) == 0 && shooterOn == 0) {
             speedDesired = 0;
-        }
-
-        ColorMatchResult match = m_colorMatcher.matchClosestColor(turret.colorSensor.getColor());
-        if (match.confidence < 70) {
-            SmartDashboard.putString("Ball Color", "No Ball");
-            currentColor = null;
-        } else if (match.color == kBlueTarget) {
-            SmartDashboard.putString("Ball Color", "Blue");
-            currentColor = match.color;
-        } else if (match.color == kRedTarget) {
-            SmartDashboard.putString("Ball Color", "Red");
-            currentColor = match.color;
-        } else {
-            SmartDashboard.putString("Ball Color", "Unknown");
         }
 
         SmartDashboard.putNumber("Shooter Speed Desired", speedDesired);

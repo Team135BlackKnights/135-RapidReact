@@ -11,7 +11,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -63,7 +62,6 @@ public class DriveRobot extends SubsystemBase {
         MotorControllerGroup right = new MotorControllerGroup(FrontRight, BackRight);
 
         tank = new DifferentialDrive(left, right);
-        CameraServer.startAutomaticCapture();
         // Declares a new Navx and immediately sets it to 0
         navx = new AHRS(RobotMap.Drive.navXPort);
         navx.reset();

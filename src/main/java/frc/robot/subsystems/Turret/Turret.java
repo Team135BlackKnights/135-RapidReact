@@ -23,8 +23,6 @@ public class Turret extends SubsystemBase {
   
   public RelativeEncoder shooter, hoodHight;
 
-  public ColorSensorV3 colorSensor = new ColorSensorV3(RobotMap.Intake.colorPort); 
-
   public Turret() {
     shooter =     LeftPower.getEncoder();
     hoodHight =   hoodMotor.getEncoder();
