@@ -22,6 +22,7 @@ import frc.robot.commands.Turret.ImprovedAiming;
 import frc.robot.commands.Turret.aimTurret;
 import frc.robot.commands.Turret.angleHood;
 import frc.robot.commands.Turret.runShooterDistance;
+import frc.robot.commands.Turret.runShooterHoodDistance;
 import frc.robot.subsystems.DriveRobot;
 import frc.robot.subsystems.Hang;
 import frc.robot.subsystems.Intake;
