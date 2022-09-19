@@ -19,6 +19,7 @@ public class runIntake extends CommandBase {
         addRequirements(subsystem);
     }
 
+<<<<<<< Updated upstream
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {}
@@ -49,6 +50,43 @@ public class runIntake extends CommandBase {
             intake.Feeder.set(0);
         }
     }
+=======
+        if (RobotContainer.rightTrigger.get()) {
+        //if (RobotContainer.joystick.getLeftTriggerAxis() > 0) {
+          intake.IntakeMotor.set(-.5);
+        }
+
+        if (RobotContainer.manipTrigger.get()) {
+        //if (RobotContainer.joystick.getRightTriggerAxis() > 0) {
+          intake.Feeder.set(.6);
+        }
+    //</Intake>
+
+    //<Spit Out>
+      if(RobotContainer.manipButton9.get()) {
+      //if (RobotContainer.joystick.getLeftTriggerAxis() > 0 && RobotContainer.joystick.getButtonBPressed()) {
+        intake.IntakeMotor.set(.4);
+      }
+    
+      if (RobotContainer.manipButton8.get()) {
+      //if (RobotContainer.joystick.getRightTriggerAxis() > 0 && RobotContainer.joystick.getButtonBPressed()) {
+        intake.Feeder.set(-.8);
+      }
+    //</Spit Out>
+
+    //<Shut Off>
+      if (!RobotContainer.manipButton5.get() && !RobotContainer.rightTrigger.get()){
+      //if (RobotContainer.joystick.getLeftTriggerAxis() = 0)
+        intake.IntakeMotor.set(0);
+      }
+
+      if (!RobotContainer.manipButton6.get() && !RobotContainer.manipTrigger.get()){
+        intake.Feeder.set(0);
+      }
+    //</Shut Off>
+  }
+
+>>>>>>> Stashed changes
     public void runCommand(boolean power) {
         if (power) {
             intake.IntakeMotor.set(.9);

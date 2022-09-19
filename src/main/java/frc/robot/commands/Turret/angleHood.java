@@ -10,6 +10,7 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.Turret.Turret;
 
 public class angleHood extends CommandBase {
+<<<<<<< Updated upstream
     /** Creates a new angleHood. */
     Turret turret;
 
@@ -66,6 +67,38 @@ public class angleHood extends CommandBase {
         } else {
             return limit(porOut, .8, 0);
         }
+=======
+  
+  Turret turret;
+  
+  double MaxHight = 3000; //~47 degrees
+
+  boolean isFinished = false;
+  double minSpeed, currentSpeed, maxSpeed; //debug numbs
+  
+  public angleHood(Turret m_Turret) {
+    addRequirements(m_Turret);
+    turret = m_Turret;
+  }
+
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+    isFinished = false;
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
+    SmartDashboard.putBoolean("Hood Running", true);
+    if (RobotContainer.leftJoystick.getPOV() == 0){
+    //if (RobotContainer.joystick.getPOV() == 0){
+      turret.hoodMotor.set(.1);
+    }
+    else if (RobotContainer.leftJoystick.getPOV() == 180){
+    //else if (RobotContainer.joystick.getPOV() == 180){
+      turret.hoodMotor.set(-.1);
+>>>>>>> Stashed changes
     }
 
     // Called once the command ends or is interrupted.

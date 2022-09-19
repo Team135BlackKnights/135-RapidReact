@@ -115,6 +115,7 @@ public class aimTurret extends CommandBase {
     }
 
     public void powerUpdate() {
+<<<<<<< Updated upstream
         if (Tv.getDouble(0) == 0) {
             if (turret.turretAngle.get() > EndPos - 1400) {
                 turret.angleMotor.set(.4);
@@ -130,6 +131,22 @@ public class aimTurret extends CommandBase {
         if (error < intergralTop && error > intergralBottom && !RunningSafety && Tv.getDouble(0) == 1) {
             SmartDashboard.putNumber("Output", (limit(error * Ki + error * Kp, .8, -.8)));
             turret.angleMotor.set(limit(error * Ki + error * Kp, .8, -.8));
+=======
+        // <Override>
+        if (RobotContainer.manipJoystick.getPOV() == 90) {
+        //if (RobotContainer.joystick.getPOV() == 90){
+            aiming.angleMotor.set(.1);
+        } else if (RobotContainer.manipJoystick.getPOV() == 270) {
+        //} else if (RobotContainer.joystick.getPOV() == 270) {
+            aiming.angleMotor.set(-.1);
+        } else if (RobotContainer.manipJoystick.getPOV() == 180) {
+        //} else if (RobotContainer.joystick.getXButtonPress()) {
+            aiming.angleMotor.set(0);
+        // </Override>
+        } else if (error < intergralTop && error > intergralBottom && !RunningSafety && Tv.getDouble(0) == 1) {
+            SmartDashboard.putNumber("Rotate Output", (limit(error * Ki + error * Kp, .8, -.8)));
+            aiming.angleMotor.set(limit(error * Ki + error * Kp, .8, -.8));
+>>>>>>> Stashed changes
         } else if (!RunningSafety && Tv.getDouble(0) == 1) {
             SmartDashboard.putNumber("Output", (limit(error * Kp, .8, -.8)));
             turret.angleMotor.set(limit(error * Kp, .8, -.8));
