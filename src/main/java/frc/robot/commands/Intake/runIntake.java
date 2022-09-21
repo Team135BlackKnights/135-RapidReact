@@ -19,74 +19,42 @@ public class runIntake extends CommandBase {
         addRequirements(subsystem);
     }
 
-<<<<<<< Updated upstream
-    // Called when the command is initially scheduled.
-    @Override
-    public void initialize() {}
-
-    // Called every time the scheduler runs while the command is scheduled.
-    @Override
-    public void execute() {
-
-        if (RobotContainer.rightTrigger.get()) {
-            //Take in
-            intake.IntakeMotor.set(.9);
-        } else if (RobotContainer.rightButton6.get()) {
-            //Spit out
-            intake.IntakeMotor.set(-.9);
-        } else {
-            //Stop draining the battery
-            intake.IntakeMotor.set(0);
-        }
-
-        if (RobotContainer.rightThumb.get()) {
-            //pull in feeder
-            intake.Feeder.set(.8);
-        } else if (RobotContainer.rightButton10.get()) {
-            //move down feeder
-            intake.Feeder.set(-.8);
-        } else {
-            //don't move
-            intake.Feeder.set(0);
-        }
-    }
-=======
-        if (RobotContainer.rightTrigger.get()) {
-        //if (RobotContainer.joystick.getLeftTriggerAxis() > 0) {
+        //if (RobotContainer.rightTrigger.get()) {
+        if (RobotContainer.joystick.getLeftTriggerAxis() > 0) {
           intake.IntakeMotor.set(-.5);
         }
 
-        if (RobotContainer.manipTrigger.get()) {
-        //if (RobotContainer.joystick.getRightTriggerAxis() > 0) {
+        //if (RobotContainer.manipTrigger.get()) {
+        if (RobotContainer.joystick.getRightTriggerAxis() > 0) {
           intake.Feeder.set(.6);
         }
     //</Intake>
 
     //<Spit Out>
-      if(RobotContainer.manipButton9.get()) {
-      //if (RobotContainer.joystick.getLeftTriggerAxis() > 0 && RobotContainer.joystick.getButtonBPressed()) {
+      //if(RobotContainer.manipButton9.get()) {
+      if (RobotContainer.joystick.getLeftTriggerAxis() > 0 && RobotContainer.joystick.getButtonBPressed()) {
         intake.IntakeMotor.set(.4);
       }
     
-      if (RobotContainer.manipButton8.get()) {
-      //if (RobotContainer.joystick.getRightTriggerAxis() > 0 && RobotContainer.joystick.getButtonBPressed()) {
+      //if (RobotContainer.manipButton8.get()) {
+      if (RobotContainer.joystick.getRightTriggerAxis() > 0 && RobotContainer.joystick.getButtonBPressed()) {
         intake.Feeder.set(-.8);
       }
     //</Spit Out>
 
     //<Shut Off>
-      if (!RobotContainer.manipButton5.get() && !RobotContainer.rightTrigger.get()){
-      //if (RobotContainer.joystick.getLeftTriggerAxis() = 0)
+      //if (!RobotContainer.manipButton5.get() && !RobotContainer.rightTrigger.get()){
+      if (RobotContainer.joystick.getLeftTriggerAxis() = 0) {
         intake.IntakeMotor.set(0);
       }
 
-      if (!RobotContainer.manipButton6.get() && !RobotContainer.manipTrigger.get()){
+      //if (!RobotContainer.manipButton6.get() && !RobotContainer.manipTrigger.get()){
+      if (RobotContainer.joystick.getRightTriggerAxis() = 0) {
         intake.Feeder.set(0);
       }
     //</Shut Off>
   }
 
->>>>>>> Stashed changes
     public void runCommand(boolean power) {
         if (power) {
             intake.IntakeMotor.set(.9);

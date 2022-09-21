@@ -28,12 +28,8 @@ import frc.robot.subsystems.Turret.Turret;
 
 import frc.robot.commands.Intake.deployIntake;
 import frc.robot.commands.Intake.runIntake;
-<<<<<<< Updated upstream
-import frc.robot.subsystems.Intake.Intake;
-=======
 import edu.wpi.first.wpilibj.XboxController;
 
->>>>>>> Stashed changes
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -41,7 +37,7 @@ import edu.wpi.first.wpilibj.XboxController;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  //public XboxController joystick =  new XboxController(0);
+  public static XboxController joystick =  new XboxController(0);
   public static Joystick leftJoystick = new Joystick(RobotMap.KOI.LEFT_JOYSTICK);
   public static Joystick rightJoystick = new Joystick(RobotMap.KOI.RIGHT_JOYSTICK);
   public static Joystick manipJoystick = new Joystick(RobotMap.KOI.MANIP_JOYSTICK);

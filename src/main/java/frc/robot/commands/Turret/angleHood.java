@@ -10,64 +10,6 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.Turret.Turret;
 
 public class angleHood extends CommandBase {
-<<<<<<< Updated upstream
-    /** Creates a new angleHood. */
-    Turret turret;
-
-    double MaxHight = 0;
-
-    boolean isFinished = false;
-
-    double desired, lastOutput, kI, kP, porOut, error, iOut, iTop, iBottom; //pid Numbers
-    double minSpeed, currentSpeed, maxSpeed; //debug numbs
-
-    public angleHood(Turret m_Turret) {
-        addRequirements(turret);
-        turret = m_Turret;
-    }
-
-    // Called when the command is initially scheduled.
-    @Override
-    public void initialize() {
-
-    }
-
-    // Called every time the scheduler runs while the command is scheduled.
-    @Override
-    public void execute() {
-
-        desired = -(RobotContainer.leftJoystick.getRawAxis(3) - 1); //change this num with testing
-        error = desired - (turret.hoodHight.get() / MaxHight * 2);
-
-        iTop = desired * 1.34;
-        iBottom = desired - (desired * 1.34);
-        kP = .2; //change when testing
-        kI = -.08; //change when testing
-
-        porOut = error * kP;
-        iOut = error * kI;
-
-        turret.hoodMotor.set(outputs());
-
-        SmartDashboard.putNumber("Output", outputs());
-
-        if (Math.abs(error) < 20) {
-            isFinished = true;
-        }
-    }
-
-    public static double limit(double x, double upperLimit, double lowerLimit) {
-        return x > upperLimit ? upperLimit : x < lowerLimit ? lowerLimit :
-            x;
-    }
-
-    double outputs() {
-        if (porOut > iBottom && porOut < iTop) {
-            return limit(porOut + iOut, .8, 0);
-        } else {
-            return limit(porOut, .8, 0);
-        }
-=======
   
   Turret turret;
   
@@ -91,14 +33,13 @@ public class angleHood extends CommandBase {
   @Override
   public void execute() {
     SmartDashboard.putBoolean("Hood Running", true);
-    if (RobotContainer.leftJoystick.getPOV() == 0){
-    //if (RobotContainer.joystick.getPOV() == 0){
+    //if (RobotContainer.leftJoystick.getPOV() == 0){
+    if (RobotContainer.joystick.getPOV() == 0){
       turret.hoodMotor.set(.1);
     }
-    else if (RobotContainer.leftJoystick.getPOV() == 180){
-    //else if (RobotContainer.joystick.getPOV() == 180){
+    //else if (RobotContainer.leftJoystick.getPOV() == 180){
+    else if (RobotContainer.joystick.getPOV() == 180){
       turret.hoodMotor.set(-.1);
->>>>>>> Stashed changes
     }
 
     // Called once the command ends or is interrupted.

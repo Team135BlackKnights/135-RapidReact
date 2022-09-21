@@ -95,10 +95,12 @@ public class runShooterDistance extends CommandBase {
         //speedDesired = limit((-RobotContainer.manipJoystick.getRawAxis(3) + 1) / 2, .8, 0);
         //SmartDashboard.putNumber("Shooter Speed Desired", speedDesired * 10000);
 
-        if (RobotContainer.manipButton3.get()){
+        //if (RobotContainer.manipButton3.get()){
+        if (RobotContainer.joystick.getRightBumper() == true) {
           shooterOn = 1;
         }
-        else if (RobotContainer.manipButton4.get()){
+        //else if (RobotContainer.manipButton4.get()){
+        else if (RobotContainer.joystick.getLeftBumper() == true) {
           shooterOn = 0;
         }
 
