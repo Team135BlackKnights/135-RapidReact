@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Turret.Turret;
+import frc.robot.RobotContainer;
 
 public class aimTurret extends CommandBase {
     /** Creates a new AutoAim. */
@@ -138,7 +139,7 @@ public class aimTurret extends CommandBase {
         } else if (RobotContainer.joystick.getPOV() == 270) {
             aiming.angleMotor.set(-.1);
         //} else if (RobotContainer.manipJoystick.getPOV() == 180) {
-        } else if (RobotContainer.joystick.getXButtonPress()) {
+        } else if (RobotContainer.joystick.getXButtonPressed()) {
             aiming.angleMotor.set(0);
         // </Override>
         } else if (error < intergralTop && error > intergralBottom && !RunningSafety && Tv.getDouble(0) == 1) {
