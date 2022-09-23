@@ -39,7 +39,7 @@ public class angleHood extends CommandBase {
     }
     //else if (RobotContainer.leftJoystick.getPOV() == 180){
     else if (RobotContainer.joystick.getPOV() == 180){
-      turret.hoodMotor.set(-.1);
+      turret.hoodMotor.set(-.1);}
     }
 
     // Called once the command ends or is interrupted.

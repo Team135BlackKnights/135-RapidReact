@@ -10,9 +10,9 @@ import frc.robot.RobotMap;
 import frc.robot.subsystems.Drive.Drive;
 
 public class tankDrive extends CommandBase {
-  private final DriveRobot drive;
+  private final Drive drive;
   /** Creates a new tankDrive. */
-  public tankDrive(DriveRobot subsystem) {
+  public tankDrive(Drive subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     drive = subsystem;
     addRequirements(subsystem);
@@ -31,8 +31,8 @@ public void initialize() {
   public void execute() {
     //double leftSpeed =   RobotContainer.leftJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS) * (-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2;
     //double rightSpeed = -RobotContainer.rightJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS) * (-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2;  
-    double leftSpeed = RobotContainer.joystick.getRawAxis(4)/1
-    double rightSpeed = -RobotContainer.joystick.getRawAxis(1)/1
+    double leftSpeed = RobotContainer.joystick.getRawAxis(4)/1;
+    double rightSpeed = -RobotContainer.joystick.getRawAxis(1)/1;
     
     drive.tankDrive(-leftSpeed, -rightSpeed);
   }
