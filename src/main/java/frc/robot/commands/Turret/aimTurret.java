@@ -134,17 +134,21 @@ public class aimTurret extends CommandBase {
         // <Override>
         //if (RobotContainer.manipJoystick.getPOV() == 90) {
         if (RobotContainer.joystick.getPOV() == 90){
-            aiming.angleMotor.set(.1);
+            turret.angleMotor.set(.1);
+            //turret.angleMotor.set(.1);
         //} else if (RobotContainer.manipJoystick.getPOV() == 270) {
         } else if (RobotContainer.joystick.getPOV() == 270) {
-            aiming.angleMotor.set(-.1);
+            turret.angleMotor.set(-.1);
+            //aiming.angleMotor.set(-.1);
         //} else if (RobotContainer.manipJoystick.getPOV() == 180) {
         } else if (RobotContainer.joystick.getXButtonPressed()) {
-            aiming.angleMotor.set(0);
+            turret.angleMotor.set(0);
+            //aiming.angleMotor.set(0);
         // </Override>
         } else if (error < intergralTop && error > intergralBottom && !RunningSafety && Tv.getDouble(0) == 1) {
             SmartDashboard.putNumber("Rotate Output", (limit(error * Ki + error * Kp, .8, -.8)));
-            aiming.angleMotor.set(limit(error * Ki + error * Kp, .8, -.8));
+            turret.angleMotor.set(limit(error * Ki + error * Kp, .8, -.8));
+            //aiming.angleMotor.set(limit(error * Ki + error * Kp, .8, -.8));
         } else if (!RunningSafety && Tv.getDouble(0) == 1) {
             SmartDashboard.putNumber("Output", (limit(error * Kp, .8, -.8)));
             turret.angleMotor.set(limit(error * Kp, .8, -.8));
