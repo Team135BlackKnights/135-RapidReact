@@ -128,9 +128,9 @@ public class runShooterDistance extends CommandBase {
 
         SkP = 13; //change when testing
         SkI = 5.5; //change when testing
-
-        ColorMatchResult match; //= m_colorMatcher.matchClosestColor(turret.colorSensor.getColor());
 /*
+        ColorMatchResult match; // = m_colorMatcher.matchClosestColor(turret.colorSensor.getColor());
+
         if (match.color == kBlueTarget)
           SmartDashboard.putString("Ball Color", "Blue");
         else if (match.color == kRedTarget)
@@ -146,8 +146,7 @@ public class runShooterDistance extends CommandBase {
           x = 0;
           ballPersistant = true;
         }
-        */
-
+*/
         SmartDashboard.putNumber("X", x);
 
         if (x > 50)
@@ -171,10 +170,10 @@ public class runShooterDistance extends CommandBase {
           SmartDashboard.putString("FireReady?", "NO BALL");
           SmartDashboard.putNumber("Shooter Output", 0);
         }
- */
-     //   if (ballPersistant = false)
-       //   lastSeenColor = match.color;
-
+ 
+        if (ballPersistant = false)
+          lastSeenColor = match.color;
+*/
         //</Shooter Speed>
 
         //<Turret Hight>

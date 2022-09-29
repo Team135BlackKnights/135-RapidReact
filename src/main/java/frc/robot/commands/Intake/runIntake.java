@@ -19,6 +19,12 @@ public class runIntake extends CommandBase {
         addRequirements(subsystem);
     }
 
+    @Override
+    public void initialize() {}
+
+    @Override
+    public void execute() {
+
         //if (RobotContainer.rightTrigger.get()) {
         if (RobotContainer.joystick.getLeftTriggerAxis() > 0) {
           intake.IntakeMotor.set(-.5);
@@ -32,24 +38,24 @@ public class runIntake extends CommandBase {
 
     //<Spit Out>
       //if(RobotContainer.manipButton9.get()) {
-      if (RobotContainer.joystick.getLeftTriggerAxis() > 0 && RobotContainer.joystick.getButtonBPressed()) {
+      if (RobotContainer.joystick.getLeftTriggerAxis() > 0 && RobotContainer.joystick.getBButtonPressed()) {
         intake.IntakeMotor.set(.4);
       }
     
       //if (RobotContainer.manipButton8.get()) {
-      if (RobotContainer.joystick.getRightTriggerAxis() > 0 && RobotContainer.joystick.getButtonBPressed()) {
+      if (RobotContainer.joystick.getRightTriggerAxis() > 0 && RobotContainer.joystick.getBButtonPressed()) {
         intake.Feeder.set(-.8);
       }
     //</Spit Out>
 
     //<Shut Off>
       //if (!RobotContainer.manipButton5.get() && !RobotContainer.rightTrigger.get()){
-      if (RobotContainer.joystick.getLeftTriggerAxis() = 0) {
+      if (RobotContainer.joystick.getLeftTriggerAxis() == 0) {
         intake.IntakeMotor.set(0);
       }
 
       //if (!RobotContainer.manipButton6.get() && !RobotContainer.manipTrigger.get()){
-      if (RobotContainer.joystick.getRightTriggerAxis() = 0) {
+      if (RobotContainer.joystick.getRightTriggerAxis() == 0) {
         intake.Feeder.set(0);
       }
     //</Shut Off>
@@ -70,7 +76,7 @@ public class runIntake extends CommandBase {
 
     // Returns true when the command should end.
     @Override
-    public boolean isFinished; {
+    public boolean isFinished() {
         return false;
     }
-}}
+}

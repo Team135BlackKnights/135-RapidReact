@@ -154,6 +154,7 @@ public class aimTurret extends CommandBase {
             turret.angleMotor.set(limit(error * Kp, .8, -.8));
         }
     }
+    }
 
     public void SafeCenter(boolean Forward) {
         RunningSafety = true;
