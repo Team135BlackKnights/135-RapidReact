@@ -31,7 +31,7 @@ public class Hanging extends CommandBase {
        
         
         
-        if ((x==70)&& (RobotContainer.manipJoystick.getRawAxis(1)>=0.1)) {
+        /*if ((x==70)&& (RobotContainer.manipJoystick.getRawAxis(1)>=0.1)) {
             hang.Vert1.set((RobotContainer.manipJoystick.getRawAxis(1)/2));
             hang.Vert2.set((RobotContainer.manipJoystick.getRawAxis(1)/2));
             x = x-(1)*(RobotContainer.manipJoystick.getRawAxis(1));
@@ -54,8 +54,29 @@ public class Hanging extends CommandBase {
           }
         else {
             hang.VerticalHang((RobotContainer.manipJoystick.getRawAxis(1)/2));
+        }*/
+        if ((x==70) && (RobotContainer.joystick.getRightBumper() == true)) {
+            hang.Vert1.set(0.5);
+            hang.Vert2.set(0.5);
+            x = x-(1)*(1);
+        } else if ((x==-5) && (RobotContainer.joystick.getLeftBumper() == true)) {
+            hang.Vert1.set(-0.5);
+            hang.Vert2.set(-0.5);
+            x = x-(1)*(-1);
+        } else if (x>= 70) { //change x==abc with testing
+            hang.Vert1.set(0);
+            hang.Vert2.set(0);
+            x = 70;
+        } else if ( x <= -5) {
+            hang.Vert1.set(0);
+            hang.Vert2.set(0);
+            x = -5;
+        } else if (RobotContainer.joystick.getRightBumper() == true) {
+            hang.VerticalHang(0.5);
+        } else if (RobotContainer.joystick.getLeftBumper() == true) {
+            hang.VerticalHang(-0.5);
         }
-
+        
         if (RobotContainer.rightButton11.get()) {
             hang.Solenoid2.set(Value.kForward);
 
