@@ -6,17 +6,20 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import frc.robot.RobotMap.KOI;
 import frc.robot.commands.Auto.BlueThreeBallAuto;
 import frc.robot.commands.Auto.ImprovedTimedAuto;
 import frc.robot.commands.Auto.RedThreeBallAuto;
 import frc.robot.commands.Auto.AutoCommands.TimeDrive;
 import frc.robot.commands.Auto.AutoCommands.encoderDrive;
-import frc.robot.commands.Drive.tankDrive;
+import frc.robot.commands.Drive.arcadeDrive;
 import frc.robot.commands.Hanging.Hanging;
 import frc.robot.commands.Turret.ImprovedAiming;
 import frc.robot.commands.Turret.aimTurret;
@@ -42,6 +45,8 @@ import frc.robot.commands.Hanging.deployHang;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  public static XboxController controller1 = new XboxController(0);
+  public static XboxController manipController = new XboxController(1);
   public static Joystick leftJoystick = new Joystick(RobotMap.KOI.LEFT_JOYSTICK);
   public static Joystick rightJoystick = new Joystick(RobotMap.KOI.RIGHT_JOYSTICK);
   public static Joystick manipJoystick = new Joystick(RobotMap.KOI.MANIP_JOYSTICK);
@@ -114,7 +119,7 @@ public class RobotContainer {
     aiming.setDefaultCommand(new ImprovedAiming(aiming));
     turret.setDefaultCommand(new runShooterDistance(turret));
     
-    drive.setDefaultCommand(new tankDrive(drive));
+    drive.setDefaultCommand(new arcadeDrive(drive));
     intake.setDefaultCommand(new runIntake(intake));
     hang.setDefaultCommand(new Hanging(hang));
 

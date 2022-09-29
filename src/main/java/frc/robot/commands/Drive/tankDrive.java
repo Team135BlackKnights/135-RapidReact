@@ -14,7 +14,7 @@ public class tankDrive extends CommandBase {
   private final DriveRobot drive;
 
   /** Creates a new tankDrive. */
-  public tankDrive(DriveRobot subsystem) {
+  public arcadeDrive(DriveRobot subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     drive = subsystem;
     addRequirements(subsystem);
@@ -40,9 +40,9 @@ public class tankDrive extends CommandBase {
         * (-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2;
 
     if (RobotContainer.leftJoystick.getRawButton(1)) {
-      drive.tankDrive(-leftSpeed / 2, -rightSpeed / 2);
+      drive.arcadeDrive(-leftSpeed / 2, -rightSpeed / 2);
     } else {
-      drive.tankDrive(-leftSpeed, -rightSpeed);
+      drive.arcadeDrive(-leftSpeed, -rightSpeed);
     }
 
     if ((-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2 == 0) {
@@ -57,13 +57,13 @@ public class tankDrive extends CommandBase {
       drive.BackRight.setIdleMode(IdleMode.kCoast);
     }
 
-    drive.tankDrive(-leftSpeed, -rightSpeed);
+    drive.arcadeDrive(RobotContainer.controller1.getRawAxis(4)/1, -RobotContainer.controller1.getRawAxis(1)/1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drive.tankDrive(0, 0);
+    drive.arcadeDrive(0, 0);
   }
 
   // Returns true when the command should end.
