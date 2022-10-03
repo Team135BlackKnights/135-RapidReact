@@ -14,7 +14,7 @@ public class tankDrive extends CommandBase {
   private final DriveRobot drive;
 
   /** Creates a new tankDrive. */
-  public arcadeDrive(DriveRobot subsystem) {
+  public tankDrive(DriveRobot subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     drive = subsystem;
     addRequirements(subsystem);
@@ -34,15 +34,17 @@ public class tankDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double leftSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS)
-        * (-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2;
-    double rightSpeed = -RobotContainer.rightJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS)
-        * (-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2;
+    //double leftSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS)
+        //* (-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2;
+    double leftSpeed = -RobotContainer.controller1.getRawAxis(4)/1;
+    //double rightSpeed = -RobotContainer.rightJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS)
+        //* (-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2;
+    double rightSpeed = RobotContainer.controller1.getRawAxis(1)/1;
 
     if (RobotContainer.leftJoystick.getRawButton(1)) {
-      drive.arcadeDrive(-leftSpeed / 2, -rightSpeed / 2);
+      drive.tankDrive(-leftSpeed / 2, -rightSpeed / 2);
     } else {
-      drive.arcadeDrive(-leftSpeed, -rightSpeed);
+      drive.tankDrive(-leftSpeed, -rightSpeed);
     }
 
     if ((-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2 == 0) {
@@ -57,13 +59,13 @@ public class tankDrive extends CommandBase {
       drive.BackRight.setIdleMode(IdleMode.kCoast);
     }
 
-    drive.arcadeDrive(RobotContainer.controller1.getRawAxis(4)/1, -RobotContainer.controller1.getRawAxis(1)/1);
+    drive.tankDrive(-leftSpeed, -rightSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drive.arcadeDrive(0, 0);
+    drive.tankDrive(0, 0);
   }
 
   // Returns true when the command should end.

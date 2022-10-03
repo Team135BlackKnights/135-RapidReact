@@ -19,7 +19,7 @@ import frc.robot.commands.Auto.ImprovedTimedAuto;
 import frc.robot.commands.Auto.RedThreeBallAuto;
 import frc.robot.commands.Auto.AutoCommands.TimeDrive;
 import frc.robot.commands.Auto.AutoCommands.encoderDrive;
-import frc.robot.commands.Drive.arcadeDrive;
+import frc.robot.commands.Drive.tankDrive;
 import frc.robot.commands.Hanging.Hanging;
 import frc.robot.commands.Turret.ImprovedAiming;
 import frc.robot.commands.Turret.aimTurret;
@@ -119,7 +119,7 @@ public class RobotContainer {
     aiming.setDefaultCommand(new ImprovedAiming(aiming));
     turret.setDefaultCommand(new runShooterDistance(turret));
     
-    drive.setDefaultCommand(new arcadeDrive(drive));
+    drive.setDefaultCommand(new tankDrive(drive));
     intake.setDefaultCommand(new runIntake(intake));
     hang.setDefaultCommand(new Hanging(hang));
 

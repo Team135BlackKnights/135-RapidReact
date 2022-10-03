@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
 public class DriveRobot extends SubsystemBase {
-    public DifferentialDrive arcade;
+    public DifferentialDrive tank;
     Float x;
     public AHRS navx;
     public CANSparkMax FrontLeft = new CANSparkMax(RobotMap.Drive.FL_ID, MotorType.kBrushless);
@@ -61,14 +61,14 @@ public class DriveRobot extends SubsystemBase {
         MotorControllerGroup left = new MotorControllerGroup(FrontLeft, BackLeft);
         MotorControllerGroup right = new MotorControllerGroup(FrontRight, BackRight);
 
-        arcade = new DifferentialDrive(left, right);
+        tank = new DifferentialDrive(left, right);
         // Declares a new Navx and immediately sets it to 0
         navx = new AHRS(RobotMap.Drive.navXPort);
         navx.reset();
     }
 
-    public void arcadeDrive(double left, double right) {
-        arcade.arcadeDrive(left, right);
+    public void tankDrive(double left, double right) {
+        tank.tankDrive(left, right);
     }
 
     public void resetEncoders(){
