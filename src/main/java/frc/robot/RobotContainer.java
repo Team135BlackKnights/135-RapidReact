@@ -136,9 +136,13 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    manipThumb.whenPressed(new deployIntake(intake));
+    if (manipController.getXButtonPressed()){
+      new deployIntake(intake);
+    }
     leftThumb.whenPressed(new angleHood(turret));
-    manipButton7.whenPressed(new deployHang(hang));
+    if (manipController.getYButtonPressed()) {
+      new deployHang(hang);
+    }
   }
 
   public Command getAutonomousCommand() {
