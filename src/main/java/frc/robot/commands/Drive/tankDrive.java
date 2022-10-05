@@ -37,10 +37,10 @@ public class tankDrive extends CommandBase {
     int speedModifier = 1;
     //double leftSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS)
         //* (-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2;
-    double leftSpeed = -RobotContainer.controller1.getRawAxis(4)/speedModifier;
+    double rightSpeed = -RobotContainer.controller1.getRawAxis(5)/speedModifier;
     //double rightSpeed = -RobotContainer.rightJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS)
         //* (-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2;
-    double rightSpeed = RobotContainer.controller1.getRawAxis(1)/speedModifier;
+    double leftSpeed = RobotContainer.controller1.getRawAxis(1)/speedModifier;
 
     /*if (RobotContainer.leftJoystick.getRawButton(1)) {
       drive.tankDrive(-leftSpeed / 2, -rightSpeed / 2);
@@ -52,9 +52,12 @@ public class tankDrive extends CommandBase {
     } else if (RobotContainer.controller1.getPOV() == 180) {
       speedModifier = 2;
     }
+/*    if (RobotContainer.controller1.getAButtonPressed()==true){
+      leftSpeed = -RobotContainer.controller1.getRawAxis(1);
+      rightSpeed = -RobotContainer.controller1.getRawAxis(5);
+    }*/
 
-    //if ((-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2 == 0) {
-    if (RobotContainer.controller1.getLeftTriggerAxis() > 0) {
+    if ((-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2 == 0) {
       drive.FrontLeft.setIdleMode(IdleMode.kBrake);
       drive.FrontRight.setIdleMode(IdleMode.kBrake);
       drive.BackLeft.setIdleMode(IdleMode.kBrake);
@@ -65,8 +68,11 @@ public class tankDrive extends CommandBase {
       drive.BackLeft.setIdleMode(IdleMode.kCoast);
       drive.BackRight.setIdleMode(IdleMode.kCoast);
     }
-
-    drive.tankDrive(-leftSpeed, -rightSpeed);
+    if (RobotContainer.controller1.getLeftTriggerAxis() > 0) {
+      drive.tankDrive(0, 0);
+    } else {
+      drive.tankDrive(-leftSpeed, -rightSpeed);
+    }
   }
 
   // Called once the command ends or is interrupted.
