@@ -14,8 +14,11 @@ public class Hanging extends CommandBase {
     }
 
     public void execute() {        
-        hang.Vert1.set(deadband(-RobotContainer.manipJoystick.getRawAxis(1)/1.5));
-        hang.Vert2.set(deadband(RobotContainer.manipJoystick.getRawAxis(1)/1.5));
+        //hang.Vert1.set(deadband(-RobotContainer.manipJoystick.getRawAxis(1)/1.5));
+        //hang.Vert2.set(deadband(RobotContainer.manipJoystick.getRawAxis(1)/1.5));
+        hang.Vert1.set(deadband(-RobotContainer.manipController.getRawAxis(1)/1.5));
+        hang.Vert2.set(deadband(RobotContainer.manipController.getRawAxis(1)/1.5));
+
 
         SmartDashboard.putNumber("Hang 1", hang.Vert1.getOutputCurrent());
         SmartDashboard.putNumber("Hang 2", hang.Vert2.getOutputCurrent());

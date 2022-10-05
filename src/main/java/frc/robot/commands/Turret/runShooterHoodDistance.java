@@ -53,9 +53,11 @@ public class runShooterHoodDistance extends CommandBase {
     SmartDashboard.putNumber("Distance To Target", distance);
     // </Distance>
 
-    if (RobotContainer.manipButton3.get()) {
+    //if (RobotContainer.manipButton3.get()) {
+    if (RobotContainer.manipController.getAButtonPressed()) {
       shooterOn = 1;
-    } else if (RobotContainer.manipButton4.get()) {
+    //} else if (RobotContainer.manipButton4.get()) {
+    } else if (RobotContainer.manipController.getBButtonPressed()) {
       shooterOn = 0;
     }
 

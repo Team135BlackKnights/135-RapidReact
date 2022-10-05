@@ -79,9 +79,11 @@ public class aimTurret extends CommandBase {
         SmartDashboard.putNumber("VisableTarget", Tv.getDouble(0));
         SmartDashboard.putBoolean("SafeCenter", RunningSafety);
         //<Light Controll>
-        if (-RobotContainer.manipJoystick.getRawAxis(3) > 0){
+        //if (-RobotContainer.manipJoystick.getRawAxis(3) > 0){
+        if (RobotContainer.manipController.getPOV() == 0) {
             NetworkTableInstance.getDefault().getTable("limelight-turret").getEntry("ledMode").setNumber(3);
-        } else if (-RobotContainer.manipJoystick.getRawAxis(3) < 0){
+        //} else if (-RobotContainer.manipJoystick.getRawAxis(3) < 0){
+        } else if (RobotContainer.manipController.getPOV() == 180) {
             NetworkTableInstance.getDefault().getTable("limelight-turret").getEntry("ledMode").setNumber(1);
         }
         //</Light Controll>
@@ -162,11 +164,14 @@ public class aimTurret extends CommandBase {
 
     public void powerUpdate() {
         // <Override>
-        if (RobotContainer.manipJoystick.getPOV() == 90) {
+        //if (RobotContainer.manipJoystick.getPOV() == 90) {
+        if (RobotContainer.manipController.getRawAxis(4) > 0.5) {
             aiming.angleMotor.set(.1);
-        } else if (RobotContainer.manipJoystick.getPOV() == 270) {
+        //} else if (RobotContainer.manipJoystick.getPOV() == 270) {
+        }else if (RobotContainer.manipController.getRawAxis(4) < -0.5) {
             aiming.angleMotor.set(-.1);
-        } else if (RobotContainer.manipJoystick.getPOV() == 180) {
+        //} else if (RobotContainer.manipJoystick.getPOV() == 180) {
+        } else if (Math.abs(RobotContainer.manipController.getRawAxis(5)) > 0.5) {
             aiming.angleMotor.set(0);
         // </Override>
         } else if (error < intergralTop && error > intergralBottom && !RunningSafety && Tv.getDouble(0) == 1) {

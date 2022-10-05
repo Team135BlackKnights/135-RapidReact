@@ -71,7 +71,8 @@ public class runIntake extends CommandBase {
       intake.IntakeMotor.set(-.75);
     }
 
-    if (RobotContainer.manipTrigger.get()) {
+    //if (RobotContainer.manipTrigger.get()) {
+    if (RobotContainer.manipController.getRightTriggerAxis() > 0) {
       intake.Feeder.set(.8);
     }
     // </Intake>
@@ -91,7 +92,7 @@ public class runIntake extends CommandBase {
       intake.IntakeMotor.set(0);
     }
 
-    if (!RobotContainer.manipButton8.get() && !RobotContainer.manipTrigger.get()) {
+    if (!RobotContainer.manipButton8.get() && !(RobotContainer.manipController.getRightTriggerAxis() > 0)) {
       intake.Feeder.set(0);
     }
     // </Shut Off>

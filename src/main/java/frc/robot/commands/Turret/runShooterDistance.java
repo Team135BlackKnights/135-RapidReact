@@ -93,9 +93,11 @@ public class runShooterDistance extends CommandBase {
         SmartDashboard.putNumber("RPM", turret.shooter.getVelocity());
         SmartDashboard.putNumber("Shooter Error", pidController.getVelocityError());
 
-        if (RobotContainer.manipButton3.get()) {
+        //if (RobotContainer.manipButton3.get()) {
+        if (RobotContainer.manipController.getAButtonPressed()) {
             shooterOn = 1;
-        } else if (RobotContainer.manipButton4.get()) {
+        //} else if (RobotContainer.manipButton4.get()) {
+        } else if (RobotContainer.manipController.getBButtonPressed()) {
             shooterOn = 0;
         }
 
