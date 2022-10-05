@@ -36,9 +36,11 @@ public class Aiming extends SubsystemBase {
   @Override
   public void periodic() {
     // <Light Controll> 
-    if (-RobotContainer.manipJoystick.getRawAxis(3) > 0) {
+    //if (-RobotContainer.manipJoystick.getRawAxis(3) > 0) {
+    if (RobotContainer.manipController.getPOV() == 0) {
       NetworkTableInstance.getDefault().getTable("limelight-turret").getEntry("ledMode").setNumber(3);
-    } else if (-RobotContainer.manipJoystick.getRawAxis(3) < 0) {
+    //} else if (-RobotContainer.manipJoystick.getRawAxis(3) < 0) {
+    } else if (RobotContainer.manipController.getPOV() == 180) {
       NetworkTableInstance.getDefault().getTable("limelight-turret").getEntry("ledMode").setNumber(1);
     } 
     // </Light Controll>
