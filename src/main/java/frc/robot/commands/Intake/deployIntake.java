@@ -7,6 +7,7 @@ package frc.robot.commands.Intake;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Intake;
 
 public class deployIntake extends CommandBase {
@@ -29,7 +30,8 @@ public class deployIntake extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
+ public void execute() {
+   if (RobotContainer.manipController.getXButtonPressed()) {
     if (intake.Solenoid.get() == Value.kForward ){
       intake.Solenoid.set(Value.kReverse);
     } else if (intake.Solenoid.get() == Value.kReverse) {
@@ -39,6 +41,7 @@ public class deployIntake extends CommandBase {
     }
     SmartDashboard.putString("Intake", intake.Solenoid.get().toString());
     isFinished = true;
+  }
   }
 
   // Called once the command ends or is interrupted.

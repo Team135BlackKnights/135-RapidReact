@@ -58,16 +58,16 @@ public class ImprovedAiming extends CommandBase {
       }
 
       pidController.calculate(aiming.turretAngle.getPosition(), setPoint); // store calculation of error
-      if (RobotContainer.manipJoystick.getPOV() != -1) {
+      if (RobotContainer.manipController.getPOV() != -1) {
         // <Override>
-        if (RobotContainer.manipJoystick.getPOV() == 90) {
+        /*if (RobotContainer.manipJoystick.getPOV() == 90) {
           aiming.angleMotor.set(.1);
         } else if (RobotContainer.manipJoystick.getPOV() == 270) {
           aiming.angleMotor.set(-.1);
         } else if (RobotContainer.manipJoystick.getPOV() == 180) {
           aiming.angleMotor.set(0);
           // </Override>
-        }
+        }*/
       } else if (Math.abs(pidController.getPositionError()) < .38) { // if the error is negliable, stop the command
         aiming.angleMotor.set(0);
       } else if (setPoint < 2 || setPoint > 78) { // if the setPoint is past the limts, don't move

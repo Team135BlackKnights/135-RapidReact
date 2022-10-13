@@ -47,11 +47,13 @@ import frc.robot.commands.Hanging.deployHang;
 public class RobotContainer {
   public static XboxController controller1 = new XboxController(0);
   public static XboxController manipController = new XboxController(1);
-  public static Joystick leftJoystick = new Joystick(RobotMap.KOI.LEFT_JOYSTICK);
-  public static Joystick rightJoystick = new Joystick(RobotMap.KOI.RIGHT_JOYSTICK);
-  public static Joystick manipJoystick = new Joystick(RobotMap.KOI.MANIP_JOYSTICK);
+  final JoystickButton x = new JoystickButton(manipController, 3);
+  final JoystickButton y = new JoystickButton(manipController, 4);
+ // public static Joystick leftJoystick = new Joystick(RobotMap.KOI.LEFT_JOYSTICK);
+  //public static Joystick rightJoystick = new Joystick(RobotMap.KOI.RIGHT_JOYSTICK);
+  //public static Joystick manipJoystick = new Joystick(RobotMap.KOI.MANIP_JOYSTICK);
 
-  public static JoystickButton rightTrigger = new JoystickButton(rightJoystick, KOI.TRIGGER_BUTTON),
+  /*public static JoystickButton rightTrigger = new JoystickButton(rightJoystick, KOI.TRIGGER_BUTTON),
       rightThumb = new JoystickButton(rightJoystick, KOI.THUMB_BUTTON),
       rightButton3 = new JoystickButton(rightJoystick, KOI.HANDLE_BOTTOM_LEFT_BUTTON),
       rightButton4 = new JoystickButton(rightJoystick, KOI.HANDLE_BOTTOM_RIGHT_BUTTON),
@@ -85,7 +87,7 @@ public class RobotContainer {
       manipButton10 = new JoystickButton(manipJoystick, KOI.BASE_MIDDLE_RIGHT_BUTTON),
       manipButton11 = new JoystickButton(manipJoystick, KOI.BASE_BOTTOM_LEFT_BUTTON),
       manipButton12 = new JoystickButton(manipJoystick, KOI.BASE_BOTTOM_RIGHT_BUTTON);
-  // declair all the joystick items that might be used
+  // declair all the joystick items that might be used*/
 
   // The robot's subsystems and commands are defined here...
   public static Turret turret = new Turret();
@@ -136,10 +138,16 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    if (manipController.getXButtonPressed()){
+    /*if (manipController.getXButtonPressed()){
       new deployIntake(intake);
-    }
-    leftThumb.whenPressed(new angleHood(turret));
+      System.out.println("ping");
+    }*/
+    x.whenPressed(new deployIntake(intake));
+    y.whenPressed(new deployHang(hang));
+    //manipController.getXButtonPressed(new deployIntake(intake));
+
+   // leftThumb.whenPressed(new angleHood(turret));
+
     if (manipController.getYButtonPressed()) {
       new deployHang(hang);
     }

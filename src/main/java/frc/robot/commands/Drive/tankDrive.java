@@ -55,7 +55,7 @@ public class tankDrive extends CommandBase {
 /*    if (RobotContainer.controller1.getAButtonPressed()==true){
       leftSpeed = -RobotContainer.controller1.getRawAxis(1);
       rightSpeed = -RobotContainer.controller1.getRawAxis(5);
-    }*/
+    }
 
     if ((-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2 == 0) {
       drive.FrontLeft.setIdleMode(IdleMode.kBrake);
@@ -67,7 +67,7 @@ public class tankDrive extends CommandBase {
       drive.FrontRight.setIdleMode(IdleMode.kCoast);
       drive.BackLeft.setIdleMode(IdleMode.kCoast);
       drive.BackRight.setIdleMode(IdleMode.kCoast);
-    }
+    }*/
     if (RobotContainer.controller1.getLeftTriggerAxis() > 0) {
       drive.tankDrive(0, 0);
     } else {

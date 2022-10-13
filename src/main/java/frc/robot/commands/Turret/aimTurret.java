@@ -123,7 +123,7 @@ public class aimTurret extends CommandBase {
                 intergralBottom = Ttx.getDouble(0.0) - (Ttx.getDouble(0.0) * 1.34);
             }
 
-            if (RobotContainer.manipJoystick.getPOV() != -1) {
+            if (RobotContainer.manipController.getPOV() != -1) {
                 powerUpdate();
             } else if (!aiming.LimitValue(aiming.LimitSwitch)) {
                 aiming.angleMotor.set(0);

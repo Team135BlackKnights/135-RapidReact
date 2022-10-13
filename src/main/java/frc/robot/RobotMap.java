@@ -8,10 +8,10 @@ public interface RobotMap {
 
     public interface Drive {
      public final static int 
-        FL_ID = 12,
-        FR_ID = 14,
-        BL_ID = 11,
-        BR_ID = 13;
+        FL_ID = 12, //
+        FR_ID = 14, //
+        BL_ID = 11, //
+        BR_ID = 13; //
 
         public final I2C.Port navXPort = I2C.Port.kOnboard;
     }
@@ -21,7 +21,7 @@ public interface RobotMap {
             V2_ID = 42,
             So12_ID = 12, So13_ID = 13,
             So4_ID = 4, So5_ID = 5,
-    
+            
             Co_S_ID = 6;
     }
     public interface Intake { 
@@ -36,7 +36,7 @@ public interface RobotMap {
      public final static int
         PL_ID = 31, //master shooter motor (Left)
         PR_ID = 34, //slave shooter motor (Right)
-        R_ID =  33, //rotate ID
+        R_ID =  33, //rotate ID //
         HA_ID = 32; //Hood Angle
     }   
 

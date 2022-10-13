@@ -51,14 +51,14 @@ public class runIntake extends CommandBase {
   @Override
   public void execute() {
     // <Color Selector>
-    if (RobotContainer.leftButton11.get()) {
+ /*   if (RobotContainer.leftButton11.get()) {
       RobotColor = kRedTarget;
       inverseColor = kBlueTarget;
     }
     if (RobotContainer.leftButton8.get()) {
       RobotColor = kBlueTarget;
       inverseColor = kRedTarget;
-    }
+    }*/
 
     // ColorMatchResult match =
     // m_colorMatcher.matchClosestColor(intake.colorSensorV3.getColor());
@@ -78,21 +78,22 @@ public class runIntake extends CommandBase {
     // </Intake>
 
     // <Spit Out>
-    if (RobotContainer.manipButton9.get()) {
+    if (RobotContainer.manipController.getRightBumperPressed()) {
       intake.IntakeMotor.set(.4);
-    }
-
-    if (RobotContainer.manipButton8.get()) {
       intake.Feeder.set(-.8);
+    }
+    else if (RobotContainer.manipController.getLeftBumperPressed()) {
+      intake.IntakeMotor.set(-.4);
+      intake.Feeder.set(.8);
     }
     // </Spit Out>
 
     // <Shut Off>
-    if (!RobotContainer.manipButton9.get() && !(RobotContainer.controller1.getRightTriggerAxis() > 0)) {
+    if (!RobotContainer.manipController.getRightBumperPressed() && !(RobotContainer.controller1.getRightTriggerAxis() > 0)) {
       intake.IntakeMotor.set(0);
     }
 
-    if (!RobotContainer.manipButton8.get() && !(RobotContainer.manipController.getRightTriggerAxis() > 0)) {
+    if (!RobotContainer.manipController.getRightBumperPressed() && !(RobotContainer.manipController.getRightTriggerAxis() > 0)) {
       intake.Feeder.set(0);
     }
     // </Shut Off>
