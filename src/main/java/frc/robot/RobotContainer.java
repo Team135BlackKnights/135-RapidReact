@@ -148,9 +148,9 @@ public class RobotContainer {
 
    // leftThumb.whenPressed(new angleHood(turret));
 
-    if (manipController.getYButtonPressed()) {
+    /*if (manipController.getYButtonPressed()) {
       new deployHang(hang);
-    }
+    }*/
   }
 
   public Command getAutonomousCommand() {
