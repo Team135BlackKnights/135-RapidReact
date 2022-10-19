@@ -28,6 +28,7 @@ public class ImprovedTimedAuto extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new deployIntake(intake),
+      new deployHang(hang),
       new ParallelCommandGroup(new TimeDrive(drive, 2), new Autointake(intake, 5)),
       new ParallelCommandGroup(new RunShooterAuto(turret), new Autofeeder(intake, 10))
     );

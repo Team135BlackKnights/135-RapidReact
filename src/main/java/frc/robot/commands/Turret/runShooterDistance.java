@@ -38,6 +38,7 @@ public class runShooterDistance extends CommandBase {
     // .000025
     // original feedforward value
 
+
     PIDController pidController = new PIDController(.000005, .000002, .000005);
     SimpleMotorFeedforward FeedForward = new SimpleMotorFeedforward(0, .000134); // 0001375
 
@@ -228,6 +229,7 @@ public class runShooterDistance extends CommandBase {
             double distance) {
         double distanceRange = maxDistance - minDistance;
         double percent = (-minDistance + distance) / distanceRange;
+        //percent meaning how far you are into the zone
         return (((maxOutput - minOutput) * percent) + minOutput);
     }
 

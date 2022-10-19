@@ -49,6 +49,8 @@ public class RobotContainer {
   public static XboxController manipController = new XboxController(1);
   final JoystickButton x = new JoystickButton(manipController, 3);
   final JoystickButton y = new JoystickButton(manipController, 4);
+  final JoystickButton rightBumper = new JoystickButton(manipController, 6);
+
  // public static Joystick leftJoystick = new Joystick(RobotMap.KOI.LEFT_JOYSTICK);
   //public static Joystick rightJoystick = new Joystick(RobotMap.KOI.RIGHT_JOYSTICK);
   //public static Joystick manipJoystick = new Joystick(RobotMap.KOI.MANIP_JOYSTICK);
@@ -95,12 +97,12 @@ public class RobotContainer {
   public static DriveRobot drive = new DriveRobot();
   public static Intake intake = new Intake();
   public static Hang hang = new Hang();
-
+   
   private final Command Blue = new BlueThreeBallAuto(drive, intake, turret);
   private final Command Red = new RedThreeBallAuto(drive, intake, turret);
   private final Command TimedAuto = new frc.robot.commands.Auto.TimedAuto(drive, turret, intake);
   private final Command ImprovedTimedAuto = new ImprovedTimedAuto(intake, drive, turret, hang);
-  private final Command Taxi = new TimeDrive(drive, 1.2);
+  private final Command Taxi = new TimeDrive(drive, 3);
   
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -146,14 +148,10 @@ public class RobotContainer {
     y.whenPressed(new deployHang(hang));
     //manipController.getXButtonPressed(new deployIntake(intake));
 
-   // leftThumb.whenPressed(new angleHood(turret));
-
-    if (manipController.getYButtonPressed()) {
-      new deployHang(hang);
-    }
+    rightBumper.whenPressed(new angleHood(turret));
   }
-
   public Command getAutonomousCommand() {
-    return m_chooser.getSelected();
+   // return m_chooser.getSelected();
+    return Taxi;
   }
 }

@@ -67,25 +67,29 @@ public class runIntake extends CommandBase {
     // <Intake>
 
     //if (RobotContainer.rightTrigger.get()) {
+     /* if (RobotContainer.manipController.getRightBumperPressed()) {
+        intake.IntakeMotor.set(.4);
+        intake.Feeder.set(-.8);
+      }
+      else if (RobotContainer.manipController.getLeftBumperPressed()) {
+        intake.IntakeMotor.set(-.4);
+        intake.Feeder.set(.8);
+      }
+*/
     if (RobotContainer.controller1.getRightTriggerAxis() > 0) {
       intake.IntakeMotor.set(-.75);
     }
-
+     if (RobotContainer.controller1.getLeftTriggerAxis() > 0) {
+      intake.IntakeMotor.set(.75);
+    }
     //if (RobotContainer.manipTrigger.get()) {
     if (RobotContainer.manipController.getRightTriggerAxis() > 0) {
-      intake.Feeder.set(.8);
+      intake.Feeder.set(.65);
     }
     // </Intake>
 
     // <Spit Out>
-    if (RobotContainer.manipController.getRightBumperPressed()) {
-      intake.IntakeMotor.set(.4);
-      intake.Feeder.set(-.8);
-    }
-    else if (RobotContainer.manipController.getLeftBumperPressed()) {
-      intake.IntakeMotor.set(-.4);
-      intake.Feeder.set(.8);
-    }
+   
     // </Spit Out>
 
     // <Shut Off>
@@ -102,7 +106,8 @@ public class runIntake extends CommandBase {
   public void runCommand(boolean power) {
     if (power) {
       intake.IntakeMotor.set(.9);
-    } else {
+    }
+    else {
       intake.IntakeMotor.set(0);
     }
 
