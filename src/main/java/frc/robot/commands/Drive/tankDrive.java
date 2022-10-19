@@ -31,10 +31,11 @@ public class tankDrive extends CommandBase {
     drive.BackRight.setIdleMode(IdleMode.kCoast);
   }
 
+  public int speedModifier = 1;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+
     //double leftSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.KOI.VERTICAL_AXIS)
         //* (-RobotContainer.leftJoystick.getRawAxis(3) + 1) / 2;
     double rightSpeed = -RobotContainer.controller1.getRawAxis(5);
