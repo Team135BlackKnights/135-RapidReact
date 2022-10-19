@@ -146,10 +146,14 @@ public class RobotContainer {
     }*/
     x.whenPressed(new deployIntake(intake));
     y.whenPressed(new deployHang(hang));
+    rightBumper.whenPressed(new angleHood(turret));
+
     //manipController.getXButtonPressed(new deployIntake(intake));
 
-    rightBumper.whenPressed(new angleHood(turret));
+   // leftThumb.whenPressed(new angleHood(turret));
+
   }
+
   public Command getAutonomousCommand() {
    // return m_chooser.getSelected();
     return Taxi;
